@@ -17,7 +17,7 @@ import com.mojang.mario.level.*;
 
 public class LevelScene extends Scene implements SpriteContext
 {
-    private List<Sprite> sprites = new ArrayList<Sprite>();
+    public List<Sprite> sprites = new ArrayList<Sprite>(); // josago: Changed to public to allow reading the enemy positions.
     private List<Sprite> spritesToAdd = new ArrayList<Sprite>();
     private List<Sprite> spritesToRemove = new ArrayList<Sprite>();
 

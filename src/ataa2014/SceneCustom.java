@@ -1,6 +1,12 @@
 package ataa2014;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mojang.mario.LevelScene;
+import com.mojang.mario.sprites.Enemy;
+import com.mojang.mario.sprites.FlowerEnemy;
+import com.mojang.mario.sprites.Sprite;
 
 /**
  * This class reads the information contained within the original Infinite Mario classes and creates an easier-to-read scene representation of the current LevelScene.
@@ -23,21 +29,102 @@ public class SceneCustom
 	
 	private final static String[] BLOCK_ICONS = {" ", "W", "-", "B", "?", "X", "*", "P"};
 	
+	// Enemy types:
+	
+	public final static byte ENEMY_TYPE_FLOWER             = 0;
+	public final static byte ENEMY_TYPE_GOOMBA             = 1;
+	public final static byte ENEMY_TYPE_GOOMBA_WINGED      = 2;
+	public final static byte ENEMY_TYPE_KOOPA_GREEN        = 3;
+	public final static byte ENEMY_TYPE_KOOPA_GREEN_WINGED = 4;
+	public final static byte ENEMY_TYPE_KOOPA_RED          = 5;
+	public final static byte ENEMY_TYPE_SPIKY              = 6;
+	
+	public final List<Float>[] enemies_x, enemies_y; // Coordinates of visible enemies within the level.
+	
 	public final int min_y, max_y, min_x, max_x; // Viewport limits of the scene.
 	
 	public final float mario_x, mario_y; // Mario coordinates within the level.
 	
 	public final byte[][] blocks; // Viewport contents.
 	
+	@SuppressWarnings("unchecked")
 	public SceneCustom(LevelScene scene)
 	{
+		// Viewport limits:
+		
 		min_y = 0;
 		max_y = scene.level.height;
 		min_x = (int) Math.floor(scene.xCam / BLOCK_SIZE);
 		max_x = min_x + 320 / BLOCK_SIZE;
 		
+		// Mario coordinates:
+		
 		mario_x = scene.mario.x;
 		mario_y = scene.mario.y;
+		
+		// Coordinates of visible enemies:
+		
+		enemies_x = new ArrayList[7];
+		enemies_y = new ArrayList[7];
+		
+		for (int e = 0; e < 7; e++)
+		{
+			enemies_x[e] = new ArrayList<Float>();
+			enemies_y[e] = new ArrayList<Float>();
+		}
+		
+		for (Sprite s: scene.sprites)
+		{
+			if (s instanceof FlowerEnemy)
+			{
+				enemies_x[ENEMY_TYPE_FLOWER].add(s.x);
+				enemies_y[ENEMY_TYPE_FLOWER].add(s.y);
+			}
+			else if (s instanceof Enemy)
+			{
+				switch (((Enemy) s).type)
+				{
+					case Enemy.ENEMY_GOOMBA:
+						if (((Enemy) s).winged)
+						{
+							enemies_x[ENEMY_TYPE_GOOMBA_WINGED].add(s.x);
+							enemies_y[ENEMY_TYPE_GOOMBA_WINGED].add(s.y);
+						}
+						else
+						{
+							enemies_x[ENEMY_TYPE_GOOMBA].add(s.x);
+							enemies_y[ENEMY_TYPE_GOOMBA].add(s.y);
+						}
+							
+						break;
+					case Enemy.ENEMY_GREEN_KOOPA:
+						if (((Enemy) s).winged)
+						{
+							enemies_x[ENEMY_TYPE_KOOPA_GREEN_WINGED].add(s.x);
+							enemies_y[ENEMY_TYPE_KOOPA_GREEN_WINGED].add(s.y);
+						}
+						else
+						{
+							enemies_x[ENEMY_TYPE_KOOPA_GREEN].add(s.x);
+							enemies_y[ENEMY_TYPE_KOOPA_GREEN].add(s.y);
+						}
+						
+						break;
+					case Enemy.ENEMY_RED_KOOPA:
+						enemies_x[ENEMY_TYPE_KOOPA_RED].add(s.x);
+						enemies_y[ENEMY_TYPE_KOOPA_RED].add(s.y);
+						
+						break;
+					case Enemy.ENEMY_SPIKY:
+						enemies_x[ENEMY_TYPE_SPIKY].add(s.x);
+						enemies_y[ENEMY_TYPE_SPIKY].add(s.y);
+						
+						break;
+				}
+			}
+		}
+		
+		// Viewport contents:
 		
 		blocks = new byte[max_x - min_x + 1][max_y - min_y + 1];
 		
@@ -91,7 +178,7 @@ public class SceneCustom
 			
 			output += "\n";
 		}
-		
+
 		return output;
 	}
 }
