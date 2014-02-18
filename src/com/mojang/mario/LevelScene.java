@@ -8,6 +8,8 @@ import java.io.*;
 import java.text.DecimalFormat;
 import java.util.*;
 
+import ataa2014.*;
+
 import com.mojang.mario.sprites.*;
 import com.mojang.sonar.FixedSoundSource;
 import com.mojang.mario.level.*;
@@ -124,6 +126,12 @@ public class LevelScene extends Scene implements SpriteContext
 
     public void tick()
     {
+    	// josago:
+    	
+    	State s = new StateVersion1(this); // Temporal test to see if the state representation works.
+    	
+    	// END
+    	
         timeLeft--;
         if (timeLeft==0)
         {
