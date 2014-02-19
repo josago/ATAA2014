@@ -137,7 +137,7 @@ public class StateVersion1 extends State
 			v[2 * ENTITY_STEP + VECTOR_DY] = dist_ry;
 		}
 		
-		System.out.println(this); // Temporal, just for checking whether the state representation really works.
+		//System.out.println(this); // Temporal, just for checking whether the state representation really works.
 	}
 	
 	private void addClosestEntity(SceneCustom sc, List<Float> pos_x, List<Float> pos_y, int pos_v)

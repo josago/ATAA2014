@@ -507,6 +507,9 @@ public class Mario extends Sprite
         if (((Level.TILE_BEHAVIORS[block & 0xff]) & Level.BIT_PICKUPABLE) > 0)
         {
             Mario.getCoin();
+            
+            System.out.println("event: gotCoin in mario");
+            
             world.sound.play(Art.samples[Art.SAMPLE_GET_COIN], new FixedSoundSource(x * 16 + 8, y * 16 + 8), 1, 1, 1);
             world.level.setBlock(x, y, (byte) 0);
             for (int xx = 0; xx < 2; xx++)

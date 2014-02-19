@@ -146,6 +146,9 @@ public class LevelScene extends Scene implements SpriteContext
     	
     	// END
     	
+    	//Lydia check if mario got coins
+    	int coins_mario = mario.coins;
+    	
         timeLeft--;
         if (timeLeft==0)
         {
@@ -279,10 +282,8 @@ public class LevelScene extends Scene implements SpriteContext
             {
             	// Added the registration of an event to send to the simulated human
             	SimulatedHuman.Event event = sprite.collideCheck();
-            	if (hasHuman && event != SimulatedHuman.Event.nothing){
-            		human.receiveEvent(event);
-            		System.out.println("event happened: " + event);
-            	}
+            	if (hasHuman && event != SimulatedHuman.Event.nothing) human.receiveEvent(event);          		
+            	if (event != SimulatedHuman.Event.nothing) System.out.println("event collide: " + event);
             	
             }
 
@@ -313,6 +314,10 @@ public class LevelScene extends Scene implements SpriteContext
                     {
                         if (sprite.fireballCollideCheck(fireball))
                         {
+                        	if(sprite.spriteTemplate.isDead)
+                        	{
+                        		System.out.println("killedEnemy with fireball");
+                        	}
                             fireball.die();
                         }
                     }
@@ -325,6 +330,12 @@ public class LevelScene extends Scene implements SpriteContext
         sprites.removeAll(spritesToRemove);
         spritesToAdd.clear();
         spritesToRemove.clear();
+        
+        if(coins_mario < mario.coins)
+        {
+        	System.out.println("event: received coins");
+        }
+        
     }
     
     private DecimalFormat df = new DecimalFormat("00");
@@ -529,6 +540,7 @@ public class LevelScene extends Scene implements SpriteContext
             else
             {
                 Mario.getCoin();
+                
                 sound.play(Art.samples[Art.SAMPLE_GET_COIN], new FixedSoundSource(x * 16 + 8, y * 16 + 8), 1, 1, 1);
                 addSprite(new CoinAnim(x, y));
             }
@@ -553,11 +565,12 @@ public class LevelScene extends Scene implements SpriteContext
     }
 
     public void bumpInto(int x, int y)
-    {
+    {    
         byte block = level.getBlock(x, y);
         if (((Level.TILE_BEHAVIORS[block & 0xff]) & Level.BIT_PICKUPABLE) > 0)
-        {
-            Mario.getCoin();
+        {        	
+            Mario.getCoin(); 
+            
             sound.play(Art.samples[Art.SAMPLE_GET_COIN], new FixedSoundSource(x * 16 + 8, y * 16 + 8), 1, 1, 1);
             level.setBlock(x, y, (byte) 0);
             addSprite(new CoinAnim(x, y + 1));
@@ -566,10 +579,8 @@ public class LevelScene extends Scene implements SpriteContext
         for (Sprite sprite : sprites)
         {
         	SimulatedHuman.Event event = sprite.bumpCheck(x, y);
-        	if (hasHuman && event != SimulatedHuman.Event.nothing){
-        		human.receiveEvent(event);
-        		System.out.println("event: " + event);
-        	}
+        	if (hasHuman && event != SimulatedHuman.Event.nothing)  human.receiveEvent(event);
+        	if (event != SimulatedHuman.Event.nothing) System.out.println("event bump: " + event);
         }
     }
 }
