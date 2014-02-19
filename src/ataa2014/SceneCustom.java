@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mojang.mario.LevelScene;
-import com.mojang.mario.sprites.Enemy;
-import com.mojang.mario.sprites.FlowerEnemy;
-import com.mojang.mario.sprites.Sprite;
+import com.mojang.mario.sprites.*;
 
 /**
  * This class reads the information contained within the original Infinite Mario classes and creates an easier-to-read scene representation of the current LevelScene.
@@ -41,6 +39,14 @@ public class SceneCustom
 	
 	public final List<Float>[] enemies_x, enemies_y; // Coordinates of visible enemies within the level.
 	
+	// Item types:
+	
+	public final static byte ITEM_TYPE_MUSHROOM   = 0;
+	public final static byte ITEM_TYPE_FIREFLOWER = 1;
+	public final static byte ITEM_TYPE_SHELL      = 2;
+	
+	public final List<Float>[] items_x, items_y; // Coordinates of visible enemies within the level.
+	
 	public final int min_y, max_y, min_x, max_x; // Viewport limits of the scene.
 	
 	public final float mario_x, mario_y; // Mario coordinates within the level.
@@ -62,15 +68,24 @@ public class SceneCustom
 		mario_x = scene.mario.x;
 		mario_y = scene.mario.y;
 		
-		// Coordinates of visible enemies:
+		// Coordinates of visible enemies and items:
 		
 		enemies_x = new ArrayList[7];
 		enemies_y = new ArrayList[7];
+		
+		items_x = new ArrayList[3];
+		items_y = new ArrayList[3];
 		
 		for (int e = 0; e < 7; e++)
 		{
 			enemies_x[e] = new ArrayList<Float>();
 			enemies_y[e] = new ArrayList<Float>();
+		}
+		
+		for (int i = 0; i < 3; i++)
+		{
+			items_x[i] = new ArrayList<Float>();
+			items_y[i] = new ArrayList<Float>();
 		}
 		
 		for (Sprite s: scene.sprites)
@@ -121,6 +136,21 @@ public class SceneCustom
 						
 						break;
 				}
+			}
+			else if (s instanceof Mushroom)
+			{
+				items_x[ITEM_TYPE_MUSHROOM].add(s.x);
+				items_y[ITEM_TYPE_MUSHROOM].add(s.y);
+			}
+			else if (s instanceof FireFlower)
+			{
+				items_x[ITEM_TYPE_FIREFLOWER].add(s.x);
+				items_y[ITEM_TYPE_FIREFLOWER].add(s.y);
+			}
+			else if (s instanceof Shell)
+			{
+				items_x[ITEM_TYPE_SHELL].add(s.x);
+				items_y[ITEM_TYPE_SHELL].add(s.y);
 			}
 		}
 		
