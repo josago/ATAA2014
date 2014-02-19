@@ -8,6 +8,8 @@ public interface SimulatedHuman {
 	public static final int minStepsBetweenFeedback = 15;
 	public static final double pFeedback = 0.3;
 	
-	public float getFeedback(SceneCustom scene, State s);
+	public float getFeedback();
+	
+	public void addInformation(SceneCustom scene, State s);
 	
 }
