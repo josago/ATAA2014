@@ -8,9 +8,9 @@ public interface SimulatedHuman {
 	public static final int minStepsBetweenFeedback = 15;
 	public static final double pFeedback = 0.3;
 	
-	public float getFeedback();
+	public double getFeedback();
 	
-	public void addInformation(SceneCustom scene, State s);
+	public void addInformation(State s, int action);
 	
 	public static enum Event {hurtByEnemy, wasShooting, gotPowerUp, killedEnemy, gotCoin, wasRunning, nothing};
 	
