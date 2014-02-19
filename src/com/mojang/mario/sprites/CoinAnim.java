@@ -1,5 +1,7 @@
 package com.mojang.mario.sprites;
 
+import ataa2014.SimulatedHuman;
+
 import com.mojang.mario.Art;
 
 
@@ -20,7 +22,7 @@ public class CoinAnim extends Sprite
         yPic = 2;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (life-- < 0)
         {
@@ -35,5 +37,7 @@ public class CoinAnim extends Sprite
         x += xa;
         y += ya;
         ya += 1;
+        
+        return SimulatedHuman.Event.nothing;
     }
 }

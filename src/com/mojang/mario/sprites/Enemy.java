@@ -116,7 +116,7 @@ public class Enemy extends Sprite
         return SimulatedHuman.Event.nothing;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         wingTime++;
         if (deadTime > 0)
@@ -140,7 +140,7 @@ public class Enemy extends Sprite
                 ya *= 0.95;
                 ya += 1;
             }
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
 
@@ -205,6 +205,8 @@ public class Enemy extends Sprite
         if (winged) runFrame = wingTime / 4 % 2;
 
         xPic = runFrame;
+        
+        return SimulatedHuman.Event.nothing;
     }
 
     private boolean move(float xa, float ya)

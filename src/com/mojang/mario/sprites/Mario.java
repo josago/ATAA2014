@@ -1,6 +1,8 @@
 package com.mojang.mario.sprites;
 
 
+import ataa2014.SimulatedHuman;
+
 import com.mojang.mario.Art;
 import com.mojang.mario.Scene;
 import com.mojang.mario.level.*;
@@ -124,7 +126,7 @@ public class Mario extends Sprite
         blink(true);
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (winTime > 0)
         {
@@ -132,7 +134,7 @@ public class Mario extends Sprite
 
             xa = 0;
             ya = 0;
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         if (deathTime > 0)
@@ -153,7 +155,7 @@ public class Mario extends Sprite
             }
             x += xa;
             y += ya;
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         if (powerUpTime != 0)
@@ -172,7 +174,7 @@ public class Mario extends Sprite
             if (powerUpTime == 0) world.paused = false;
 
             calcPic();
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         if (invulnerableTime > 0) invulnerableTime--;
@@ -268,6 +270,7 @@ public class Mario extends Sprite
         {
             world.sound.play(Art.samples[Art.SAMPLE_MARIO_FIREBALL], this, 1, 1, 1);
             world.addSprite(new Fireball(world, x+facing*6, y-20, facing));
+            return SimulatedHuman.Event.wasShooting;
         }
         
         canShoot = !keys[KEY_SPEED];
@@ -340,11 +343,23 @@ public class Mario extends Sprite
             carried.x = x + facing * 8;
             carried.y = y - 2;
             if (!keys[KEY_SPEED])
-            {
+            {            	
                 carried.release(this);
                 carried = null;
+                
+                System.out.println("event threw something");
+                return SimulatedHuman.Event.threwSomething;
             }
+            System.out.println("event carried something");
+            return SimulatedHuman.Event.carryingSomething;
         }
+        
+        if (sideWaysSpeed == 1.2f && onGround){
+        	System.out.println("event running");
+        	return SimulatedHuman.Event.wasRunning;
+        }
+        
+        return SimulatedHuman.Event.nothing;
     }
 
     private void calcPic()

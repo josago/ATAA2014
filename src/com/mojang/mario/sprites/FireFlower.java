@@ -52,14 +52,14 @@ public class FireFlower extends Sprite
         return SimulatedHuman.Event.nothing;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (life<9)
         {
             layer = 0;
             y--;
-            life++;
-            return;
+            life++;            
         }
+        return SimulatedHuman.Event.nothing;
     }
 }

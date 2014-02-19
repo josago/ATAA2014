@@ -61,14 +61,14 @@ public class Mushroom extends Sprite
         return SimulatedHuman.Event.nothing;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (life<9)
         {
             layer = 0;
             y--;
             life++;
-            return;
+            return SimulatedHuman.Event.nothing;
         }
         float sideWaysSpeed = 1.75f;
         layer = 1;
@@ -111,6 +111,8 @@ public class Mushroom extends Sprite
         {
             ya += 2;
         }
+        
+        return SimulatedHuman.Event.nothing;
     }
 
     private boolean move(float xa, float ya)

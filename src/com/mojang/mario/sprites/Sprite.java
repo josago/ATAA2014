@@ -27,10 +27,11 @@ public class Sprite implements SoundSource
 
     public SpriteTemplate spriteTemplate;
     
-    public void move()
+    public SimulatedHuman.Event move()
     {
         x+=xa;
         y+=ya;
+        return SimulatedHuman.Event.nothing;
     }
     
     public void render(Graphics og, float alpha)
@@ -69,11 +70,12 @@ public class Sprite implements SoundSource
         }
     }*/
 
-    public final void tick()
+    public final SimulatedHuman.Event tick()
     {
         xOld = x;
         yOld = y;
-        move();
+        SimulatedHuman.Event e = move();
+        return e;
     }
 
     public final void tickNoMove()

@@ -275,7 +275,10 @@ public class LevelScene extends Scene implements SpriteContext
 
             for (Sprite sprite : sprites)
             {
-                sprite.tick();
+            	SimulatedHuman.Event e = sprite.tick();
+            	if (e != SimulatedHuman.Event.nothing && hasHuman){
+            		human.receiveEvent(e);
+            	}            		
             }
 
             for (Sprite sprite : sprites)
@@ -317,6 +320,7 @@ public class LevelScene extends Scene implements SpriteContext
                         	if(sprite.spriteTemplate.isDead)
                         	{
                         		System.out.println("killedEnemy with fireball");
+                        		if (hasHuman) human.receiveEvent(SimulatedHuman.Event.killedEnemy);
                         	}
                             fireball.die();
                         }

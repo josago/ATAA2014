@@ -1,5 +1,7 @@
 package com.mojang.mario.sprites;
 
+import ataa2014.SimulatedHuman;
+
 import com.mojang.mario.Art;
 
 public class Particle extends Sprite
@@ -28,12 +30,14 @@ public class Particle extends Sprite
         life = 10;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (life--<0) Sprite.spriteContext.removeSprite(this);
         x+=xa;
         y+=ya;
         ya*=0.95f;
         ya+=3;
+        
+        return SimulatedHuman.Event.nothing;
     }
 }

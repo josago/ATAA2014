@@ -74,7 +74,7 @@ public class BulletBill extends Sprite
         return SimulatedHuman.Event.nothing;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (deadTime > 0)
         {
@@ -95,7 +95,7 @@ public class BulletBill extends Sprite
             ya *= 0.95;
             ya += 1;
 
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         float sideWaysSpeed = 4f;
@@ -103,6 +103,8 @@ public class BulletBill extends Sprite
         xa = facing * sideWaysSpeed;
         xFlipPic = facing == -1;
         move(xa, 0);
+        
+        return SimulatedHuman.Event.nothing;
     }
 
     private boolean move(float xa, float ya)

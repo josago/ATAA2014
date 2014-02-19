@@ -116,12 +116,12 @@ public class Shell extends Sprite
         return SimulatedHuman.Event.nothing;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (carried)
         {
             world.checkShellCollide(this);
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         if (deadTime > 0)
@@ -143,7 +143,7 @@ public class Shell extends Sprite
             ya *= 0.95;
             ya += 1;
 
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         if (facing != 0) anim++;
@@ -198,6 +198,8 @@ public class Shell extends Sprite
         {
             ya += 2;
         }
+        
+        return SimulatedHuman.Event.nothing;
     }
 
     private boolean move(float xa, float ya)
