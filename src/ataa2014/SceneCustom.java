@@ -8,6 +8,7 @@ import com.mojang.mario.sprites.*;
 
 /**
  * This class reads the information contained within the original Infinite Mario classes and creates an easier-to-read scene representation of the current LevelScene.
+ * All information is contained within the public attributes of the objects from this class.
  * @author josago
  */
 public class SceneCustom
