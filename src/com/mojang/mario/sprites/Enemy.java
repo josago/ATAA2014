@@ -2,6 +2,8 @@ package com.mojang.mario.sprites;
 
 import java.awt.Graphics;
 
+import ataa2014.SimulatedHuman;
+
 import com.mojang.mario.Art;
 import com.mojang.mario.LevelScene;
 
@@ -63,11 +65,11 @@ public class Enemy extends Sprite
         this.wPic = 16;
     }
 
-    public void collideCheck()
+    public SimulatedHuman.Event collideCheck()
     {
         if (deadTime != 0)
         {
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         float xMarioD = world.mario.x - x;
@@ -102,13 +104,16 @@ public class Enemy extends Sprite
                             spriteContext.addSprite(new Shell(world, x, y, 1));
                         }
                     }
+                    return SimulatedHuman.Event.killedEnemy;
                 }
                 else
                 {
                     world.mario.getHurt();
+                    return SimulatedHuman.Event.hurtByEnemy;
                 }
             }
         }
+        return SimulatedHuman.Event.nothing;
     }
 
     public void move()
@@ -358,9 +363,9 @@ public class Enemy extends Sprite
         return false;
     }
 
-    public void bumpCheck(int xTile, int yTile)
+    public SimulatedHuman.Event bumpCheck(int xTile, int yTile)
     {
-        if (deadTime != 0) return;
+        if (deadTime != 0) return SimulatedHuman.Event.nothing;
 
         if (x + width > xTile * 16 && x - width < xTile * 16 + 16 && yTile == (int) ((y - 1) / 16))
         {
@@ -374,7 +379,9 @@ public class Enemy extends Sprite
             winged = false;
             hPic = -hPic;
             yPicO = -yPicO + 16;
+            return SimulatedHuman.Event.nothing;
         }
+        return SimulatedHuman.Event.nothing;
     }
 
     public void render(Graphics og, float alpha)

@@ -12,4 +12,8 @@ public interface SimulatedHuman {
 	
 	public void addInformation(SceneCustom scene, State s);
 	
+	public static enum Event {hurtByEnemy, wasShooting, gotPowerUp, killedEnemy, gotCoin, wasRunning, nothing};
+	
+	public void receiveEvent(Event e);
+	
 }

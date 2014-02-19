@@ -1,5 +1,7 @@
 package com.mojang.mario.sprites;
 
+import ataa2014.SimulatedHuman;
+
 import com.mojang.mario.Art;
 import com.mojang.mario.LevelScene;
 
@@ -33,7 +35,7 @@ public class FireFlower extends Sprite
         life = 0;
     }
 
-    public void collideCheck()
+    public SimulatedHuman.Event collideCheck()
     {
         float xMarioD = world.mario.x - x;
         float yMarioD = world.mario.y - y;
@@ -44,8 +46,10 @@ public class FireFlower extends Sprite
             {
                 world.mario.getFlower();
                 spriteContext.removeSprite(this);
+                return SimulatedHuman.Event.gotPowerUp;
             }
         }
+        return SimulatedHuman.Event.nothing;
     }
 
     public void move()

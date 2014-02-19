@@ -38,4 +38,10 @@ public class SimulatedFast implements SimulatedHuman {
 		}		
 	}
 
+	@Override
+	public void receiveEvent(Event e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

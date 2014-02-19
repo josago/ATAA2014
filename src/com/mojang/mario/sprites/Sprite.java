@@ -3,6 +3,8 @@ package com.mojang.mario.sprites;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import ataa2014.SimulatedHuman;
+
 import com.mojang.mario.level.SpriteTemplate;
 import com.mojang.sonar.SoundSource;
 
@@ -90,12 +92,14 @@ public class Sprite implements SoundSource
         return (yOld+(y-yOld)*alpha)-yPicO;
     }
 
-    public void collideCheck()
+    public SimulatedHuman.Event collideCheck()
     {
+    	return SimulatedHuman.Event.nothing ;
     }
 
-    public void bumpCheck(int xTile, int yTile)
+    public SimulatedHuman.Event bumpCheck(int xTile, int yTile)
     {
+    	return SimulatedHuman.Event.nothing ;
     }
 
     public boolean shellCollideCheck(Shell shell)

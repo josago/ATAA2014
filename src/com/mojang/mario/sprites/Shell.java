@@ -1,5 +1,7 @@
 package com.mojang.mario.sprites;
 
+import ataa2014.SimulatedHuman;
+
 import com.mojang.mario.Art;
 import com.mojang.mario.LevelScene;
 
@@ -72,9 +74,9 @@ public class Shell extends Sprite
         return false;
     }    
 
-    public void collideCheck()
+    public SimulatedHuman.Event collideCheck()
     {
-        if (carried || dead || deadTime>0) return;
+        if (carried || dead || deadTime>0) return SimulatedHuman.Event.nothing;
 
         float xMarioD = world.mario.x - x;
         float yMarioD = world.mario.y - y;
@@ -101,6 +103,7 @@ public class Shell extends Sprite
                     if (facing != 0)
                     {
                         world.mario.getHurt();
+                        return SimulatedHuman.Event.hurtByEnemy;
                     }
                     else
                     {
@@ -110,6 +113,7 @@ public class Shell extends Sprite
                 }
             }
         }
+        return SimulatedHuman.Event.nothing;
     }
 
     public void move()
@@ -300,13 +304,14 @@ public class Shell extends Sprite
         return blocking;
     }
 
-    public void bumpCheck(int xTile, int yTile)
+    public SimulatedHuman.Event bumpCheck(int xTile, int yTile)
     {
         if (x + width > xTile * 16 && x - width < xTile * 16 + 16 && yTile == (int) ((y - 1) / 16))
         {
             facing = -world.mario.facing;
             ya = -10;
         }
+        return SimulatedHuman.Event.nothing;
     }
 
     public void die()

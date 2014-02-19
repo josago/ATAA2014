@@ -1,5 +1,7 @@
 package com.mojang.mario.sprites;
 
+import ataa2014.SimulatedHuman;
+
 import com.mojang.mario.Art;
 import com.mojang.mario.LevelScene;
 
@@ -42,7 +44,7 @@ public class Mushroom extends Sprite
         life = 0;
     }
 
-    public void collideCheck()
+    public SimulatedHuman.Event collideCheck()
     {
         float xMarioD = world.mario.x - x;
         float yMarioD = world.mario.y - y;
@@ -53,8 +55,10 @@ public class Mushroom extends Sprite
             {
                 world.mario.getMushroom();
                 spriteContext.removeSprite(this);
-            }
+                return SimulatedHuman.Event.gotPowerUp;
+            }           
         }
+        return SimulatedHuman.Event.nothing;
     }
 
     public void move()
@@ -209,13 +213,14 @@ public class Mushroom extends Sprite
         return blocking;
     }
 
-    public void bumpCheck(int xTile, int yTile)
+    public SimulatedHuman.Event bumpCheck(int xTile, int yTile)
     {
         if (x + width > xTile * 16 && x - width < xTile * 16 + 16 && yTile==(int)((y-1)/16))
         {
             facing = -world.mario.facing;
             ya = -10;
         }
+        return SimulatedHuman.Event.nothing;
     }
 
 }

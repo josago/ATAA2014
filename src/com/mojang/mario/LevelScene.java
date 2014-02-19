@@ -43,6 +43,10 @@ public class LevelScene extends Scene implements SpriteContext
     private MarioComponent renderer;
     private int levelType;
     private int levelDifficulty;
+    
+    // Lydia: added the possibility to update the human simulater in case of events
+    private SimulatedHuman human;
+    private boolean hasHuman;
 
     public LevelScene(GraphicsConfiguration graphicsConfiguration, MarioComponent renderer, long seed, int levelDifficulty, int type)
     {
@@ -51,6 +55,16 @@ public class LevelScene extends Scene implements SpriteContext
         this.renderer = renderer;
         this.levelDifficulty = levelDifficulty;
         this.levelType = type;
+        this.hasHuman = false;
+    }
+    
+    /**
+     * method to add a simulated human to be updated on events
+     * TO DO: call this method somewhere if we use a simulated human
+     */
+    public void addSimulatedHuman(SimulatedHuman h){
+    	human = h;
+    	hasHuman = true;
     }
 
     public void init()
@@ -263,7 +277,13 @@ public class LevelScene extends Scene implements SpriteContext
 
             for (Sprite sprite : sprites)
             {
-                sprite.collideCheck();
+            	// Added the registration of an event to send to the simulated human
+            	SimulatedHuman.Event event = sprite.collideCheck();
+            	if (hasHuman && event != SimulatedHuman.Event.nothing){
+            		human.receiveEvent(event);
+            		System.out.println("event happened: " + event);
+            	}
+            	
             }
 
             for (Shell shell : shellsToCheck)
@@ -545,7 +565,11 @@ public class LevelScene extends Scene implements SpriteContext
 
         for (Sprite sprite : sprites)
         {
-            sprite.bumpCheck(x, y);
+        	SimulatedHuman.Event event = sprite.bumpCheck(x, y);
+        	if (hasHuman && event != SimulatedHuman.Event.nothing){
+        		human.receiveEvent(event);
+        		System.out.println("event: " + event);
+        	}
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.mojang.mario.sprites;
 
+import ataa2014.SimulatedHuman;
+
 import com.mojang.mario.Art;
 import com.mojang.mario.LevelScene;
 
@@ -39,9 +41,9 @@ public class BulletBill extends Sprite
         this.facing = dir;
     }
 
-    public void collideCheck()
+    public SimulatedHuman.Event collideCheck()
     {
-        if (dead) return;
+        if (dead) return SimulatedHuman.Event.killedEnemy;
 
         float xMarioD = world.mario.x - x;
         float yMarioD = world.mario.y - y;
@@ -58,13 +60,18 @@ public class BulletBill extends Sprite
                     xa = 0;
                     ya = 1;
                     deadTime = 100;
+                    
+                    return SimulatedHuman.Event.killedEnemy;
                 }
                 else
                 {
                     world.mario.getHurt();
+                    return SimulatedHuman.Event.hurtByEnemy;
                 }
             }
         }
+        
+        return SimulatedHuman.Event.nothing;
     }
 
     public void move()
