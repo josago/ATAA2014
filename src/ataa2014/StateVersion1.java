@@ -147,7 +147,7 @@ public class StateVersion1 extends State
 		v[2 * ENTITY_SURPRISE + VECTOR_DX] = surprise_dist[VECTOR_DX];
 		v[2 * ENTITY_SURPRISE + VECTOR_DY] = surprise_dist[VECTOR_DY];
 		
-		System.out.println(this); // Temporal, just for checking whether the state representation really works.
+		//System.out.println(this); // Temporal, just for checking whether the state representation really works.
 	}
 	
 	private void addClosestEntity(SceneCustom sc, List<Float> pos_x, List<Float> pos_y, int pos_v)

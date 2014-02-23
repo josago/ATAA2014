@@ -59,15 +59,11 @@ public class LevelScene extends Scene implements SpriteContext
         this.levelDifficulty = levelDifficulty;
         this.levelType = type;
         this.hasHuman = false;
-<<<<<<< HEAD
         this.neuralNet = new NeuralNet();
         Thread t = new Thread(neuralNet);
         t.start();
         
     }
-=======
-    }    
->>>>>>> 030a46480be5c1f696f6c1941a358fdaeaccb284
     
 
     public void init()
