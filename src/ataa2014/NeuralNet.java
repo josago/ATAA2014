@@ -8,7 +8,7 @@ import org.neuroph.nnet.Perceptron;
 import org.neuroph.nnet.learning.LMS;
 import org.neuroph.util.TransferFunctionType;
 
-public class NeuralNetwork {
+public class NeuralNet {
 	public static void main(String[] args) {
 		train2();
 		// load the saved network
