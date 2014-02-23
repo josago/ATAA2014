@@ -59,20 +59,16 @@ public class LevelScene extends Scene implements SpriteContext
         this.levelDifficulty = levelDifficulty;
         this.levelType = type;
         this.hasHuman = false;
+<<<<<<< HEAD
         this.neuralNet = new NeuralNet();
         Thread t = new Thread(neuralNet);
         t.start();
         
     }
+=======
+    }    
+>>>>>>> 030a46480be5c1f696f6c1941a358fdaeaccb284
     
-    /**
-     * method to add a simulated human to be updated on events
-     * TO DO: call this method somewhere if we use a simulated human
-     */
-    public void addSimulatedHuman(SimulatedHuman h){
-    	human = h;
-    	hasHuman = true;
-    }
 
     public void init()
     {
@@ -293,6 +289,7 @@ public class LevelScene extends Scene implements SpriteContext
             {
             	SimulatedHuman.Event e = sprite.tick();
             	if (e != SimulatedHuman.Event.nothing && hasHuman){
+            		System.out.println("event send to human");
             		human.receiveEvent(e);
             	}            		
             }
@@ -300,9 +297,10 @@ public class LevelScene extends Scene implements SpriteContext
             for (Sprite sprite : sprites)
             {
             	// Added the registration of an event to send to the simulated human
-            	SimulatedHuman.Event event = sprite.collideCheck();
-            	if (hasHuman && event != SimulatedHuman.Event.nothing) human.receiveEvent(event);          		
+            	SimulatedHuman.Event event = sprite.collideCheck();            	
             	if (event != SimulatedHuman.Event.nothing) System.out.println("event collide: " + event);
+            	if (hasHuman && event != SimulatedHuman.Event.nothing) human.receiveEvent(event);          		
+            	
             	
             }
 
@@ -333,11 +331,9 @@ public class LevelScene extends Scene implements SpriteContext
                     {
                         if (sprite.fireballCollideCheck(fireball))
                         {
-                        	if(sprite.spriteTemplate.isDead)
-                        	{
-                        		System.out.println("killedEnemy with fireball");
-                        		if (hasHuman) human.receiveEvent(SimulatedHuman.Event.killedEnemy);
-                        	}
+                        	System.out.println("killedEnemy with fireball");
+                        	if (hasHuman) human.receiveEvent(SimulatedHuman.Event.killedEnemy);
+                        	
                             fireball.die();
                         }
                     }
@@ -354,6 +350,10 @@ public class LevelScene extends Scene implements SpriteContext
         if(coins_mario < mario.coins)
         {
         	System.out.println("event: received coins");
+        	if(hasHuman)
+        	{
+        		human.receiveEvent(SimulatedHuman.Event.gotCoin);
+        	}
         }
         
     }
@@ -599,8 +599,18 @@ public class LevelScene extends Scene implements SpriteContext
         for (Sprite sprite : sprites)
         {
         	SimulatedHuman.Event event = sprite.bumpCheck(x, y);
-        	if (hasHuman && event != SimulatedHuman.Event.nothing)  human.receiveEvent(event);
         	if (event != SimulatedHuman.Event.nothing) System.out.println("event bump: " + event);
+        	if (hasHuman && event != SimulatedHuman.Event.nothing)  human.receiveEvent(event);        	
         }
+    }
+    
+    /**
+     * method to add a simulated human to be updated on events
+     * TO DO: call this method somewhere if we use a simulated human
+     */
+    public void addSimulatedHuman(SimulatedHuman h){
+    	System.out.println("human added");
+    	human = h;
+    	hasHuman = true;
     }
 }

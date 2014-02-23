@@ -2,6 +2,8 @@ package com.mojang.mario;
 
 import java.awt.Graphics;
 
+import ataa2014.SimulatedHuman;
+
 import com.mojang.sonar.SonarSoundEngine;
 import com.mojang.sonar.SoundListener;
 
@@ -27,4 +29,8 @@ public abstract class Scene implements SoundListener
     public abstract void tick();
 
     public abstract void render(Graphics og, float alpha);
+    
+    public void addSimulatedHuman(SimulatedHuman h) {
+    	
+	}
 }
