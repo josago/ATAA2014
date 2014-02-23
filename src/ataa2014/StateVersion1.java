@@ -6,7 +6,7 @@ import com.mojang.mario.LevelScene;
 
 public class StateVersion1 extends State
 {
-	private static final int VECTOR_REPRESENTATION_LENGTH = 24;
+	private static final int VECTOR_REPRESENTATION_LENGTH = 30;
 	
 	private static final int VECTOR_DX = 0; // Horizontal distance to an entity.
 	private static final int VECTOR_DY = 1; // Vertical distance to an entity.
@@ -22,11 +22,14 @@ public class StateVersion1 extends State
 	public static final byte ENTITY_KOOPA_GREEN_WINGED = 4;
 	public static final byte ENTITY_KOOPA_RED          = 5;
 	public static final byte ENTITY_SPIKY              = 6;
-	public static final byte ENTITY_MUSHROOM           = 7;
-	public static final byte ENTITY_FIREFLOWER         = 8;
-	public static final byte ENTITY_SHELL              = 9;
-	public static final byte ENTITY_PIT                = 10;
-	public static final byte ENTITY_STEP               = 11;
+	public static final byte ENTITY_COIN               = 7;
+	public static final byte ENTITY_SURPRISE           = 8;
+	public static final byte ENTITY_MUSHROOM           = 9;
+	public static final byte ENTITY_FIREFLOWER         = 10;
+	public static final byte ENTITY_SHELL              = 11;
+	public static final byte ENTITY_PIT                = 12;
+	public static final byte ENTITY_STEP               = 13;
+	public static final byte ENTITY_PLATFORM           = 14;
 	
 	private final float[] v = new float[VECTOR_REPRESENTATION_LENGTH];
 	
@@ -103,7 +106,7 @@ public class StateVersion1 extends State
 		
 		// Pointer to ground level just below Mario:
 		
-		while (pointer_y < sc.max_y && sc.blocks[pointer_x - sc.min_x][pointer_y - sc.min_y] != SceneCustom.BLOCK_TYPE_SOLID)
+		while (pointer_y < sc.max_y && sc.blocks[pointer_x - sc.min_x][pointer_y - sc.min_y] != SceneCustom.BLOCK_TYPE_SOLID) // BUG: If Mario is above the screen level!
 		{
 			pointer_y++;
 		}
@@ -137,7 +140,36 @@ public class StateVersion1 extends State
 			v[2 * ENTITY_STEP + VECTOR_DY] = dist_ry;
 		}
 		
-		//System.out.println(this); // Temporal, just for checking whether the state representation really works.
+		// Closest platfrom from Mario:
+		
+		float[] platform_dist = closestBlock(sc, SceneCustom.BLOCK_TYPE_PLATFORM);
+		
+		if (Math.abs(platform_dist[VECTOR_DX]) < SceneCustom.BLOCK_SIZE)
+		{
+			v[2 * ENTITY_PLATFORM + VECTOR_DX] = 0;
+		}
+		else
+		{
+			v[2 * ENTITY_PLATFORM + VECTOR_DX] = platform_dist[VECTOR_DX];
+		}
+		
+		v[2 * ENTITY_PLATFORM + VECTOR_DY] = platform_dist[VECTOR_DY];
+		
+		// Closest coin from Mario:
+		
+		float[] coin_dist = closestBlock(sc, SceneCustom.BLOCK_TYPE_COIN);
+		
+		v[2 * ENTITY_COIN + VECTOR_DX] = coin_dist[VECTOR_DX];
+		v[2 * ENTITY_COIN + VECTOR_DY] = coin_dist[VECTOR_DY];
+		
+		// Closest surprise block from Mario:
+		
+		float[] surprise_dist = closestBlock(sc, SceneCustom.BLOCK_TYPE_SURPRISE);
+		
+		v[2 * ENTITY_SURPRISE + VECTOR_DX] = surprise_dist[VECTOR_DX];
+		v[2 * ENTITY_SURPRISE + VECTOR_DY] = surprise_dist[VECTOR_DY];
+		
+		System.out.println(sc); // Temporal, just for checking whether the state representation really works.
 	}
 	
 	private void addClosestEntity(SceneCustom sc, List<Float> pos_x, List<Float> pos_y, int pos_v)
@@ -223,6 +255,28 @@ public class StateVersion1 extends State
 		// Return the coordinates of the edge of the step:
 		
 		return new int[]{pointer_x, pointer_y};
+	}
+	
+	private float[] closestBlock(SceneCustom sc, byte type_block)
+	{
+		float[] block_pos = new float[]{DISTANCE_FAR_AWAY, DISTANCE_FAR_AWAY};
+		
+		for (int x = sc.min_x; x <= sc.max_x; x++)
+		{
+			for (int y = sc.min_y; y <= sc.max_y; y++)
+			{
+				if (sc.blocks[x - sc.min_x][y - sc.min_y] == type_block)
+				{
+					if (Math.sqrt(Math.pow(x * SceneCustom.BLOCK_SIZE - sc.mario_x, 2) + Math.pow(y * SceneCustom.BLOCK_SIZE - sc.mario_y, 2)) < Math.sqrt(Math.pow(block_pos[VECTOR_DX], 2) + Math.pow(block_pos[VECTOR_DY], 2)))
+					{
+						block_pos[VECTOR_DX] = x * SceneCustom.BLOCK_SIZE - sc.mario_x;
+						block_pos[VECTOR_DY] = y * SceneCustom.BLOCK_SIZE - sc.mario_y;
+					}
+				}
+			}
+		}
+		
+		return block_pos;
 	}
 	
 	@Override

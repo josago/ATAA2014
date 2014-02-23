@@ -167,7 +167,7 @@ public class SceneCustom
 				{
 					blocks[i - min_x][j - min_y] = BLOCK_TYPE_SOLID;     // Solid geometry & pit stairs.
 				}
-				else if ((block <= -122 && block >= -124) || block == -76)
+				else if ((block <= -122 && block >= -124) || block == -76 || block == -74)
 				{
 					blocks[i - min_x][j - min_y] = BLOCK_TYPE_PLATFORM;  // Background platforms.
 				}
@@ -191,6 +191,10 @@ public class SceneCustom
 				{
 					blocks[i - min_x][j - min_y] = BLOCK_TYPE_PIPE;      // Pipes.
 				}
+				//else
+				//{
+				//	blocks[i - min_x][j - min_y] = block;
+				//}
 			}
 		}
 	}
@@ -204,7 +208,14 @@ public class SceneCustom
 		{
 			for (int x = 0; x < max_x - min_x + 1; x++)
 			{
-				output += BLOCK_ICONS[blocks[x][y]];
+				//if (blocks[x][y] >= 0 && blocks[x][y] <= 7)
+				//{
+					output += BLOCK_ICONS[blocks[x][y]];
+				//}
+				//else
+				//{
+				//	output += blocks[x][y];
+				//}
 			}
 			
 			output += "\n";
