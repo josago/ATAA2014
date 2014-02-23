@@ -252,6 +252,10 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
     public void startLevel(long seed, int difficulty, int type)
     {
         scene = new LevelScene(graphicsConfiguration, this, seed, difficulty, type);
+        
+        ataa2014.SimulatedFast human = new ataa2014.SimulatedFast();
+        scene.addSimulatedHuman(human);        
+        
         scene.setSound(sound);
         scene.init();
     }

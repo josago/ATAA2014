@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class SimulatedFast extends SimulatedHuman {
 
+	private final double pFeedback = 0.3;
 	
 	public SimulatedFast(){
 		super();
@@ -14,7 +15,9 @@ public class SimulatedFast extends SimulatedHuman {
 	@Override
 	protected void addFeedback(){
 		// Actions represented as the keys in the class Mario (under sprites)
-				
+		
+		double [] feedback = {0.0, 0.0};
+		
 		if (eventMemory.size() > SimulatedHuman.sizeMemeory){	
 			eventMemory.remove(0);
 			eventMemory.add(new ArrayList <SimulatedHuman.Event>());
@@ -23,7 +26,7 @@ public class SimulatedFast extends SimulatedHuman {
 		if(stepsSinceLastFeedback < SimulatedHuman.minStepsBetweenFeedback)
 		{
 			double prob = r.nextDouble();
-			if(prob < SimulatedHuman.pFeedback)
+			if(prob < pFeedback)
 			{
 				double dev = r.nextGaussian();
 				dev = Math.abs(dev) * deviationDelay;
@@ -37,6 +40,9 @@ public class SimulatedFast extends SimulatedHuman {
 			}
 				
 		}
+		
+		
+		feedbackList.add(feedback);
 	}
 
 }
