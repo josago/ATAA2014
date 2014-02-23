@@ -1,3 +1,5 @@
+package ataa2014;
+
 import org.neuroph.core.NeuralNetwork;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
@@ -6,7 +8,7 @@ import org.neuroph.nnet.Perceptron;
 import org.neuroph.nnet.learning.LMS;
 import org.neuroph.util.TransferFunctionType;
 
-public class Example {
+public class NeuralNetwork {
 	public static void main(String[] args) {
 		train2();
 		// load the saved network
