@@ -26,6 +26,7 @@ public class LevelScene extends Scene implements SpriteContext
     public float xCam, yCam, xCamO, yCamO;
     public static Image tmpImage;
     private int tick;
+    
 
     private LevelRenderer layer;
     private BgRenderer[] bgLayer = new BgRenderer[2];
@@ -47,7 +48,9 @@ public class LevelScene extends Scene implements SpriteContext
     // Lydia: added the possibility to update the human simulater in case of events
     private SimulatedHuman human;
     private boolean hasHuman;
-
+    private NeuralNet neuralNet;
+    
+   
     public LevelScene(GraphicsConfiguration graphicsConfiguration, MarioComponent renderer, long seed, int levelDifficulty, int type)
     {
         this.graphicsConfiguration = graphicsConfiguration;
@@ -56,6 +59,10 @@ public class LevelScene extends Scene implements SpriteContext
         this.levelDifficulty = levelDifficulty;
         this.levelType = type;
         this.hasHuman = false;
+        this.neuralNet = new NeuralNet();
+        Thread t = new Thread(neuralNet);
+        t.start();
+        
     }
     
     /**
@@ -137,12 +144,21 @@ public class LevelScene extends Scene implements SpriteContext
     {
         fireballsToCheck.add(fireball);
     }
-
+    
     public void tick()
     {
     	// josago:
     	
     	State s = new StateVersion1(this); // Temporal test to see if the state representation works.
+    	double [] actions = new double[mario.keys.length];
+    	for (int i = 0; i < actions.length; i++){
+    		if (mario.keys[i] == false) actions[i] = 0;
+    		else actions[i] = 1;
+    	}
+    	double output = Math.random();
+    	neuralNet.addSample(s.vectorRepresentation(), actions , output);
+    	//if (tick % 24 == 0) neuralNet.train();
+    	System.out.println("Neural network output:" + neuralNet.getOutput(s.vectorRepresentation(), actions));
     	
     	// END
     	

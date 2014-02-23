@@ -28,7 +28,7 @@ public class StateVersion1 extends State
 	public static final byte ENTITY_PIT                = 10;
 	public static final byte ENTITY_STEP               = 11;
 	
-	private final float[] v = new float[VECTOR_REPRESENTATION_LENGTH];
+	private final double[] v = new double[VECTOR_REPRESENTATION_LENGTH];
 	
 	/**
 	 * Creates a state representation (version 1) from the description of a Mario level.
@@ -247,7 +247,7 @@ public class StateVersion1 extends State
 		return output;
 	}
 	
-	public float[] vectorRepresentation()
+	public double[] vectorRepresentation()
 	{
 		return v;
 	}

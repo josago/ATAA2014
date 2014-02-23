@@ -11,6 +11,8 @@ import java.util.Random;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 
+import ataa2014.NeuralNet;
+
 import com.mojang.mario.sprites.*;
 import com.mojang.sonar.FakeSoundEngine;
 import com.mojang.sonar.SonarSoundEngine;
@@ -29,6 +31,7 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
     private boolean focused = false;
     private boolean useScale2x = false;
     private MapScene mapScene;
+    private NeuralNet neuralNet;
 
     private Scale2x scale2x = new Scale2x(320, 240);
 
@@ -252,8 +255,11 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
     public void startLevel(long seed, int difficulty, int type)
     {
         scene = new LevelScene(graphicsConfiguration, this, seed, difficulty, type);
+      
         scene.setSound(sound);
         scene.init();
+        
+        
     }
 
     public void levelFailed()

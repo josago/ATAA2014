@@ -9,7 +9,7 @@ public abstract class State
 	/**
 	 * Returns a vector representation of the state, suitable for being fed into a supervised learning algorithm.
 	 */
-	public abstract float[] vectorRepresentation();
+	public abstract double[] vectorRepresentation();
 	
 	/**
 	 * Returns the length of the vector representation of the state.
