@@ -6,7 +6,7 @@ import com.mojang.mario.LevelScene;
 
 public class StateVersion1 extends State
 {
-	private static final int VECTOR_REPRESENTATION_LENGTH = 24;
+	private static final int VECTOR_REPRESENTATION_LENGTH = 30;
 	
 	private static final int VECTOR_DX = 0; // Horizontal distance to an entity.
 	private static final int VECTOR_DY = 1; // Vertical distance to an entity.
@@ -22,11 +22,14 @@ public class StateVersion1 extends State
 	public static final byte ENTITY_KOOPA_GREEN_WINGED = 4;
 	public static final byte ENTITY_KOOPA_RED          = 5;
 	public static final byte ENTITY_SPIKY              = 6;
-	public static final byte ENTITY_MUSHROOM           = 7;
-	public static final byte ENTITY_FIREFLOWER         = 8;
-	public static final byte ENTITY_SHELL              = 9;
-	public static final byte ENTITY_PIT                = 10;
-	public static final byte ENTITY_STEP               = 11;
+	public static final byte ENTITY_COIN               = 7;
+	public static final byte ENTITY_SURPRISE           = 8;
+	public static final byte ENTITY_MUSHROOM           = 9;
+	public static final byte ENTITY_FIREFLOWER         = 10;
+	public static final byte ENTITY_SHELL              = 11;
+	public static final byte ENTITY_PIT                = 12;
+	public static final byte ENTITY_STEP               = 13;
+	public static final byte ENTITY_PLATFORM           = 14;
 	
 	private final float[] v = new float[VECTOR_REPRESENTATION_LENGTH];
 	
@@ -103,41 +106,48 @@ public class StateVersion1 extends State
 		
 		// Pointer to ground level just below Mario:
 		
-		while (pointer_y < sc.max_y && sc.blocks[pointer_x - sc.min_x][pointer_y - sc.min_y] != SceneCustom.BLOCK_TYPE_SOLID)
+		while (pointer_y < sc.max_y && sc.blocks[pointer_x - sc.min_x][pointer_y - sc.min_y] != SceneCustom.BLOCK_TYPE_SOLID) // BUG: If Mario is above the screen level!
 		{
 			pointer_y++;
 		}
 		
-		// Search for a step both to the left and to the right:
+		// Closest step from Mario:
 		
-		int[] step_r = searchStep(sc, +1, pointer_x, pointer_y); // Right.
-		int[] step_l = searchStep(sc, -1, pointer_x, pointer_y); // Left.
+		float[] step_dist = closestStep(sc);
+
+		v[2 * ENTITY_STEP + VECTOR_DX] = step_dist[VECTOR_DX];
+		v[2 * ENTITY_STEP + VECTOR_DY] = step_dist[VECTOR_DY];
 		
-		float dist_rx = step_r[VECTOR_DX] * SceneCustom.BLOCK_SIZE - sc.mario_x;
-		float dist_lx = step_l[VECTOR_DX] * SceneCustom.BLOCK_SIZE - sc.mario_x;
-		float dist_ry = step_r[VECTOR_DY] * SceneCustom.BLOCK_SIZE - sc.mario_y;
-		float dist_ly = step_l[VECTOR_DY] * SceneCustom.BLOCK_SIZE - sc.mario_y;
+		// Closest platfrom from Mario:
 		
-		if (Math.sqrt(Math.pow(dist_lx, 2) + Math.pow(dist_ly, 2)) <= Math.sqrt(Math.pow(dist_rx, 2) + Math.pow(dist_ry, 2)))
+		float[] platform_dist = closestBlock(sc, SceneCustom.BLOCK_TYPE_PLATFORM);
+		
+		if (Math.abs(platform_dist[VECTOR_DX]) < SceneCustom.BLOCK_SIZE)
 		{
-			if (step_l[VECTOR_DX] == -1)
-			{
-				v[2 * ENTITY_STEP + VECTOR_DX] = DISTANCE_FAR_AWAY;
-				v[2 * ENTITY_STEP + VECTOR_DY] = 0;
-			}
-			else
-			{
-				v[2 * ENTITY_STEP + VECTOR_DX] = dist_lx;
-				v[2 * ENTITY_STEP + VECTOR_DY] = dist_ly;
-			}
+			v[2 * ENTITY_PLATFORM + VECTOR_DX] = 0;
 		}
 		else
 		{
-			v[2 * ENTITY_STEP + VECTOR_DX] = dist_rx;
-			v[2 * ENTITY_STEP + VECTOR_DY] = dist_ry;
+			v[2 * ENTITY_PLATFORM + VECTOR_DX] = platform_dist[VECTOR_DX];
 		}
 		
-		//System.out.println(this); // Temporal, just for checking whether the state representation really works.
+		v[2 * ENTITY_PLATFORM + VECTOR_DY] = platform_dist[VECTOR_DY];
+		
+		// Closest coin from Mario:
+		
+		float[] coin_dist = closestBlock(sc, SceneCustom.BLOCK_TYPE_COIN);
+		
+		v[2 * ENTITY_COIN + VECTOR_DX] = coin_dist[VECTOR_DX];
+		v[2 * ENTITY_COIN + VECTOR_DY] = coin_dist[VECTOR_DY];
+		
+		// Closest surprise block from Mario:
+		
+		float[] surprise_dist = closestBlock(sc, SceneCustom.BLOCK_TYPE_SURPRISE);
+		
+		v[2 * ENTITY_SURPRISE + VECTOR_DX] = surprise_dist[VECTOR_DX];
+		v[2 * ENTITY_SURPRISE + VECTOR_DY] = surprise_dist[VECTOR_DY];
+		
+		System.out.println(this); // Temporal, just for checking whether the state representation really works.
 	}
 	
 	private void addClosestEntity(SceneCustom sc, List<Float> pos_x, List<Float> pos_y, int pos_v)
@@ -165,64 +175,84 @@ public class StateVersion1 extends State
 		}
 	}
 	
-	private int[] searchStep(SceneCustom sc, int diff_x, int pointer_x, int pointer_y) // BUG: Not working fine in all situations.
+	private float[] closestStep(SceneCustom sc)
 	{
-		int diff_y;
+		float[] step_dist = new float[]{DISTANCE_FAR_AWAY, DISTANCE_FAR_AWAY};
 		
-		// Move the pointer horizontally until a step or the end of the scene is reached:
-		
-		while (pointer_x > sc.min_x && pointer_x < sc.max_x && sc.blocks[pointer_x - sc.min_x][pointer_y - sc.min_y] == sc.blocks[pointer_x - sc.min_x + diff_x][pointer_y - sc.min_y] && sc.blocks[pointer_x - sc.min_x][pointer_y - sc.min_y - 1] == sc.blocks[pointer_x - sc.min_x + diff_x][pointer_y - sc.min_y - 1])
+		for (int x = sc.min_x; x < sc.max_x; x++)
 		{
-			pointer_x += diff_x;
+			for (int y = sc.min_y; y < sc.max_y; y++)
+			{
+				int step_x = - DISTANCE_FAR_AWAY;
+				int step_y = - DISTANCE_FAR_AWAY;
+				
+				// Step template matching:
+				
+				// Outer corners:
+				
+				if (sc.blocks[x - sc.min_x][y - sc.min_y] == SceneCustom.BLOCK_TYPE_EMPTY && sc.blocks[x + 1 - sc.min_x][y - sc.min_y] == SceneCustom.BLOCK_TYPE_EMPTY)
+				{
+					if ((sc.blocks[x - sc.min_x][y + 1 - sc.min_y] == SceneCustom.BLOCK_TYPE_SOLID || sc.blocks[x - sc.min_x][y + 1 - sc.min_y] == SceneCustom.BLOCK_TYPE_PIPE) && sc.blocks[x + 1 - sc.min_x][y + 1 - sc.min_y] == SceneCustom.BLOCK_TYPE_EMPTY)
+					{
+						step_x = x;
+						step_y = y + 1;
+					}
+					else if (sc.blocks[x - sc.min_x][y + 1 - sc.min_y] == SceneCustom.BLOCK_TYPE_EMPTY && (sc.blocks[x + 1 - sc.min_x][y + 1 - sc.min_y] == SceneCustom.BLOCK_TYPE_SOLID || sc.blocks[x + 1 - sc.min_x][y + 1 - sc.min_y] == SceneCustom.BLOCK_TYPE_PIPE))
+					{
+						step_x = x + 1;
+						step_y = y + 1;
+					}
+				}
+				
+				// Inner corners:
+				
+				if ((sc.blocks[x - sc.min_x][y + 1 - sc.min_y] == SceneCustom.BLOCK_TYPE_SOLID || sc.blocks[x - sc.min_x][y + 1 - sc.min_y] == SceneCustom.BLOCK_TYPE_PIPE) && (sc.blocks[x + 1 - sc.min_x][y + 1 - sc.min_y] == SceneCustom.BLOCK_TYPE_SOLID || sc.blocks[x + 1 - sc.min_x][y + 1 - sc.min_y] == SceneCustom.BLOCK_TYPE_PIPE))
+				{
+					if ((sc.blocks[x - sc.min_x][y - sc.min_y] == SceneCustom.BLOCK_TYPE_SOLID || sc.blocks[x - sc.min_x][y - sc.min_y] == SceneCustom.BLOCK_TYPE_PIPE) && sc.blocks[x + 1 - sc.min_x][y - sc.min_y] == SceneCustom.BLOCK_TYPE_EMPTY)
+					{
+						step_x = x;
+						step_y = y + 1;
+					}
+					else if (sc.blocks[x - sc.min_x][y - sc.min_y] == SceneCustom.BLOCK_TYPE_EMPTY && (sc.blocks[x + 1 - sc.min_x][y - sc.min_y] == SceneCustom.BLOCK_TYPE_SOLID || sc.blocks[x + 1 - sc.min_x][y - sc.min_y] == SceneCustom.BLOCK_TYPE_PIPE))
+					{
+						step_x = x + 1;
+						step_y = y + 1;
+					}
+				}
+				
+				// Distance check:
+				
+				if (step_y * SceneCustom.BLOCK_SIZE - sc.mario_y != 1 && Math.sqrt(Math.pow(step_x * SceneCustom.BLOCK_SIZE - sc.mario_x, 2) + Math.pow(step_y * SceneCustom.BLOCK_SIZE - sc.mario_y, 2)) < Math.sqrt(Math.pow(step_dist[VECTOR_DX], 2) + Math.pow(step_dist[VECTOR_DY], 2)))
+				{
+					step_dist[VECTOR_DX] = step_x * SceneCustom.BLOCK_SIZE - sc.mario_x;
+					step_dist[VECTOR_DY] = step_y * SceneCustom.BLOCK_SIZE - sc.mario_y - 1; // Small distance fix.
+				}
+			}
 		}
 		
-		if (pointer_x > sc.min_x && pointer_x < sc.max_x && sc.blocks[pointer_x - sc.min_x][pointer_y - sc.min_y] == sc.blocks[pointer_x - sc.min_x + diff_x][pointer_y - sc.min_y])
+		return step_dist;
+	}
+	
+	private float[] closestBlock(SceneCustom sc, byte type_block)
+	{
+		float[] block_dist = new float[]{DISTANCE_FAR_AWAY, DISTANCE_FAR_AWAY};
+		
+		for (int x = sc.min_x; x <= sc.max_x; x++)
 		{
-			// Up-step:
-			
-			diff_y = -1;
-			
-			pointer_y--;
-		}
-		else if (pointer_x > sc.min_x && pointer_x < sc.max_x && sc.blocks[pointer_x - sc.min_x][pointer_y - sc.min_y - 1] == sc.blocks[pointer_x - sc.min_x + diff_x][pointer_y - sc.min_y - 1])
-		{
-			// Down-step:
-			
-			diff_y = +1;
-		}
-		else
-		{
-			// No step:
-			
-			return new int[]{-1, -1};
+			for (int y = sc.min_y; y <= sc.max_y; y++)
+			{
+				if (sc.blocks[x - sc.min_x][y - sc.min_y] == type_block)
+				{
+					if (Math.sqrt(Math.pow(x * SceneCustom.BLOCK_SIZE - sc.mario_x, 2) + Math.pow(y * SceneCustom.BLOCK_SIZE - sc.mario_y, 2)) < Math.sqrt(Math.pow(block_dist[VECTOR_DX], 2) + Math.pow(block_dist[VECTOR_DY], 2)))
+					{
+						block_dist[VECTOR_DX] = x * SceneCustom.BLOCK_SIZE - sc.mario_x;
+						block_dist[VECTOR_DY] = y * SceneCustom.BLOCK_SIZE - sc.mario_y;
+					}
+				}
+			}
 		}
 		
-		// Move the pointer vertically until the end of the step is reached:
-		
-		while (pointer_y > sc.min_y && pointer_y < sc.max_y && sc.blocks[pointer_x - sc.min_x][pointer_y - sc.min_y] == sc.blocks[pointer_x - sc.min_x][pointer_y - sc.min_y + diff_y] && sc.blocks[pointer_x - sc.min_x + 1][pointer_y - sc.min_y] == sc.blocks[pointer_x - sc.min_x + 1][pointer_y - sc.min_y + diff_y])
-		{
-			pointer_y += diff_y;
-		}
-		
-		// Final fixes to the pointer towards calculating a correct distance value afterwards:
-		
-		if (diff_y == +1 && diff_x == +1)
-		{
-			pointer_y++;
-		}
-		else if (diff_y == +1 && diff_x == -1)
-		{
-			pointer_y--;
-		}
-			
-		if (diff_x == +1)
-		{
-			pointer_x++;
-		}
-		
-		// Return the coordinates of the edge of the step:
-		
-		return new int[]{pointer_x, pointer_y};
+		return block_dist;
 	}
 	
 	@Override
