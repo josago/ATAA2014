@@ -8,8 +8,7 @@ public class SimulatedHuman {
 	public static final double minDelay = 30;
 	public static final double deviationDelay = 3; 
 	public static final int sizeMemeory = 5;
-	public static final double minStepsBetweenFeedback = 5.0;
-	public static final double pFeedback = 0.3;
+	public static final double minStepsBetweenFeedback = 5.0;	
 	
 	public static enum Event {hurtByEnemy, wasShooting, gotPowerUp, killedEnemy, gotCoin, wasRunning, carryingSomething, nothing, threwSomething};
 	
@@ -65,7 +64,8 @@ public class SimulatedHuman {
 
 	
 	public void receiveEvent(Event e) {
-		eventMemory.get(eventMemory.size()-1).add(e);		
+		eventMemory.get(eventMemory.size()-1).add(e);	
+		System.out.println("Event received, feedback: " + getFeedback()); 
 	}
 	
 	

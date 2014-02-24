@@ -11,10 +11,13 @@ import javax.swing.JPanel;
 
 class InputPanel extends JPanel implements KeyListener {
     private char c = 'e';
+    private NeuralNet neuralNet;
+
 
     public InputPanel() {
         this.setPreferredSize(new Dimension(500, 500));
         addKeyListener(this);
+        
     }
 
     public void addNotify() {
@@ -31,6 +34,10 @@ class InputPanel extends JPanel implements KeyListener {
     public void keyReleased(KeyEvent e) { }
     public void keyTyped(KeyEvent e) {
         c = e.getKeyChar();
+        int output = 0;
+        if (c == 'k') output = -1;
+        if (c == 'l') output = 1;
+        
         repaint();
     }
 

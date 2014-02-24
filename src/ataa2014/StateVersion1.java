@@ -35,7 +35,7 @@ public class StateVersion1 extends State
 	public static final byte STATE_LARGE = 32;
 	public static final byte STATE_FIRE  = 33;
 	
-	private final float[] v = new float[VECTOR_REPRESENTATION_LENGTH];
+	private final double[] v = new double[VECTOR_REPRESENTATION_LENGTH];
 	
 	/**
 	 * Creates a state representation (version 1) from the description of a Mario level.
@@ -293,7 +293,7 @@ public class StateVersion1 extends State
 		return output;
 	}
 	
-	public float[] vectorRepresentation()
+	public double[] vectorRepresentation()
 	{
 		return v;
 	}
