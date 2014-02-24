@@ -26,7 +26,7 @@ public class NeuralNet implements Runnable{
 		
 		int maxIterations = 100;
 		
-		neuralNet = new MultiLayerPerceptron(TransferFunctionType.TANH, 46, 50, 1);
+		neuralNet = new MultiLayerPerceptron(TransferFunctionType.TANH, StateVersion1.vectorRepresentationLength() + 16, 50, 1);
 
 	    ((LMS)neuralNet.getLearningRule()).setMaxError(0.001);//0-1
 	    ((LMS)neuralNet.getLearningRule()).setLearningRate(0.001);//0-1
@@ -83,7 +83,7 @@ public class NeuralNet implements Runnable{
 	public double train(){
 		
 	    
-		DataSet trainingSet = new DataSet(46, 1);	
+		DataSet trainingSet = new DataSet(StateVersion1.vectorRepresentationLength() + 16, 1);	
 		//System.out.println("data size:"+ sampleList.size() );
 		for (int i = 0; i < sampleList.size(); i++){
 			trainingSet.addRow(new DataSetRow(sampleList.get(i), new double[]{outputList.get(i)}));
@@ -108,6 +108,7 @@ public class NeuralNet implements Runnable{
 	}
 	
 	public double getOutput(double[] features, double[] actions){
+		System.out.println(features.length + ", " + actions.length);
 		double [] sample = new double[features.length + actions.length];
 		for (int i = 0; i < sample.length; i++){
 			if (i < features.length) sample[i] = features[i];
