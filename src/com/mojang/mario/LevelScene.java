@@ -317,7 +317,7 @@ public class LevelScene extends Scene implements SpriteContext
                     {
                         if (sprite.fireballCollideCheck(fireball))
                         {
-                        	if(sprite.spriteTemplate.isDead)
+                        	if(sprite.spriteTemplate.isDead) // BUG: NullPointerException here sometimes (jumping while firing and killing a turtle)!
                         	{
                         		System.out.println("killedEnemy with fireball");
                         		if (hasHuman) human.receiveEvent(SimulatedHuman.Event.killedEnemy);

@@ -52,6 +52,8 @@ public class SceneCustom
 	
 	public final float mario_x, mario_y; // Mario coordinates within the level.
 	
+	public final boolean mario_large, mario_fire; // Mario state.
+	
 	public final byte[][] blocks; // Viewport contents.
 	
 	@SuppressWarnings("unchecked")
@@ -64,10 +66,13 @@ public class SceneCustom
 		min_x = (int) Math.floor(scene.xCam / BLOCK_SIZE);
 		max_x = min_x + 320 / BLOCK_SIZE;
 		
-		// Mario coordinates:
+		// Mario coordinates and state:
 		
 		mario_x = scene.mario.x;
 		mario_y = scene.mario.y;
+		
+		mario_large = Mario.large;
+		mario_fire  = Mario.fire;
 		
 		// Coordinates of visible enemies and items:
 		

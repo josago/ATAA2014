@@ -6,7 +6,7 @@ import com.mojang.mario.LevelScene;
 
 public class StateVersion1 extends State
 {
-	private static final int VECTOR_REPRESENTATION_LENGTH = 30;
+	private static final int VECTOR_REPRESENTATION_LENGTH = 34;
 	
 	private static final int VECTOR_DX = 0; // Horizontal distance to an entity.
 	private static final int VECTOR_DY = 1; // Vertical distance to an entity.
@@ -24,12 +24,16 @@ public class StateVersion1 extends State
 	public static final byte ENTITY_SPIKY              = 6;
 	public static final byte ENTITY_COIN               = 7;
 	public static final byte ENTITY_SURPRISE           = 8;
-	public static final byte ENTITY_MUSHROOM           = 9;
-	public static final byte ENTITY_FIREFLOWER         = 10;
-	public static final byte ENTITY_SHELL              = 11;
-	public static final byte ENTITY_PIT                = 12;
-	public static final byte ENTITY_STEP               = 13;
-	public static final byte ENTITY_PLATFORM           = 14;
+	public static final byte ENTITY_BREAKABLE          = 9;
+	public static final byte ENTITY_MUSHROOM           = 10;
+	public static final byte ENTITY_FIREFLOWER         = 11;
+	public static final byte ENTITY_SHELL              = 12;
+	public static final byte ENTITY_PIT                = 13;
+	public static final byte ENTITY_STEP               = 14;
+	public static final byte ENTITY_PLATFORM           = 15;
+	
+	public static final byte STATE_LARGE = 32;
+	public static final byte STATE_FIRE  = 33;
 	
 	private final float[] v = new float[VECTOR_REPRESENTATION_LENGTH];
 	
@@ -40,6 +44,11 @@ public class StateVersion1 extends State
 	public StateVersion1(LevelScene scene)
 	{
 		SceneCustom sc = new SceneCustom(scene);
+		
+		// Mario state:
+		
+		v[STATE_LARGE] = sc.mario_large ? 1.0f : 0.0f;
+		v[STATE_FIRE]  = sc.mario_fire  ? 1.0f : 0.0f;
 		
 		// Straight-forward entities:
 		
@@ -146,6 +155,13 @@ public class StateVersion1 extends State
 		
 		v[2 * ENTITY_SURPRISE + VECTOR_DX] = surprise_dist[VECTOR_DX];
 		v[2 * ENTITY_SURPRISE + VECTOR_DY] = surprise_dist[VECTOR_DY];
+		
+		// Closest breakable block from Mario:
+		
+		float[] breakable_dist = closestBlock(sc, SceneCustom.BLOCK_TYPE_BREAKABLE);
+		
+		v[2 * ENTITY_BREAKABLE + VECTOR_DX] = breakable_dist[VECTOR_DX];
+		v[2 * ENTITY_BREAKABLE + VECTOR_DY] = breakable_dist[VECTOR_DY];
 		
 		System.out.println(this); // Temporal, just for checking whether the state representation really works.
 	}
