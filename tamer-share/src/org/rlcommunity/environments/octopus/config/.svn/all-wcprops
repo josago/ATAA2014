@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config
+END
+NodeSpec.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/NodeSpec.java
+END
+ObjectiveSetSpec.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/ObjectiveSetSpec.java
+END
+TargetSpec.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/TargetSpec.java
+END
+FoodSpec.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/FoodSpec.java
+END
+EnvSpec.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/EnvSpec.java
+END
+ChoiceSpec.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/ChoiceSpec.java
+END
+ConstantSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/ConstantSet.java
+END
+Config.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/Config.java
+END
+MouthSpec.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/MouthSpec.java
+END
+NodePairSpec.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/NodePairSpec.java
+END
+NewConfig.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/NewConfig.java
+END
+TaskDef.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/TaskDef.java
+END
+SequenceSpec.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/SequenceSpec.java
+END
+ObjectiveSpec.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/ObjectiveSpec.java
+END
+TargetTaskDef.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/TargetTaskDef.java
+END
+FoodTaskDef.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/FoodTaskDef.java
+END
+ArmSpec.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/ArmSpec.java
+END
+ObjectFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/config/ObjectFactory.java
+END

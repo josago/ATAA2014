@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/kNN
+END
+PerformanceStats.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/kNN/PerformanceStats.java
+END
+TreePerformanceStats.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/kNN/TreePerformanceStats.java
+END
+KNN.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/kNN/KNN.java
+END
+NearestNeighbourSearch.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/kNN/NearestNeighbourSearch.java
+END
+BallTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/kNN/BallTree.java
+END
+LinearNNSearch.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/kNN/LinearNNSearch.java
+END
+KDTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/kNN/KDTree.java
+END
+CoverTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/kNN/CoverTree.java
+END

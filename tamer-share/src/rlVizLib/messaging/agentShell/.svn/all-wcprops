@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell
+END
+AgentShellLoadRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell/AgentShellLoadRequest.java
+END
+AgentShellTaskSpecCompatRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell/AgentShellTaskSpecCompatRequest.java
+END
+AgentShellListResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell/AgentShellListResponse.java
+END
+AgentShellUnLoadRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell/AgentShellUnLoadRequest.java
+END
+AgentShellLoadResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell/AgentShellLoadResponse.java
+END
+TaskSpecResponsePayload.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell/TaskSpecResponsePayload.java
+END
+AgentShellTaskSpecCompatResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell/AgentShellTaskSpecCompatResponse.java
+END
+AgentShellUnLoadResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell/AgentShellUnLoadResponse.java
+END
+AgentShellMessageParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell/AgentShellMessageParser.java
+END
+AgentShellListRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell/AgentShellListRequest.java
+END
+AgentShellMessageType.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell/AgentShellMessageType.java
+END
+AgentShellMessages.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agentShell/AgentShellMessages.java
+END

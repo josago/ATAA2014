@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2/trunk/src/weka/core/neighboursearch/kdtrees
+END
+KDTreeNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/src/weka/core/neighboursearch/kdtrees/KDTreeNode.java
+END
+SlidingMidPointOfWidestSide.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/src/weka/core/neighboursearch/kdtrees/SlidingMidPointOfWidestSide.java
+END
+MedianOfWidestDimension.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2/trunk/src/weka/core/neighboursearch/kdtrees/MedianOfWidestDimension.java
+END
+KMeansInpiredMethod.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/weka/core/neighboursearch/kdtrees/KMeansInpiredMethod.java
+END
+KDTreeNodeSplitter.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/weka/core/neighboursearch/kdtrees/KDTreeNodeSplitter.java
+END
+MidPointOfWidestDimension.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/2/trunk/src/weka/core/neighboursearch/kdtrees/MidPointOfWidestDimension.java
+END

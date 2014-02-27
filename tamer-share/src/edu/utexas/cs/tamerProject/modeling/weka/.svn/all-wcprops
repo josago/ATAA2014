@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/35/trunk/src/edu/utexas/cs/tamerProject/modeling/weka
+END
+AttributeSelectedClassifier.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/AttributeSelectedClassifier.java
+END
+WekaModelWrap.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/WekaModelWrap.java
+END
+WekaRegressor.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/10/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/WekaRegressor.java
+END
+Instances.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/Instances.java
+END
+WekaModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/35/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/WekaModel.java
+END
+WekaClassifier.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/35/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/WekaClassifier.java
+END
+WekaModelPerActionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/30/trunk/src/edu/utexas/cs/tamerProject/modeling/weka/WekaModelPerActionModel.java
+END

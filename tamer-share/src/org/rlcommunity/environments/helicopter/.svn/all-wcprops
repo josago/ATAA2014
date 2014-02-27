@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/helicopter
+END
+HelicopterState.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/helicopter/HelicopterState.java
+END
+HeliVector.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/helicopter/HeliVector.java
+END
+Quaternion.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/helicopter/Quaternion.java
+END
+Helicopter.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/helicopter/Helicopter.java
+END

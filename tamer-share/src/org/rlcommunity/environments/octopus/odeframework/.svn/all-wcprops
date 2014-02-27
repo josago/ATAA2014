@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/odeframework
+END
+ODESolver.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/odeframework/ODESolver.java
+END
+ODEEquationPart.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/odeframework/ODEEquationPart.java
+END
+EulerSolver.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/odeframework/EulerSolver.java
+END
+RungeKutta4Solver.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/odeframework/RungeKutta4Solver.java
+END
+ODEState.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/odeframework/ODEState.java
+END
+ODEEquationPartAggregate.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/odeframework/ODEEquationPartAggregate.java
+END
+PartBasedEquation.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/odeframework/PartBasedEquation.java
+END
+ODEEquation.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/odeframework/ODEEquation.java
+END

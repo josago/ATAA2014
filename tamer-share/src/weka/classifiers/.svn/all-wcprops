@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/2/trunk/src/weka/classifiers
+END
+IterativeClassifier.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2/trunk/src/weka/classifiers/IterativeClassifier.java
+END
+MultipleClassifiersCombiner.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/src/weka/classifiers/MultipleClassifiersCombiner.java
+END
+RandomizableIteratedSingleClassifierEnhancer.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/src/weka/classifiers/RandomizableIteratedSingleClassifierEnhancer.java
+END
+BVDecompose.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2/trunk/src/weka/classifiers/BVDecompose.java
+END
+Evaluation.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2/trunk/src/weka/classifiers/Evaluation.java
+END
+BVDecomposeSegCVSub.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2/trunk/src/weka/classifiers/BVDecomposeSegCVSub.java
+END
+UpdateableClassifier.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2/trunk/src/weka/classifiers/UpdateableClassifier.java
+END
+IntervalEstimator.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2/trunk/src/weka/classifiers/IntervalEstimator.java
+END
+RandomizableClassifier.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2/trunk/src/weka/classifiers/RandomizableClassifier.java
+END
+IteratedSingleClassifierEnhancer.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2/trunk/src/weka/classifiers/IteratedSingleClassifierEnhancer.java
+END
+Sourcable.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2/trunk/src/weka/classifiers/Sourcable.java
+END
+CheckClassifier.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/src/weka/classifiers/CheckClassifier.java
+END
+RandomizableSingleClassifierEnhancer.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/weka/classifiers/RandomizableSingleClassifierEnhancer.java
+END
+Classifier.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2/trunk/src/weka/classifiers/Classifier.java
+END
+RandomizableMultipleClassifiersCombiner.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2/trunk/src/weka/classifiers/RandomizableMultipleClassifiersCombiner.java
+END
+SingleClassifierEnhancer.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2/trunk/src/weka/classifiers/SingleClassifierEnhancer.java
+END
+CostMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2/trunk/src/weka/classifiers/CostMatrix.java
+END
+CheckSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2/trunk/src/weka/classifiers/CheckSource.java
+END

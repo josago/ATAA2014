@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/kaMessages
+END
+PlayerFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/kaMessages/PlayerFacade.java
+END
+KAHistoricStateResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/kaMessages/KAHistoricStateResponse.java
+END
+PlayerFacadeInterface.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/kaMessages/PlayerFacadeInterface.java
+END
+KAStateRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/kaMessages/KAStateRequest.java
+END
+SoccerTeamFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/kaMessages/SoccerTeamFacade.java
+END
+SoccerTeamFacadeInterface.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/kaMessages/SoccerTeamFacadeInterface.java
+END
+KAHistoricStateRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/kaMessages/KAHistoricStateRequest.java
+END
+KAStateResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/kaMessages/KAStateResponse.java
+END

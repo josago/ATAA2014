@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites
+END
+Fireball.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/Fireball.java
+END
+Sparkle.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/Sparkle.java
+END
+Particle.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/Particle.java
+END
+FireFlower.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/FireFlower.java
+END
+Sprite.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/Sprite.java
+END
+Mario.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/Mario.java
+END
+Shell.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/Shell.java
+END
+Mushroom.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/Mushroom.java
+END
+BulletBill.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/BulletBill.java
+END
+SpriteContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/SpriteContext.java
+END
+FlowerEnemy.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/FlowerEnemy.java
+END
+Enemy.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/Enemy.java
+END
+CoinAnim.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/sprites/CoinAnim.java
+END

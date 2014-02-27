@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/rlglue/codec
+END
+AgentInterface.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/rlglue/codec/AgentInterface.java
+END
+NetGlue.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/rlglue/codec/NetGlue.java
+END
+RLGlueCore.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/rlglue/codec/RLGlueCore.java
+END
+EnvironmentInterface.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/rlglue/codec/EnvironmentInterface.java
+END
+LocalGlue.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/rlglue/codec/LocalGlue.java
+END
+RLGlue.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/rlglue/codec/RLGlue.java
+END
+RLGlueInterface.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/rlglue/codec/RLGlueInterface.java
+END

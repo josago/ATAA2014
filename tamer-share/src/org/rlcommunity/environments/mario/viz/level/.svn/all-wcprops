@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/level
+END
+SpriteTemplate.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/level/SpriteTemplate.java
+END
+ImprovedNoise.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/level/ImprovedNoise.java
+END
+BgLevelGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/level/BgLevelGenerator.java
+END
+Level.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/level/Level.java
+END
+LevelGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/viz/level/LevelGenerator.java
+END

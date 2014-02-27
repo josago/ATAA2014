@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd
+END
+message.wav
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/message.wav
+END
+powerdown.wav
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/powerdown.wav
+END
+death.wav
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/death.wav
+END
+coin.wav
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/coin.wav
+END
+sprout.wav
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/sprout.wav
+END
+pipe.wav
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/pipe.wav
+END
+breakblock.wav
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/breakblock.wav
+END
+powerup.wav
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/powerup.wav
+END
+stomp.wav
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/stomp.wav
+END
+bump.wav
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/bump.wav
+END
+exit.wav
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/exit.wav
+END
+jump.wav
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/jump.wav
+END
+cannon.wav
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/cannon.wav
+END
+fireball.wav
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/fireball.wav
+END
+kick.wav
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/kick.wav
+END
+stagestart.wav
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/stagestart.wav
+END
+1-up.wav
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/res/snd/1-up.wav
+END

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/ft
+END
+FTNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/ft/FTNode.java
+END
+FTLeavesNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/ft/FTLeavesNode.java
+END
+FTtree.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/ft/FTtree.java
+END
+FTInnerNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/ft/FTInnerNode.java
+END

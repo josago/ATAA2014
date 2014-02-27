@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/experimentTools/tetris
+END
+MakeJavaLogLearnerAgent.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/experimentTools/tetris/MakeJavaLogLearnerAgent.java
+END
+TetrisTrainFromLog.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/experimentTools/tetris/TetrisTrainFromLog.java
+END
+TetrisPerStepIntervCtr.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/experimentTools/tetris/TetrisPerStepIntervCtr.java
+END

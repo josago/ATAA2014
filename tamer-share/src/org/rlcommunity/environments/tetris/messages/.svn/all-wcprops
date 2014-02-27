@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/tetris/messages
+END
+TetrisWorldResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/tetris/messages/TetrisWorldResponse.java
+END
+TetrisStateRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/tetris/messages/TetrisStateRequest.java
+END
+TetrisStateResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/tetris/messages/TetrisStateResponse.java
+END
+TetrisWorldRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/tetris/messages/TetrisWorldRequest.java
+END

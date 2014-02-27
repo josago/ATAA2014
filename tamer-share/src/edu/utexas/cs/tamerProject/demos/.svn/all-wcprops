@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/36/trunk/src/edu/utexas/cs/tamerProject/demos
+END
+D08LoopMazeTamerLearnFromTrainingLog.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/34/trunk/src/edu/utexas/cs/tamerProject/demos/D08LoopMazeTamerLearnFromTrainingLog.java
+END
+D10LoopmazeVITamerExp.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/27/trunk/src/edu/utexas/cs/tamerProject/demos/D10LoopmazeVITamerExp.java
+END
+DxLoopMazeTamerCreateLog.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/6/trunk/src/edu/utexas/cs/tamerProject/demos/DxLoopMazeTamerCreateLog.java
+END
+D10LoopmazeVITamerHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/27/trunk/src/edu/utexas/cs/tamerProject/demos/D10LoopmazeVITamerHelper.java
+END
+D07FrameAgentForTamer.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/3/trunk/src/edu/utexas/cs/tamerProject/demos/D07FrameAgentForTamer.java
+END
+D07LoopMazeTamerAsModule.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/3/trunk/src/edu/utexas/cs/tamerProject/demos/D07LoopMazeTamerAsModule.java
+END
+D02RobotArmSarsa.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/3/trunk/src/edu/utexas/cs/tamerProject/demos/D02RobotArmSarsa.java
+END
+D03RobotArmSarsaLambda.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/3/trunk/src/edu/utexas/cs/tamerProject/demos/D03RobotArmSarsaLambda.java
+END
+D06LoopMazeTamerManual.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/36/trunk/src/edu/utexas/cs/tamerProject/demos/D06LoopMazeTamerManual.java
+END
+D05LoopMazeTamer.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/3/trunk/src/edu/utexas/cs/tamerProject/demos/D05LoopMazeTamer.java
+END
+D04RobotArmVI.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/3/trunk/src/edu/utexas/cs/tamerProject/demos/D04RobotArmVI.java
+END
+expTamerLoopMaze.log
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/4/trunk/src/edu/utexas/cs/tamerProject/demos/expTamerLoopMaze.log
+END
+D01LoopmazeRandom.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/3/trunk/src/edu/utexas/cs/tamerProject/demos/D01LoopmazeRandom.java
+END
+D09LoopMazeLearnFromDemo.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/3/trunk/src/edu/utexas/cs/tamerProject/demos/D09LoopMazeLearnFromDemo.java
+END

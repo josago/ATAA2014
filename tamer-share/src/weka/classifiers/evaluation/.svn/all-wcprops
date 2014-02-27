@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/2/trunk/src/weka/classifiers/evaluation
+END
+Prediction.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2/trunk/src/weka/classifiers/evaluation/Prediction.java
+END
+ThresholdCurve.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2/trunk/src/weka/classifiers/evaluation/ThresholdCurve.java
+END
+MarginCurve.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2/trunk/src/weka/classifiers/evaluation/MarginCurve.java
+END
+NumericPrediction.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2/trunk/src/weka/classifiers/evaluation/NumericPrediction.java
+END
+EvaluationUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2/trunk/src/weka/classifiers/evaluation/EvaluationUtils.java
+END
+ConfusionMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2/trunk/src/weka/classifiers/evaluation/ConfusionMatrix.java
+END
+CostCurve.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2/trunk/src/weka/classifiers/evaluation/CostCurve.java
+END
+TwoClassStats.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2/trunk/src/weka/classifiers/evaluation/TwoClassStats.java
+END
+NominalPrediction.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2/trunk/src/weka/classifiers/evaluation/NominalPrediction.java
+END

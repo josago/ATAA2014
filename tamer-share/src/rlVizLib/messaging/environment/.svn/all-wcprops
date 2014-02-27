@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment
+END
+EnvMessageType.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvMessageType.java
+END
+EnvGraphicRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvGraphicRequest.java
+END
+EnvReceiveRunTimeParametersResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvReceiveRunTimeParametersResponse.java
+END
+EnvVersionSupportedRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvVersionSupportedRequest.java
+END
+EnvObsForStateRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvObsForStateRequest.java
+END
+EnvRangeRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvRangeRequest.java
+END
+EpisodeSummaryChunkResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EpisodeSummaryChunkResponse.java
+END
+EpisodeSummaryRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EpisodeSummaryRequest.java
+END
+EnvVisualizerNameRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvVisualizerNameRequest.java
+END
+EnvObsForStateResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvObsForStateResponse.java
+END
+EnvVersionSupportedResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvVersionSupportedResponse.java
+END
+EnvRangeResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvRangeResponse.java
+END
+EpisodeSummaryResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EpisodeSummaryResponse.java
+END
+EnvVisualizerNameResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvVisualizerNameResponse.java
+END
+EnvironmentMessageParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvironmentMessageParser.java
+END
+EnvironmentMessages.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvironmentMessages.java
+END
+EnvReceiveRunTimeParametersRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvReceiveRunTimeParametersRequest.java
+END
+EnvCustomRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environment/EnvCustomRequest.java
+END

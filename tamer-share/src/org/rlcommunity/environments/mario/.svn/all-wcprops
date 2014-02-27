@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/37/trunk/src/org/rlcommunity/environments/mario
+END
+ParameterizedMario.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/ParameterizedMario.java
+END
+GlueMario.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/37/trunk/src/org/rlcommunity/environments/mario/GlueMario.java
+END
+FakeGraphics.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/FakeGraphics.java
+END
+GlueMarioParameters.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/GlueMarioParameters.java
+END
+FakeImage.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/FakeImage.java
+END

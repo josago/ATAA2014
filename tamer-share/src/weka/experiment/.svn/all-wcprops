@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/2/trunk/src/weka/experiment
+END
+ResultProducer.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/weka/experiment/ResultProducer.java
+END
+PairedStats.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2/trunk/src/weka/experiment/PairedStats.java
+END
+ResultListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/weka/experiment/ResultListener.java
+END
+DatabaseUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/src/weka/experiment/DatabaseUtils.java
+END
+DatabaseUtils.props
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/weka/experiment/DatabaseUtils.props
+END
+PairedStatsCorrected.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2/trunk/src/weka/experiment/PairedStatsCorrected.java
+END
+Stats.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2/trunk/src/weka/experiment/Stats.java
+END

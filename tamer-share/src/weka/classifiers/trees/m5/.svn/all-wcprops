@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/m5
+END
+Values.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/m5/Values.java
+END
+PreConstructedLinearModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/m5/PreConstructedLinearModel.java
+END
+SplitEvaluate.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/m5/SplitEvaluate.java
+END
+Impurity.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/m5/Impurity.java
+END
+YongSplitInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/m5/YongSplitInfo.java
+END
+Rule.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/m5/Rule.java
+END
+CorrelationSplitInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/m5/CorrelationSplitInfo.java
+END
+M5Base.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/m5/M5Base.java
+END
+RuleNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/m5/RuleNode.java
+END

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/continuousgridworld/observationmapping
+END
+ObservationMapping.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/continuousgridworld/observationmapping/ObservationMapping.java
+END
+ScaledMapping.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/continuousgridworld/observationmapping/ScaledMapping.java
+END
+IntTile.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/continuousgridworld/observationmapping/IntTile.java
+END
+TiledObservationMapping.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/continuousgridworld/observationmapping/TiledObservationMapping.java
+END

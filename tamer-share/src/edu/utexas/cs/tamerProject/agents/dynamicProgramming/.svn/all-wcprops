@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/34/trunk/src/edu/utexas/cs/tamerProject/agents/dynamicProgramming
+END
+DPAgent.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/28/trunk/src/edu/utexas/cs/tamerProject/agents/dynamicProgramming/DPAgent.java
+END
+DPForceContAgent.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/agents/dynamicProgramming/DPForceContAgent.java
+END
+AsynchDPAgent.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/34/trunk/src/edu/utexas/cs/tamerProject/agents/dynamicProgramming/AsynchDPAgent.java
+END
+AsynchDPAgentForceCont.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/2/trunk/src/edu/utexas/cs/tamerProject/agents/dynamicProgramming/AsynchDPAgentForceCont.java
+END

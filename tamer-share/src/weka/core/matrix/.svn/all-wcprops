@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/2/trunk/src/weka/core/matrix
+END
+ExponentialFormat.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/ExponentialFormat.java
+END
+QRDecomposition.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/QRDecomposition.java
+END
+EigenvalueDecomposition.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/EigenvalueDecomposition.java
+END
+FlexibleDecimalFormat.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/FlexibleDecimalFormat.java
+END
+Matrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/Matrix.java
+END
+FloatingPointFormat.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/FloatingPointFormat.java
+END
+LinearRegression.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/LinearRegression.java
+END
+Maths.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/Maths.java
+END
+IntVector.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/IntVector.java
+END
+DoubleVector.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/DoubleVector.java
+END
+LUDecomposition.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/LUDecomposition.java
+END
+CholeskyDecomposition.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/CholeskyDecomposition.java
+END
+SingularValueDecomposition.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2/trunk/src/weka/core/matrix/SingularValueDecomposition.java
+END

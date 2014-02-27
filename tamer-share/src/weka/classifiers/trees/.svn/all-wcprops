@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees
+END
+RandomTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/RandomTree.java
+END
+M5P.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/M5P.java
+END
+RandomForest.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/RandomForest.java
+END
+SimpleCart.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/SimpleCart.java
+END
+ADTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/ADTree.java
+END
+J48.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/J48.java
+END
+REPTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/REPTree.java
+END
+BFTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/BFTree.java
+END
+FT.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/FT.java
+END
+Id3.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/Id3.java
+END
+NBTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/NBTree.java
+END
+LADTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/LADTree.java
+END
+DecisionStump.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/DecisionStump.java
+END
+J48graft.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/J48graft.java
+END
+LMT.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2/trunk/src/weka/classifiers/trees/LMT.java
+END

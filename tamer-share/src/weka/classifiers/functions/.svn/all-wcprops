@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions
+END
+GaussianProcesses.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/GaussianProcesses.java
+END
+LibLINEAR.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/LibLINEAR.java
+END
+LeastMedSq.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/LeastMedSq.java
+END
+PLSClassifier.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/PLSClassifier.java
+END
+PaceRegression.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/PaceRegression.java
+END
+LinearRegression.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/LinearRegression.java
+END
+Logistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/Logistic.java
+END
+Winnow.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/Winnow.java
+END
+VotedPerceptron.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/VotedPerceptron.java
+END
+SPegasos.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/SPegasos.java
+END
+SimpleLinearRegression.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/SimpleLinearRegression.java
+END
+SimpleLogistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/SimpleLogistic.java
+END
+IsotonicRegression.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/IsotonicRegression.java
+END
+MultilayerPerceptron.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/MultilayerPerceptron.java
+END
+SMOreg.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/SMOreg.java
+END
+LibSVM.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/LibSVM.java
+END
+SMO.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/weka/classifiers/functions/SMO.java
+END

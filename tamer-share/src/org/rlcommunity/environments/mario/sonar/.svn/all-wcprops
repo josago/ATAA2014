@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/sonar
+END
+SonarSoundEngine.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/sonar/SonarSoundEngine.java
+END
+FakeSoundEngine.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/sonar/FakeSoundEngine.java
+END
+FixedSoundSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/sonar/FixedSoundSource.java
+END
+SoundSource.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/sonar/SoundSource.java
+END
+SoundProducer.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/sonar/SoundProducer.java
+END
+SoundListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/sonar/SoundListener.java
+END
+StereoSoundProducer.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/mario/sonar/StereoSoundProducer.java
+END

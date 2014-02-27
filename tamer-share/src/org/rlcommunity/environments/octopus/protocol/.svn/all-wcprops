@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/protocol
+END
+State.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/protocol/State.java
+END
+Observable.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/protocol/Observable.java
+END
+DataWriter.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/protocol/DataWriter.java
+END
+TaskDescription.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/protocol/TaskDescription.java
+END
+DataReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/octopus/protocol/DataReader.java
+END

@@ -1,0 +1,515 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/2/trunk/src/weka/core
+END
+SystemInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/2/trunk/src/weka/core/SystemInfo.java
+END
+Utils.java
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/2/trunk/src/weka/core/Utils.java
+END
+EnvironmentHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2/trunk/src/weka/core/EnvironmentHandler.java
+END
+CheckScheme.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2/trunk/src/weka/core/CheckScheme.java
+END
+Attribute.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2/trunk/src/weka/core/Attribute.java
+END
+UnassignedClassException.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2/trunk/src/weka/core/UnassignedClassException.java
+END
+WeightedInstancesHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2/trunk/src/weka/core/WeightedInstancesHandler.java
+END
+Randomizable.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/2/trunk/src/weka/core/Randomizable.java
+END
+Tee.java
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/2/trunk/src/weka/core/Tee.java
+END
+RevisionUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/2/trunk/src/weka/core/RevisionUtils.java
+END
+SerializedObject.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2/trunk/src/weka/core/SerializedObject.java
+END
+SelectedTag.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2/trunk/src/weka/core/SelectedTag.java
+END
+Version.java
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/2/trunk/src/weka/core/Version.java
+END
+Optimization.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/2/trunk/src/weka/core/Optimization.java
+END
+ManhattanDistance.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2/trunk/src/weka/core/ManhattanDistance.java
+END
+TestInstances.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/2/trunk/src/weka/core/TestInstances.java
+END
+JythonSerializableObject.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2/trunk/src/weka/core/JythonSerializableObject.java
+END
+ClassloaderUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2/trunk/src/weka/core/ClassloaderUtil.java
+END
+StringLocator.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/2/trunk/src/weka/core/StringLocator.java
+END
+Statistics.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/2/trunk/src/weka/core/Statistics.java
+END
+RevisionHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2/trunk/src/weka/core/RevisionHandler.java
+END
+ClassDiscovery.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/2/trunk/src/weka/core/ClassDiscovery.java
+END
+AdditionalMeasureProducer.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/src/weka/core/AdditionalMeasureProducer.java
+END
+TechnicalInformation.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/weka/core/TechnicalInformation.java
+END
+JythonObject.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/2/trunk/src/weka/core/JythonObject.java
+END
+ProtectedProperties.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/src/weka/core/ProtectedProperties.java
+END
+Memory.java
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2/trunk/src/weka/core/Memory.java
+END
+Option.java
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2/trunk/src/weka/core/Option.java
+END
+SingleIndex.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2/trunk/src/weka/core/SingleIndex.java
+END
+Jython.java
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2/trunk/src/weka/core/Jython.java
+END
+AbstractStringDistanceFunction.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2/trunk/src/weka/core/AbstractStringDistanceFunction.java
+END
+Capabilities.props
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/2/trunk/src/weka/core/Capabilities.props
+END
+SparseInstance.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/2/trunk/src/weka/core/SparseInstance.java
+END
+AttributeStats.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/2/trunk/src/weka/core/AttributeStats.java
+END
+version.txt
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2/trunk/src/weka/core/version.txt
+END
+AttributeExpression.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/src/weka/core/AttributeExpression.java
+END
+FindWithCapabilities.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/weka/core/FindWithCapabilities.java
+END
+Undoable.java
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/2/trunk/src/weka/core/Undoable.java
+END
+UnsupportedAttributeTypeException.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2/trunk/src/weka/core/UnsupportedAttributeTypeException.java
+END
+TechnicalInformationHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2/trunk/src/weka/core/TechnicalInformationHandler.java
+END
+EditDistance.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/2/trunk/src/weka/core/EditDistance.java
+END
+PropertyPath.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/2/trunk/src/weka/core/PropertyPath.java
+END
+Trie.java
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/2/trunk/src/weka/core/Trie.java
+END
+CheckOptionHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2/trunk/src/weka/core/CheckOptionHandler.java
+END
+EuclideanDistance.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2/trunk/src/weka/core/EuclideanDistance.java
+END
+OptionHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/2/trunk/src/weka/core/OptionHandler.java
+END
+Copyright.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2/trunk/src/weka/core/Copyright.java
+END
+SpecialFunctions.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2/trunk/src/weka/core/SpecialFunctions.java
+END
+Tag.java
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/2/trunk/src/weka/core/Tag.java
+END
+SerializationHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/src/weka/core/SerializationHelper.java
+END
+Check.java
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/2/trunk/src/weka/core/Check.java
+END
+RelationalLocator.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2/trunk/src/weka/core/RelationalLocator.java
+END
+RandomVariates.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/2/trunk/src/weka/core/RandomVariates.java
+END
+Matchable.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2/trunk/src/weka/core/Matchable.java
+END
+FastVector.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/2/trunk/src/weka/core/FastVector.java
+END
+UnassignedDatasetException.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2/trunk/src/weka/core/UnassignedDatasetException.java
+END
+Debug.java
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/2/trunk/src/weka/core/Debug.java
+END
+Instances.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2/trunk/src/weka/core/Instances.java
+END
+CapabilitiesHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/src/weka/core/CapabilitiesHandler.java
+END
+ListOptions.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2/trunk/src/weka/core/ListOptions.java
+END
+Capabilities.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/2/trunk/src/weka/core/Capabilities.java
+END
+Summarizable.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/2/trunk/src/weka/core/Summarizable.java
+END
+InstanceComparator.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2/trunk/src/weka/core/InstanceComparator.java
+END
+Range.java
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/2/trunk/src/weka/core/Range.java
+END
+Copyable.java
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/2/trunk/src/weka/core/Copyable.java
+END
+UnsupportedClassTypeException.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2/trunk/src/weka/core/UnsupportedClassTypeException.java
+END
+DistanceFunction.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2/trunk/src/weka/core/DistanceFunction.java
+END
+Matrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2/trunk/src/weka/core/Matrix.java
+END
+Stopwords.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2/trunk/src/weka/core/Stopwords.java
+END
+Environment.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2/trunk/src/weka/core/Environment.java
+END
+Instance.java
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/2/trunk/src/weka/core/Instance.java
+END
+WekaException.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/2/trunk/src/weka/core/WekaException.java
+END
+CheckGOE.java
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/2/trunk/src/weka/core/CheckGOE.java
+END
+MathematicalExpression.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/src/weka/core/MathematicalExpression.java
+END
+NoSupportForMissingValuesException.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/src/weka/core/NoSupportForMissingValuesException.java
+END
+ContingencyTables.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2/trunk/src/weka/core/ContingencyTables.java
+END
+Drawable.java
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/2/trunk/src/weka/core/Drawable.java
+END
+Queue.java
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/2/trunk/src/weka/core/Queue.java
+END
+AlgVector.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2/trunk/src/weka/core/AlgVector.java
+END
+MultiInstanceCapabilitiesHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2/trunk/src/weka/core/MultiInstanceCapabilitiesHandler.java
+END
+BinarySparseInstance.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/weka/core/BinarySparseInstance.java
+END
+AttributeLocator.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2/trunk/src/weka/core/AttributeLocator.java
+END
+Copyright.props
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/2/trunk/src/weka/core/Copyright.props
+END
+NormalizableDistance.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/weka/core/NormalizableDistance.java
+END
+ChebyshevDistance.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2/trunk/src/weka/core/ChebyshevDistance.java
+END

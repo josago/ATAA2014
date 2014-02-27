@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/2/trunk/src/rlVizLib/general
+END
+TinyGlue.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2/trunk/src/rlVizLib/general/TinyGlue.java
+END
+CouldNotLoadJarException.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2/trunk/src/rlVizLib/general/CouldNotLoadJarException.java
+END
+CachingJarClassLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2/trunk/src/rlVizLib/general/CachingJarClassLoader.java
+END
+hasVersionDetails.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2/trunk/src/rlVizLib/general/hasVersionDetails.java
+END
+JarClassLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2/trunk/src/rlVizLib/general/JarClassLoader.java
+END
+RLVizVersion.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/src/rlVizLib/general/RLVizVersion.java
+END
+ParameterHolder.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/src/rlVizLib/general/ParameterHolder.java
+END

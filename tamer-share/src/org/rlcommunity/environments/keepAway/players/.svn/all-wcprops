@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/players
+END
+SteeringBehaviors.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/players/SteeringBehaviors.java
+END
+PlayerBase.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/players/PlayerBase.java
+END
+PlayerInterface.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/players/PlayerInterface.java
+END
+Attacker.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/players/Attacker.java
+END

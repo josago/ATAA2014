@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway
+END
+KeepAwayGlueSupport.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/KeepAwayGlueSupport.java
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/.classpath
+END
+Region.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/Region.java
+END
+Regulator.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/Regulator.java
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/.project
+END
+Wall2D.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/Wall2D.java
+END
+SoccerTeam.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/SoccerTeam.java
+END
+KeepAway.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/KeepAway.java
+END
+SoccerPitch.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/SoccerPitch.java
+END
+VizLogger.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/VizLogger.java
+END
+SoccerBall.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/SoccerBall.java
+END
+Driver.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/Driver.java
+END
+Prm.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/Prm.java
+END

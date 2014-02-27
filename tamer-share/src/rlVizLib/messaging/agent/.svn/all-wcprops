@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agent
+END
+AgentValueForObsRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agent/AgentValueForObsRequest.java
+END
+AgentMessageParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agent/AgentMessageParser.java
+END
+AgentCustomRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agent/AgentCustomRequest.java
+END
+AgentVersionSupportedRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agent/AgentVersionSupportedRequest.java
+END
+AgentValueForObsResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agent/AgentValueForObsResponse.java
+END
+AgentGraphicRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agent/AgentGraphicRequest.java
+END
+AgentMessageType.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agent/AgentMessageType.java
+END
+AgentMessages.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agent/AgentMessages.java
+END
+AgentVisualizerNameRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agent/AgentVisualizerNameRequest.java
+END
+AgentVersionSupportedResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agent/AgentVersionSupportedResponse.java
+END
+AgentVisualizerNameResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/agent/AgentVisualizerNameResponse.java
+END

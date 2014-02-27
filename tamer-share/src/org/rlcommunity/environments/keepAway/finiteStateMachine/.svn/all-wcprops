@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine
+END
+State.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine/State.java
+END
+GetOpen.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine/GetOpen.java
+END
+GlobalState.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine/GlobalState.java
+END
+ReturnToHomeSpot.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine/ReturnToHomeSpot.java
+END
+Wait.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine/Wait.java
+END
+WaitForAgentChoice.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine/WaitForAgentChoice.java
+END
+StateMachine.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine/StateMachine.java
+END
+TelegramTypes.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine/TelegramTypes.java
+END
+ReceivePass.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine/ReceivePass.java
+END
+KickBall.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine/KickBall.java
+END
+DribbleBall.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine/DribbleBall.java
+END
+ChaseBall.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/2/trunk/src/org/rlcommunity/environments/keepAway/finiteStateMachine/ChaseBall.java
+END

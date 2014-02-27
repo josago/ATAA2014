@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging
+END
+GenericMessage.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/GenericMessage.java
+END
+AbstractResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/AbstractResponse.java
+END
+MessageValueType.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/MessageValueType.java
+END
+MessageUser.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/MessageUser.java
+END
+Messages.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/Messages.java
+END
+AbstractMessage.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/AbstractMessage.java
+END
+NotAnRLVizMessageException.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/NotAnRLVizMessageException.java
+END
+BinaryPayload.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/BinaryPayload.java
+END
+GenericMessageParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/GenericMessageParser.java
+END

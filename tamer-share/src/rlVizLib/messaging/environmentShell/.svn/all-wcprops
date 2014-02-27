@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell
+END
+EnvShellLoadResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvShellLoadResponse.java
+END
+EnvShellUnLoadResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvShellUnLoadResponse.java
+END
+EnvironmentShellMessages.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvironmentShellMessages.java
+END
+EnvShellListRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvShellListRequest.java
+END
+TaskSpecPayload.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/TaskSpecPayload.java
+END
+EnvShellTaskSpecRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvShellTaskSpecRequest.java
+END
+EnvShellMessageType.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvShellMessageType.java
+END
+EnvShellRefreshRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvShellRefreshRequest.java
+END
+EnvShellLoadRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvShellLoadRequest.java
+END
+EnvShellListResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvShellListResponse.java
+END
+EnvShellUnLoadRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvShellUnLoadRequest.java
+END
+EnvShellTaskSpecResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvShellTaskSpecResponse.java
+END
+EnvironmentShellMessageParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvironmentShellMessageParser.java
+END
+EnvShellRefreshResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/2/trunk/src/rlVizLib/messaging/environmentShell/EnvShellRefreshResponse.java
+END
