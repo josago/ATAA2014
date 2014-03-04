@@ -279,6 +279,10 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 		return rot;
 	}
 	
+	/**
+	 * Note by josago: This method seems to populate the contents of the Observation object that will in turn be used to define a state representation.
+	 * @param lscene A LevelScene object from the Mario environment.
+	 */
 	public static void levelCheckIn(LevelScene lscene) {
 		if (!glue_running) return;
 		ticks_since_last_action++;
