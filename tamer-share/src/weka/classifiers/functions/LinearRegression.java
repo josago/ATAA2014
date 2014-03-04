@@ -404,8 +404,10 @@ WeightedInstancesHandler {
 	 */
 	public double[] coefficients() {
 		double[] coefficients = new double[m_SelectedAttributes.length + 1];
+		/*
 		System.out.println(m_Coefficients.length + " m_Coefficients: " + Arrays.toString(m_Coefficients));
 		System.out.println(m_SelectedAttributes.length + "m_SelectedAttributes: " + Arrays.toString(m_SelectedAttributes));
+		*/
 		int counter = 0;
 		for (int i = 0; i < m_SelectedAttributes.length; i++) {
 			if ((m_SelectedAttributes[i]) && ((i != m_ClassIndex))) {
@@ -415,7 +417,7 @@ WeightedInstancesHandler {
 		}
 		
 		coefficients[m_SelectedAttributes.length] = m_Coefficients[counter];
-		System.out.println("coeffs before return: " + Arrays.toString(coefficients));
+		//System.out.println("coeffs before return: " + Arrays.toString(coefficients));
 		return coefficients;
 	}
 

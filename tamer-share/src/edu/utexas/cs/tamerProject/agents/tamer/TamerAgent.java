@@ -16,6 +16,7 @@ limitations under the License.
 package edu.utexas.cs.tamerProject.agents.tamer;
 
 import java.util.Arrays;
+import java.util.Random;
 
 import org.rlcommunity.rlglue.codec.AgentInterface;
 import org.rlcommunity.rlglue.codec.types.Action;
@@ -99,6 +100,37 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		if (this.actSelector.getRewModel() == null)
 			this.actSelector.setRewModel(this.model);
 		this.endInitHelper();
+		
+	/*************************************/
+	final TamerAgent balle = this;
+    Thread randomRewthread = new Thread()
+    {
+        public void run()
+        {
+            while (true){
+                
+            	Random rndNumbers = new Random();
+
+                double rndNumber = rndNumbers.nextInt(2);
+                
+                if(rndNumber == 0)
+                	rndNumber = -1;
+                
+                balle.addHRew(rndNumber);
+                System.out.println("Hello Random Number: " + rndNumber);
+                
+                try
+                {
+                    Thread.sleep(500); // 1000 = 1 second
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+    randomRewthread.start();
+		
     }
     
 

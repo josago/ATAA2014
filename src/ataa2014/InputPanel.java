@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -38,6 +40,12 @@ class InputPanel extends JPanel implements KeyListener {
         if (c == 'k') output = -1;
         if (c == 'l') output = 1;
         
+        System.out.println(output);
+    	Random rndNumbers = new Random();
+
+        int rndNumber = rndNumbers.nextInt(2);
+        System.out.println("Number: " + rndNumber);
+        
         repaint();
     }
 
@@ -47,5 +55,35 @@ class InputPanel extends JPanel implements KeyListener {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.pack();
         f.setVisible(true);
+        
+        Thread thread = new Thread()
+        {
+            public void run()
+            {
+                while (true){
+                    //System.out.println("Hello World");
+                    
+                	Random rndNumbers = new Random();
+
+                    int rndNumber = rndNumbers.nextInt(2);
+                    
+                    if(rndNumber == 0)
+                    	rndNumber = -1;
+                    
+                    System.out.println("Hello Random Number: " + rndNumber);
+                    
+                    try
+                    {
+                        Thread.sleep(100); // 1 second
+                    } catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        thread.start();
+        
+        
     }
 }
