@@ -81,7 +81,7 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void buildModel()
 	{
-		DataSet trainingSet = new DataSet(StateVersion1.vectorRepresentationLength() + 16, 1);	
+		DataSet trainingSet = new DataSet(num_inputs, 1);	
 		//System.out.println("data size:"+ sampleList.size() );
 		for (int i = 0; i < sampleList.size(); i++){
 			trainingSet.addRow(new DataSetRow(sampleList.get(i), new double[]{outputList.get(i)}));
