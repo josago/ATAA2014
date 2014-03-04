@@ -1,5 +1,15 @@
 package ataa2014;
 
+import java.util.ArrayList;
+
+import org.neuroph.core.NeuralNetwork;
+import org.neuroph.core.data.DataSet;
+import org.neuroph.core.data.DataSetRow;
+import org.neuroph.nnet.MultiLayerPerceptron;
+import org.neuroph.nnet.learning.LMS;
+import org.neuroph.util.TransferFunctionType;
+
+import ataa2014.StateVersion1;
 import edu.utexas.cs.tamerProject.modeling.Sample;
 import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
 
@@ -9,23 +19,56 @@ import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
  */
 public class NeuralNet extends RegressionModel
 {
+	private ArrayList <Double> outputList;
+	private ArrayList <double[]> sampleList;
+	
+	private boolean newSamples;
+
+	private NeuralNetwork neuralNet;
+	
+	private int num_inputs;
+	private int num_hidden;
+	
 	public NeuralNet(int num_inputs, int num_hidden)
 	{
-		// TODO Initialize the neural network accordingly.
+		
+		this.num_inputs = num_inputs;
+		this.num_hidden = num_hidden;
+		
+		outputList = new ArrayList <Double>();
+		sampleList = new ArrayList <double[]>();
+		
+		int maxIterations = 100;
+		
+		neuralNet = new MultiLayerPerceptron(TransferFunctionType.TANH, num_inputs, num_hidden, 1);
+
+	    ((LMS)neuralNet.getLearningRule()).setMaxError(0.001);//0-1
+	    ((LMS)neuralNet.getLearningRule()).setLearningRate(0.001);//0-1
+	    ((LMS)neuralNet.getLearningRule()).setMaxIterations(maxIterations);//0-1
+	    
 	}
 	
 	@Override
 	public void addInstance(Sample sample)
-	{
-		// TODO Auto-generated method stub
+	{	
+		double[] attributes = sample.getAttributes(); // features + label as last element
+		double[] features = new double[attributes.length - 1];
+		
+		for (int i = 0; i < attributes.length-1 ; i++){
+			features[i] = attributes[i];
+			
+		}
+		sampleList.add(features);
+		outputList.add(attributes[attributes.length - 1]); 
+		
 		
 	}
 
 	@Override
 	public void addInstances(Sample[] samples)
 	{
-		// TODO Auto-generated method stub
-		
+		for s in samples:
+			addInstance(s);
 	}
 
 	@Override
@@ -38,21 +81,42 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void buildModel()
 	{
-		// TODO Auto-generated method stub
+		DataSet trainingSet = new DataSet(StateVersion1.vectorRepresentationLength() + 16, 1);	
+		//System.out.println("data size:"+ sampleList.size() );
+		for (int i = 0; i < sampleList.size(); i++){
+			trainingSet.addRow(new DataSetRow(sampleList.get(i), new double[]{outputList.get(i)}));
+		}
+	   
+	    neuralNet.learn(trainingSet);
+	    
+	    return neuralNet.getOutput()[0];
 		
 	}
 
 	@Override
 	public double predictLabel(double[] feats)
-	{
-		// TODO Auto-generated method stub
-		return 0;
+	{	
+		neuralNet.setInput(feats);
+		neuralNet.calculate();
+		return neuralNet.getOutput()[0];
 	}
 
 	@Override
 	public void clearSamplesAndReset()
 	{
-		// TODO Auto-generated method stub
+		this.num_inputs = num_inputs;
+		this.num_hidden = num_hidden;
+		
+		outputList = new ArrayList <Double>();
+		sampleList = new ArrayList <double[]>();
+		
+		int maxIterations = 100;
+		
+		neuralNet = new MultiLayerPerceptron(TransferFunctionType.TANH, num_inputs, num_hidden, 1);
+
+	    ((LMS)neuralNet.getLearningRule()).setMaxError(0.001);//0-1
+	    ((LMS)neuralNet.getLearningRule()).setLearningRate(0.001);//0-1
+	    ((LMS)neuralNet.getLearningRule()).setMaxIterations(maxIterations);//0-1
 		
 	}
 }
