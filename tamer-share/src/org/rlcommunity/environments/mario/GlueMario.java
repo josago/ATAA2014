@@ -362,6 +362,9 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 		}			
 	}
 	
+	/**
+	 * Note by josago: This method probably needs re-writing so that it can parse all kinds of tiles from different types of Mario levels.
+	 */
 	static char[] getBlocks(LevelRenderer lr, Level level) {
 		StringBuffer sb = new StringBuffer();
         for (int y = lr.yCam / 16; y <= (lr.yCam + lr.height) / 16; y++) {

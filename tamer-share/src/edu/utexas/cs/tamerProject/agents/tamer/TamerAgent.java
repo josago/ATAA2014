@@ -121,6 +121,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     
 
     public Action agent_step(double r, Observation o, double startTime, Action predeterminedAct) {
+    	System.out.println(o.charArray);
     	return agent_step(r, o, startTime, predeterminedAct, this.lastObsAndAct.getAct());
     }
     
