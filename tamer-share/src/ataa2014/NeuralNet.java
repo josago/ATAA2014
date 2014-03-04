@@ -105,9 +105,6 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void clearSamplesAndReset()
 	{
-		//this.num_inputs = num_inputs;
-		//this.num_hidden = num_hidden;
-		
 		outputList = new ArrayList <Double>();
 		sampleList = new ArrayList <double[]>();
 		
