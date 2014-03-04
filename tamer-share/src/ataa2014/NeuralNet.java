@@ -29,6 +29,8 @@ public class NeuralNet extends RegressionModel
 	private int num_inputs;
 	private int num_hidden;
 	
+	private int maxIterations = 100;
+	
 	public NeuralNet(int num_inputs, int num_hidden)
 	{
 		
@@ -37,8 +39,6 @@ public class NeuralNet extends RegressionModel
 		
 		outputList = new ArrayList <Double>();
 		sampleList = new ArrayList <double[]>();
-		
-		int maxIterations = 100;
 		
 		neuralNet = new MultiLayerPerceptron(TransferFunctionType.TANH, num_inputs, num_hidden, 1);
 
@@ -108,7 +108,6 @@ public class NeuralNet extends RegressionModel
 		outputList = new ArrayList <Double>();
 		sampleList = new ArrayList <double[]>();
 		
-		int maxIterations = 100;
 		
 		neuralNet = new MultiLayerPerceptron(TransferFunctionType.TANH, num_inputs, num_hidden, 1);
 
