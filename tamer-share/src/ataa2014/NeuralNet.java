@@ -9,7 +9,6 @@ import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.nnet.learning.LMS;
 import org.neuroph.util.TransferFunctionType;
 
-import ataa2014.StateVersion1;
 import edu.utexas.cs.tamerProject.modeling.Sample;
 import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
 
@@ -67,8 +66,10 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void addInstances(Sample[] samples)
 	{
-		for s in samples:
+		for (Sample s: samples)
+		{
 			addInstance(s);
+		}
 	}
 
 	@Override
@@ -89,7 +90,7 @@ public class NeuralNet extends RegressionModel
 	   
 	    neuralNet.learn(trainingSet);
 	    
-	    return neuralNet.getOutput()[0];
+	    // return neuralNet.getOutput()[0];
 		
 	}
 
@@ -104,7 +105,6 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void clearSamplesAndReset()
 	{
-		
 		outputList = new ArrayList <Double>();
 		sampleList = new ArrayList <double[]>();
 		
