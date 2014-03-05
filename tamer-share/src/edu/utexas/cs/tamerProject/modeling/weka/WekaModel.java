@@ -132,10 +132,10 @@ public abstract class WekaModel {
         }
         catch (Exception e){
         	System.err.println("Exception while building classifier: " + e);
-            System.err.println(".Classifier " + classifier.getClass().toString() + " will not be built.");
-            System.err.println("Cause: " + e.getCause());
-            System.err.println("\nStack trace: ");
-            e.printStackTrace();
+            // System.err.println(".Classifier " + classifier.getClass().toString() + " will not be built.");
+            // System.err.println("Cause: " + e.getCause());
+            // System.err.println("\nStack trace: ");
+            // e.printStackTrace();
         }
     }
     
