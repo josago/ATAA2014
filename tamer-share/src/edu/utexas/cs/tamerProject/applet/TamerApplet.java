@@ -99,13 +99,17 @@ public class TamerApplet extends RLApplet {
 			this.numInTaskSeq = Integer.parseInt(numInTaskSeqStr);
 
 
-
+		
 		if (agent == null) {
+			
+			
 			if (agentType != null) {
-
+				
 				System.out.println("Agent type: " + agentType);
+				
 				if (agentType.equals("tamer")) // standard TAMER agent
 					agent = new TamerAgent();
+					
 				else if (agentType.equals("extActionTamer")) {// For when
 																// extended-time
 																// actions are
@@ -159,7 +163,7 @@ public class TamerApplet extends RLApplet {
 		}
 
 		System.out.println("agent: " + agent);
-
+		
 		if (trainControlStr != null)
 			agent.setAllowUserToggledTraining(Boolean
 					.parseBoolean(trainControlStr));

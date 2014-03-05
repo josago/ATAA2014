@@ -289,7 +289,9 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	    		String argType = args[i];
 	    		if (argType.equals("-tamerModel") && (i+1) < args.length){
 	    			if (args[i+1].equals("linear")) {
+	    				
 	    				System.out.println("Setting model to linear model");
+	    				
 	    				this.params.featClass = "FeatGen_RBFs";
 	    				this.params.modelClass = "IncGDLinearModel";
 	    				
@@ -300,6 +302,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	    				this.params.featGenParams.put("normMin", "-1");
 	    				this.params.featGenParams.put("normMax", "1");
 	   					
+	    	
 	   					// Learning params
 	    				this.params.initModelWSamples = false;
 	    				this.params.initWtsValue = 0.0;
@@ -312,6 +315,13 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	    				this.params.numBiasingSamples = 100;
 	    				this.params.biasSampleWt = 0.1;
 	    				this.params.wekaModelName = "IBk"; //// IBk for ALIHT paper and ICML workshop paper
+	    			}
+	    			
+	    			if (args[i+1].equals("neural")) {
+	    				System.out.println("Setting model to linear model");
+	    				this.params.featClass = "FeatGen_RBFs";
+	    				this.params.modelClass = "NeuralNet";
+	    				
 	    			}
 	    			else {
 	    				System.out.println("\nIllegal TamerAgent model type. Exiting.\n\n");

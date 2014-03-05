@@ -75,7 +75,10 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void addInstancesWReplacement(Sample[] samples)
 	{
-		// TODO Auto-generated method stub
+		for (Sample s: samples)
+		{
+			addInstance(s);
+		}
 		
 	}
 

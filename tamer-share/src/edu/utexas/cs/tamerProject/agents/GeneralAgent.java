@@ -40,6 +40,7 @@ import org.rlcommunity.rlglue.codec.taskspec.ranges.IntRange;
 import org.rlcommunity.rlglue.codec.types.Action;
 import org.rlcommunity.rlglue.codec.types.Observation;
 
+import ataa2014.NeuralNet;
 import rlVizLib.general.ParameterHolder;
 import rlVizLib.general.hasVersionDetails;
 import rlVizLib.messaging.NotAnRLVizMessageException;
@@ -288,6 +289,7 @@ public abstract class GeneralAgent implements AgentInterface{
 		
 		//// INITIALIZE RegressionModel
     	System.out.println("model: " + agent.model);
+    
 		if (agent.model == null)
 			agent.setModel();
 		else
@@ -535,6 +537,7 @@ public abstract class GeneralAgent implements AgentInterface{
     private void setModel() {
 		System.out.println("Creating model class " + this.params.modelClass + " for " + 
 							this.getClass() + ".");
+		
     	if (this.params.modelClass.equals("IncGDLinearModel")) {
     		System.out.println("featGen before initialization: " + featGen);
     		this.model = new IncGDLinearModel(this.featGen.getNumFeatures(), this.params.stepSize, 
@@ -566,6 +569,10 @@ public abstract class GeneralAgent implements AgentInterface{
     		((TabularModel)this.model).setEligTraceParams(this.params.traceDecayFactor, 
 																this.discountFactorForLearning,
 																this.params.traceType);
+    	}
+    	
+    	else if(this.params.modelClass.equals("NeuralNetwork")){
+    		this.model = new NeuralNet(1, 50);
     	}
     	else {
 	    		System.out.println("The current code doesn't support class " + this.params.modelClass

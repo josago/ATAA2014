@@ -65,6 +65,7 @@ public class RLPanel extends JPanel
 		
 	
 	public void init(AgentInterface agent, EnvironmentInterface env) {	
+		
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		setRequestFocusEnabled(true);
@@ -73,7 +74,7 @@ public class RLPanel extends JPanel
 		//setDoubleBuffered(true);
 		setBackground(Color.white);	
 		System.out.println("RLPanel size after in RLPanel.init(): " + this.getWidth() + ", " + this.getHeight());
-		
+
 		runLocal = new RunLocalExperiment();
 		runLocal.theAgent = agent;
 		runLocal.theEnvironment = env;
