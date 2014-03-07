@@ -23,9 +23,10 @@ import org.rlcommunity.rlglue.codec.types.Action;
 import org.rlcommunity.rlglue.codec.types.Observation;
 import org.rlcommunity.rlglue.codec.util.AgentLoader;
 
+import ataa2014.ParamsATAA;
+import ataa2014.SimulatedHuman;
 import rlVizLib.general.ParameterHolder;
 import rlVizLib.general.hasVersionDetails;
-
 import edu.utexas.cs.tamerProject.actSelect.ActionSelect;
 import edu.utexas.cs.tamerProject.agents.CreditAssignParamVec;
 import edu.utexas.cs.tamerProject.agents.GeneralAgent;
@@ -63,6 +64,8 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	private SampleWithObsAct[] lastLearningSamples;
 	public static boolean verifyObsFitsEnvDesc = true;
 	
+	//Use a human simulator
+	SimulatedHuman simHuman;
 	
 	public SampleWithObsAct[] getLastLearningSamples(){return this.lastLearningSamples;}
     
@@ -101,36 +104,32 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 			this.actSelector.setRewModel(this.model);
 		this.endInitHelper();
 		
-	/**
-	final TamerAgent balle = this;
-    Thread randomRewthread = new Thread()
-    {
-        public void run()
-        {
-            while (true){
-                
-            	Random rndNumbers = new Random();
-
-                double rndNumber = rndNumbers.nextInt(2);
-                
-                if(rndNumber == 0)
-                	rndNumber = -1;
-                
-                balle.addHRew(rndNumber);
-                System.out.println("Hello Random Number: " + rndNumber);
-                
-                try
-                {
-                    Thread.sleep(500); // 1000 = 1 second
-                } catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-    };
-    randomRewthread.start();
-	**/
+		//Add here the adding of the rewards provided by the simulated human
+		if(ParamsATAA.useSimulatedHuman)
+		{			
+			final TamerAgent balle = this;
+		    Thread randomRewthread = new Thread()
+		    {
+		        public void run()
+		        {
+		            while (true){
+		                
+		            	double reward = simHuman.getFeedback();
+		            	balle.addHRew(reward);
+		            	
+		                try
+		                {
+		                    Thread.sleep(500); // 1000 = 1 second
+		                } catch (Exception e)
+		                {
+		                    e.printStackTrace();
+		                }
+		            }
+		        }
+		    };
+		    randomRewthread.start();
+		}
+	
     }
     
 	// Called at the beginning of each episode (in RLViz, it's first called when "Start" is first clicked)
@@ -149,7 +148,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     
 
     public Action agent_step(double r, Observation o, double startTime, Action predeterminedAct) {
-    	System.out.println(o.charArray);
+    	//System.out.println(o.charArray);
     	return agent_step(r, o, startTime, predeterminedAct, this.lastObsAndAct.getAct());
     }
     
@@ -161,7 +160,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     	//System.out.println("Tamer obs doubleArray: " + Arrays.toString(o.doubleArray));
     	//System.out.println("Tamer obs charArray: " + Arrays.toString(o.charArray));
 
-    	System.out.println("Agent step!");
+    	//System.out.println("Agent step!");
     	if (verifyObsFitsEnvDesc)
     		this.checkObs(o);
     	//System.out.println("rew list in TAMER: " + this.hRewList.toString());
@@ -355,31 +354,32 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		
 		//Process input from reward taken from the human feedback window
 		public void receiveKeyInput(char c){
-			super.receiveKeyInput(c);
-			//System.out.println("TamerAgent receives key: " + c);
-			if (c == '/') {
-				this.addHRew(1.0);
-				System.out.println("reward");
-			}
-			else if (c == 'z') {
-				this.addHRew(-1.0);
-				System.out.println("punishment");
-			}
-			else if (c == '?') {
-				this.addHRew(10.0);
-			}
-			else if (c == 'Z') {
-				this.addHRew(-10.0);
-			}
-			else if (c == ' ' && this.allowUserToggledTraining) {
-				this.toggleInTrainSess();
-				this.hLearner.credA.setInTrainSess(Stopwatch.getComparableTimeInSec(), this.inTrainSess);
-			}
-			else if (c == 'S') {
-				this.model.saveDataAsArff(this.envName, (int)Stopwatch.getWallTimeInSec(), "");
-			}
-			
-//			System.out.println("hRewList after key input: " + this.hRewList.toString());
+			if(!ParamsATAA.useSimulatedHuman){
+				super.receiveKeyInput(c);
+				//System.out.println("TamerAgent receives key: " + c);
+				if (c == '/') {
+					this.addHRew(1.0);
+					System.out.println("reward");
+				}
+				else if (c == 'z') {
+					this.addHRew(-1.0);
+					System.out.println("punishment");
+				}
+				else if (c == '?') {
+					this.addHRew(10.0);
+				}
+				else if (c == 'Z') {
+					this.addHRew(-10.0);
+				}
+				else if (c == ' ' && this.allowUserToggledTraining) {
+					this.toggleInTrainSess();
+					this.hLearner.credA.setInTrainSess(Stopwatch.getComparableTimeInSec(), this.inTrainSess);
+				}
+				else if (c == 'S') {
+					this.model.saveDataAsArff(this.envName, (int)Stopwatch.getWallTimeInSec(), "");
+				}
+			}	
+	//			System.out.println("hRewList after key input: " + this.hRewList.toString());
 		}
 	    
 		public void initRecords() {
@@ -397,7 +397,10 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	    }
 	    
 	    
-	
+	    public void addSimulatedHuman(SimulatedHuman h)
+	    {
+	    	simHuman = h;
+	    }
 	
 }
 
@@ -427,6 +430,7 @@ class DetailsProvider implements hasVersionDetails {
 
     public String getDescription() {
         return "RL-Library Java Version of a general Tamer agent.";
-	}
+	}   
+    
 }
 
