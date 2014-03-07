@@ -571,8 +571,9 @@ public abstract class GeneralAgent implements AgentInterface{
 																this.params.traceType);
     	}
     	
-    	else if(this.params.modelClass.equals("NeuralNetwork")){
-    		this.model = new NeuralNet(1, 50);
+    	else if(this.params.modelClass.equals("NeuralNet")){
+    		this.model = new NeuralNet(this.featGen.getNumFeatures(), 10); // TODO: Number of hidden units.
+    		this.model.setFeatGen(this.featGen);
     	}
     	else {
 	    		System.out.println("The current code doesn't support class " + this.params.modelClass

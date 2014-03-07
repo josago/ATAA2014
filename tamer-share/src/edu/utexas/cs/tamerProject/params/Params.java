@@ -157,11 +157,12 @@ public class Params{
 				params.windowSize = 0.25;
 			}
 			else if (envName.equals("Mario")){
-				//PROJECT ATAA PARAMS HERE
+				//PROJECT ATAA PARAMS HERE:
+				
 				params.featClass = "FeatGen_Mario";
-				params.modelClass =  "WekaModelPerActionModel"; // "WekaModel"; 
-				//params.modelClass =  "NeuralNetwork";
-				params.wekaModelName = "M5P";
+				//params.modelClass =  "WekaModelPerActionModel"; // "WekaModel";
+				//params.wekaModelName = "M5P";
+				params.modelClass = "NeuralNet";
 			}
 			else if (envName.equals("Tetris")){
 				params.distClass = "previousStep";
