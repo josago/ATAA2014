@@ -2,6 +2,8 @@ package org.rlcommunity.environments.mario.viz.sprites;
 
 import org.rlcommunity.environments.mario.viz.Art;
 
+import ataa2014.SimulatedHuman;
+
 public class Sparkle extends Sprite
 {
     public int life;
@@ -30,7 +32,7 @@ public class Sparkle extends Sprite
         life = 10+(int)(Math.random()*timeSpan);
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (life>10)
             xPic = 7;
@@ -41,5 +43,7 @@ public class Sparkle extends Sprite
         
         x+=xa;
         y+=ya;
+        
+        return SimulatedHuman.Event.nothing;
     }
 }

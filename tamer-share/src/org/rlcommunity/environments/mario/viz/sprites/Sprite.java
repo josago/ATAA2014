@@ -5,8 +5,9 @@ import java.awt.Image;
 
 import org.rlcommunity.environments.mario.viz.level.SpriteTemplate;
 import org.rlcommunity.environments.mario.sonar.SoundSource;
-
 import org.rlcommunity.environments.mario.GlueMario;
+
+import ataa2014.SimulatedHuman;
 
 public class Sprite implements SoundSource
 {
@@ -30,10 +31,11 @@ public class Sprite implements SoundSource
 
     public SpriteTemplate spriteTemplate;
     
-    public void move()
+    public SimulatedHuman.Event move()
     {
         x+=xa;
         y+=ya;
+        return SimulatedHuman.Event.nothing;
     }
     
     public void render(Graphics og, float alpha)
@@ -73,11 +75,11 @@ public class Sprite implements SoundSource
         }
     }*/
 
-    public final void tick()
+    public final SimulatedHuman.Event tick()
     {
         xOld = x;
         yOld = y;
-        move();
+        return move();        
     }
 
     public final void tickNoMove()
@@ -119,8 +121,9 @@ public class Sprite implements SoundSource
     }
     //-RL-Comp
     
-    public void collideCheck()
+    public SimulatedHuman.Event collideCheck()
     {
+    	return SimulatedHuman.Event.nothing ;
     }
 
     public void bumpCheck(int xTile, int yTile)

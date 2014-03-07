@@ -10,6 +10,8 @@ import org.rlcommunity.environments.mario.viz.LevelScene;
 import org.rlcommunity.environments.mario.sonar.FixedSoundSource;
 import org.rlcommunity.environments.mario.GlueMario;
 
+import ataa2014.SimulatedHuman;
+
 
 public class Mario extends Sprite
 {
@@ -128,7 +130,7 @@ public class Mario extends Sprite
         blink(true);
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (winTime > 0)
         {
@@ -136,7 +138,7 @@ public class Mario extends Sprite
 
             xa = 0;
             ya = 0;
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         if (deathTime > 0)
@@ -157,7 +159,7 @@ public class Mario extends Sprite
             }
             x += xa;
             y += ya;
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         if (powerUpTime != 0)
@@ -176,7 +178,7 @@ public class Mario extends Sprite
             if (powerUpTime == 0) world.paused = false;
 
             calcPic();
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         if (invulnerableTime > 0) invulnerableTime--;
@@ -272,6 +274,7 @@ public class Mario extends Sprite
         {
             world.sound.play(Art.samples[Art.SAMPLE_MARIO_FIREBALL], this, 1, 1, 1);
             world.addSprite(new Fireball(world, x+facing*6, y-20, facing));
+            return SimulatedHuman.Event.wasShooting;
         }
         
         canShoot = !keys[KEY_SPEED];
@@ -347,8 +350,19 @@ public class Mario extends Sprite
             {
                 carried.release(this);
                 carried = null;
+                System.out.println("event threw something");
+                return SimulatedHuman.Event.threwSomething;
             }
+            System.out.println("event carried something");
+            return SimulatedHuman.Event.carryingSomething;
         }
+        
+        if (sideWaysSpeed == GlueMario.param.speed_run && onGround){
+        	System.out.println("event running");
+        	return SimulatedHuman.Event.wasRunning;
+        }
+        
+        return SimulatedHuman.Event.nothing;
     }
 
     private void calcPic()

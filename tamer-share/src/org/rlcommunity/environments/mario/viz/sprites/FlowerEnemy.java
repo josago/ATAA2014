@@ -2,6 +2,8 @@ package org.rlcommunity.environments.mario.viz.sprites;
 
 import org.rlcommunity.environments.mario.viz.LevelScene;
 
+import ataa2014.SimulatedHuman;
+
 public class FlowerEnemy extends Enemy
 {
     private int tick;
@@ -34,7 +36,7 @@ public class FlowerEnemy extends Enemy
         }
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (deadTime > 0)
         {
@@ -55,7 +57,7 @@ public class FlowerEnemy extends Enemy
             ya *= 0.95;
             ya += 1;
 
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         tick++;
@@ -85,6 +87,8 @@ public class FlowerEnemy extends Enemy
         ya+=0.1f;
         
         xPic = ((tick/2)&1)*2+((tick/6)&1);
+        
+        return SimulatedHuman.Event.nothing;
     }
 
 /*    public void render(Graphics og, float alpha)

@@ -157,6 +157,8 @@ public class Params{
 				params.windowSize = 0.25;
 			}
 			else if (envName.equals("Mario")){
+				//PROJECT ATAA PARAMS HERE:
+				
 				params.featClass = "FeatGen_Mario";
 				//params.modelClass =  "WekaModelPerActionModel"; // "WekaModel";
 				//params.wekaModelName = "M5P";

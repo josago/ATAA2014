@@ -1,7 +1,10 @@
 package org.rlcommunity.environments.mario.viz.sprites;
 
+import org.rlcommunity.environments.mario.GlueMario;
 import org.rlcommunity.environments.mario.viz.Art;
 import org.rlcommunity.environments.mario.viz.LevelScene;
+
+import ataa2014.SimulatedHuman;
 
 
 public class Mushroom extends Sprite
@@ -46,7 +49,7 @@ public class Mushroom extends Sprite
         life = 0;
     }
 
-    public void collideCheck()
+    public SimulatedHuman.Event collideCheck()
     {
         float xMarioD = world.mario.x - x;
         float yMarioD = world.mario.y - y;
@@ -58,18 +61,20 @@ public class Mushroom extends Sprite
             {
                 world.mario.getMushroom();
                 spriteContext.removeSprite(this);
+                return SimulatedHuman.Event.gotPowerUp;
             }
         }
+        return SimulatedHuman.Event.nothing;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (life<9)
         {
             layer = 0;
             y--;
             life++;
-            return;
+            return SimulatedHuman.Event.nothing;
         }
         float sideWaysSpeed = 1.75f;
         layer = 1;
@@ -112,6 +117,8 @@ public class Mushroom extends Sprite
         {
             ya += 2;
         }
+        
+        return SimulatedHuman.Event.nothing;
     }
 
     private boolean move(float xa, float ya)
