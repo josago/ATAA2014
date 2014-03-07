@@ -107,8 +107,9 @@ public class TamerApplet extends RLApplet {
 				
 				System.out.println("Agent type: " + agentType);
 				
-				if (agentType.equals("tamer")) // standard TAMER agent
-					agent = new TamerAgent();
+				if (agentType.equals("tamer")){ // standard TAMER agent
+					agent = new TamerAgent();					
+				}
 					
 				else if (agentType.equals("extActionTamer")) {// For when
 																// extended-time
@@ -156,9 +157,14 @@ public class TamerApplet extends RLApplet {
 							.println("Agent type unknown. Leave unspecified to get default TAMER agent. Exiting.");
 					System.exit(1);
 				}
-			} else
+			} else{
 				// agentType undefined; use TAMER by default
+				
+				// OUR AGENT IS INITIALIZED HERE
 				agent = new TamerAgent();
+				
+				System.out.println("ATAA agent is initialized here!!!!");
+			}
 
 		}
 
@@ -186,8 +192,11 @@ public class TamerApplet extends RLApplet {
 				env = new LoopMaze();
 			else if (envName.equals("acrobot"))
 				env = new Acrobot();
-			else if (envName.equals("mario"))
+			// OUR ENVIRONMENT IS INITIALIZED HERE!!!!!!!!!
+			else if (envName.equals("mario")){
 				env = new GeneralMario();
+				System.out.println("Mario environment initialized here");
+			}
 		}
 
 		if (fullLogBoolStr != null)

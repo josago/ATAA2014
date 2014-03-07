@@ -136,6 +136,7 @@ public class RLApplet extends JApplet
 	public void update(Observable observable, Object obj) {
 //		System.out.println("size in RLApplet.update(): " + this.getWidth() + ", " + this.getHeight());
 //		System.out.flush();
+		
 		boolean timeToLog = false;
 		if (this.rlPanel.runLocal.glue.getTimeStep() % STEPS_PER_LOG_SAVE == 0) // i.e., save every n steps and at the end of the episode
 			timeToLog = true;

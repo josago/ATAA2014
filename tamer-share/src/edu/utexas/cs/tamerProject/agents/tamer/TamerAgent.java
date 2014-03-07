@@ -355,7 +355,9 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	    		}
 			}
 		}
-
+		
+		
+		//Process input from reward taken from the human feedback window
 		public void receiveKeyInput(char c){
 			super.receiveKeyInput(c);
 			//System.out.println("TamerAgent receives key: " + c);
