@@ -3,6 +3,8 @@ package org.rlcommunity.environments.mario.viz.sprites;
 import org.rlcommunity.environments.mario.viz.Art;
 import org.rlcommunity.environments.mario.viz.LevelScene;
 
+import ataa2014.SimulatedHuman;
+
 
 public class BulletBill extends Sprite
 {
@@ -40,9 +42,9 @@ public class BulletBill extends Sprite
         this.facing = dir;
     }
 
-    public void collideCheck()
+    public SimulatedHuman.Event collideCheck()
     {
-        if (dead) return;
+    	if (dead) return SimulatedHuman.Event.nothing;
 
         float xMarioD = world.mario.x - x;
         float yMarioD = world.mario.y - y;
@@ -60,16 +62,21 @@ public class BulletBill extends Sprite
                     xa = 0;
                     ya = 1;
                     deadTime = 100;
+                    
+                    return SimulatedHuman.Event.killedEnemy;
                 }
                 else
                 {
                     world.mario.getHurt();
+                    return SimulatedHuman.Event.hurtByEnemy;
                 }
             }
         }
+        
+        return SimulatedHuman.Event.nothing;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (deadTime > 0)
         {
@@ -89,15 +96,18 @@ public class BulletBill extends Sprite
             y += ya;
             ya *= 0.95;
             ya += 1;
-
-            return;
+            return SimulatedHuman.Event.nothing;
+            
         }
-
+        
+        
         float sideWaysSpeed = 4f;
 
         xa = facing * sideWaysSpeed;
         xFlipPic = facing == -1;
         move(xa, 0);
+        
+        return SimulatedHuman.Event.nothing;
     }
 
     private boolean move(float xa, float ya)

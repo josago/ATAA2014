@@ -3,6 +3,8 @@ package org.rlcommunity.environments.mario.viz.sprites;
 import org.rlcommunity.environments.mario.viz.Art;
 import org.rlcommunity.environments.mario.viz.LevelScene;
 
+import ataa2014.SimulatedHuman;
+
 
 public class Fireball extends Sprite
 {
@@ -44,7 +46,7 @@ public class Fireball extends Sprite
         ya = 4;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (deadTime > 0)
         {
@@ -54,7 +56,7 @@ public class Fireball extends Sprite
             }
             spriteContext.removeSprite(this);
 
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         if (facing != 0) anim++;
@@ -106,6 +108,8 @@ public class Fireball extends Sprite
         {
             ya += 1.5;
         }
+        
+        return SimulatedHuman.Event.nothing;
     }
 
     private boolean move(float xa, float ya)

@@ -3,6 +3,8 @@ package org.rlcommunity.environments.mario.viz.sprites;
 import org.rlcommunity.environments.mario.viz.Art;
 import org.rlcommunity.environments.mario.viz.LevelScene;
 
+import ataa2014.SimulatedHuman;
+
 
 public class Shell extends Sprite
 {
@@ -72,9 +74,9 @@ public class Shell extends Sprite
         return false;
     }    
 
-    public void collideCheck()
+    public SimulatedHuman.Event collideCheck()
     {
-        if (carried || dead || deadTime>0) return;
+        if (carried || dead || deadTime>0) return SimulatedHuman.Event.nothing;
 
         float xMarioD = world.mario.x - x;
         float yMarioD = world.mario.y - y;
@@ -102,6 +104,7 @@ public class Shell extends Sprite
                     if (facing != 0)
                     {
                         world.mario.getHurt();
+                        return SimulatedHuman.Event.hurtByEnemy;
                     }
                     else
                     {
@@ -111,14 +114,15 @@ public class Shell extends Sprite
                 }
             }
         }
+        return SimulatedHuman.Event.nothing;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (carried)
         {
             world.checkShellCollide(this);
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         if (deadTime > 0)
@@ -140,7 +144,7 @@ public class Shell extends Sprite
             ya *= 0.95;
             ya += 1;
 
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         if (facing != 0) anim++;
@@ -195,6 +199,8 @@ public class Shell extends Sprite
         {
             ya += 2;
         }
+        
+        return SimulatedHuman.Event.nothing;
     }
 
     private boolean move(float xa, float ya)

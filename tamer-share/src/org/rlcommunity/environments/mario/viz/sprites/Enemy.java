@@ -4,8 +4,9 @@ import java.awt.Graphics;
 
 import org.rlcommunity.environments.mario.viz.Art;
 import org.rlcommunity.environments.mario.viz.LevelScene;
-
 import org.rlcommunity.environments.mario.GlueMario;
+
+import ataa2014.SimulatedHuman;
 
 
 public class Enemy extends Sprite
@@ -77,11 +78,11 @@ public class Enemy extends Sprite
         this.wPic = 16;
     }
 
-    public void collideCheck()
+    public SimulatedHuman.Event collideCheck()
     {
         if (deadTime != 0)
         {
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
         float xMarioD = world.mario.x - x;
@@ -117,16 +118,19 @@ public class Enemy extends Sprite
                             spriteContext.addSprite(new Shell(world, x, y, 1));
                         }
                     }
+                    return SimulatedHuman.Event.killedEnemy;
                 }
                 else
                 {
                     world.mario.getHurt();
+                    return SimulatedHuman.Event.hurtByEnemy;
                 }
             }
         }
+        return SimulatedHuman.Event.nothing;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         wingTime++;
         if (deadTime > 0)
@@ -150,7 +154,7 @@ public class Enemy extends Sprite
                 ya *= 0.95;
                 ya += 1;
             }
-            return;
+            return SimulatedHuman.Event.nothing;
         }
 
 
@@ -215,6 +219,8 @@ public class Enemy extends Sprite
         if (winged) runFrame = wingTime / 4 % 2;
 
         xPic = runFrame;
+        
+        return SimulatedHuman.Event.nothing;
     }
 
     private boolean move(float xa, float ya)

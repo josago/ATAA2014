@@ -2,6 +2,8 @@ package org.rlcommunity.environments.mario.viz.sprites;
 
 import org.rlcommunity.environments.mario.viz.Art;
 
+import ataa2014.SimulatedHuman;
+
 
 public class CoinAnim extends Sprite
 {
@@ -20,7 +22,7 @@ public class CoinAnim extends Sprite
         yPic = 2;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (life-- < 0)
         {
@@ -35,5 +37,7 @@ public class CoinAnim extends Sprite
         x += xa;
         y += ya;
         ya += 1;
+        
+        return SimulatedHuman.Event.nothing;
     }
 }

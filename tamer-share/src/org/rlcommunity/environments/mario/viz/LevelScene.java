@@ -14,6 +14,10 @@ import org.rlcommunity.environments.mario.sonar.FixedSoundSource;
 import org.rlcommunity.environments.mario.viz.level.*;
 
 
+
+import ataa2014.SimulatedHuman;
+
+
 public class LevelScene extends Scene implements SpriteContext
 {
     private List<Sprite> sprites = new ArrayList<Sprite>();
@@ -29,6 +33,11 @@ public class LevelScene extends Scene implements SpriteContext
     public float xCam, yCam, xCamO, yCamO;
     public static Image tmpImage;
     private int tick;
+    
+    //Added to use a simulated human
+    private SimulatedHuman human;
+    private boolean hasHuman;
+    
 
     private LevelRenderer layer;
     public LevelRenderer getLayer() {
@@ -56,6 +65,7 @@ public class LevelScene extends Scene implements SpriteContext
 
     public LevelScene(GraphicsConfiguration graphicsConfiguration, MarioComponent renderer, long seed, int levelDifficulty, int type)
     {
+    	this.hasHuman = false;
         this.graphicsConfiguration = graphicsConfiguration;
         this.levelSeed = seed;
         this.renderer = renderer;
@@ -137,6 +147,10 @@ public class LevelScene extends Scene implements SpriteContext
 
     public void tick()
     {
+    	
+    	//Lydia check if mario got coins
+    	int coins_mario = mario.coins;
+    	
     	if (!org.rlcommunity.environments.mario.GlueMario.glue_running) {
 	        timeLeft--;
 	        if (timeLeft==0)
@@ -269,8 +283,23 @@ public class LevelScene extends Scene implements SpriteContext
 
             for (Sprite sprite : sprites)
             {
-                sprite.tick();
+            	SimulatedHuman.Event e = sprite.tick();
+            	if (e != SimulatedHuman.Event.nothing && hasHuman){
+            		System.out.println("event send to human");
+            		human.receiveEvent(e);
+            	}            		
             }
+            
+            for (Sprite sprite : sprites)
+            {
+            	// Added the registration of an event to send to the simulated human
+            	SimulatedHuman.Event event = sprite.collideCheck();            	
+            	if (event != SimulatedHuman.Event.nothing) System.out.println("event collide: " + event);
+            	if (hasHuman && event != SimulatedHuman.Event.nothing) human.receiveEvent(event);          		
+            	
+            	
+            }
+            
 
             for (Sprite sprite : sprites)
             {
@@ -304,6 +333,9 @@ public class LevelScene extends Scene implements SpriteContext
                     {
                         if (sprite.fireballCollideCheck(fireball))
                         {
+                        	System.out.println("killedEnemy with fireball");
+                        	if (hasHuman) human.receiveEvent(SimulatedHuman.Event.killedEnemy);
+
                             fireball.die();
                         }
                     }
@@ -316,6 +348,16 @@ public class LevelScene extends Scene implements SpriteContext
         sprites.removeAll(spritesToRemove);
         spritesToAdd.clear();
         spritesToRemove.clear();
+        
+        
+        if(coins_mario < mario.coins)
+        {
+        	System.out.println("event: received coins");
+        	if(hasHuman)
+        	{
+        		human.receiveEvent(SimulatedHuman.Event.gotCoin);
+        	}
+        }
         
         org.rlcommunity.environments.mario.GlueMario.levelCheckIn(this);
     }
@@ -586,10 +628,13 @@ public class LevelScene extends Scene implements SpriteContext
             level.setBlock(x, y, (byte) 0);
             addSprite(new CoinAnim(x, y + 1));
         }
-
-        for (Sprite sprite : sprites)
-        {
-            sprite.bumpCheck(x, y);
-        }
+        
+        
+    }
+    
+    public void addSimulatedHuman(SimulatedHuman h){
+    	System.out.println("human added");
+    	human = h;
+    	hasHuman = true;
     }
 }

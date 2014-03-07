@@ -3,6 +3,8 @@ package org.rlcommunity.environments.mario.viz.sprites;
 import org.rlcommunity.environments.mario.viz.Art;
 import org.rlcommunity.environments.mario.viz.LevelScene;
 
+import ataa2014.SimulatedHuman;
+
 
 public class FireFlower extends Sprite
 {
@@ -34,7 +36,7 @@ public class FireFlower extends Sprite
         life = 0;
     }
 
-    public void collideCheck()
+    public SimulatedHuman.Event collideCheck()
     {
         float xMarioD = world.mario.x - x;
         float yMarioD = world.mario.y - y;
@@ -46,18 +48,20 @@ public class FireFlower extends Sprite
             {
                 world.mario.getFlower();
                 spriteContext.removeSprite(this);
+                return SimulatedHuman.Event.gotPowerUp;
             }
         }
+        return SimulatedHuman.Event.nothing;
     }
 
-    public void move()
+    public SimulatedHuman.Event move()
     {
         if (life<9)
         {
             layer = 0;
             y--;
-            life++;
-            return;
+            life++;            
         }
+        return SimulatedHuman.Event.nothing;
     }
 }
