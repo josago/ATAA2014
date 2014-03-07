@@ -93,6 +93,9 @@ public class TinyGlueExtended extends TinyGlue {
     private final Semaphore stepSem=new Semaphore(1);
     //returns true of the episode is over
     public  boolean  step() {
+    	
+    	System.out.println("YAAAAAAAAAAAAAAAAAAAAAAAAAAAH");
+    	
         try {
             stepSem.acquire();
         } catch (InterruptedException ex) {

@@ -193,6 +193,7 @@ public class RLGlue {
      * RL-Glue Core Method.
      */
     public static Observation_action RL_start() {
+    	
         checkInstance();
         if (!inited) {
             System.err.println("-- Warning From RLGlue :: RL_start() was called without RL_init().");
