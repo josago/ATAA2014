@@ -158,9 +158,9 @@ public class Params{
 			}
 			else if (envName.equals("Mario")){
 				params.featClass = "FeatGen_Mario";
-				//params.modelClass =  "WekaModelPerActionModel"; // "WekaModel"; 
-				params.modelClass =  "NeuralNetwork";
-				params.wekaModelName = "M5P";
+				//params.modelClass =  "WekaModelPerActionModel"; // "WekaModel";
+				//params.wekaModelName = "M5P";
+				params.modelClass = "NeuralNet";
 			}
 			else if (envName.equals("Tetris")){
 				params.distClass = "previousStep";

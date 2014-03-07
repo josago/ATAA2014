@@ -101,7 +101,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 			this.actSelector.setRewModel(this.model);
 		this.endInitHelper();
 		
-	/*************************************/
+	/**
 	final TamerAgent balle = this;
     Thread randomRewthread = new Thread()
     {
@@ -130,13 +130,9 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
         }
     };
     randomRewthread.start();
-		
+	**/
     }
     
-
-
-
-
 	// Called at the beginning of each episode (in RLViz, it's first called when "Start" is first clicked)
     public Action agent_start(Observation o, double time, Action predeterminedAct) {
     	//System.out.println("---------------------------start TAMER ep " + this.currEpNum);
