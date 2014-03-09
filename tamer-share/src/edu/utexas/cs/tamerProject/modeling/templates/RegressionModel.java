@@ -5,8 +5,12 @@ import java.util.Arrays;
 
 import edu.utexas.cs.tamerProject.modeling.Sample;
 import edu.utexas.cs.tamerProject.featGen.FeatGenerator;
+
 import org.rlcommunity.rlglue.codec.types.Action;
 import org.rlcommunity.rlglue.codec.types.Observation;
+
+import ataa2014.ParamsATAA;
+import ataa2014.SimulatedHuman;
 
 /**
  * RegressionModel is an abstract class for models that perform regression. It
@@ -30,11 +34,27 @@ public abstract class RegressionModel implements ObsActModel{
 	public abstract void buildModel();
 	public abstract double predictLabel(double[] feats);
 	
+	private SimulatedHuman simHuman;
 	
 	// This receives an observation and action and predicts a label based on extracted features
 	// and returns the label. (it was doing everything twice so i commented the return and returned the label )
 	public double predictLabel(Observation obs, Action act){
 		double[] feats = this.featGen.getFeats(obs, act);
+		
+		System.out.println("Labels are being predicted in regressionModel");
+		
+		//Lydia: Dit gebeurd nu nog met alle acties ipv alleen de genomen actie!!!!!!
+		if(ParamsATAA.useSimulatedHuman)
+		{
+			System.out.println("\n****************\nFeatures added to simulated human \n **************");
+			if(simHuman == null){
+				System.out.println("Simulated human supposed to be present in regressionmodel");
+			}
+			else
+			{
+				simHuman.addInformation(feats);
+			}
+		}
 		double label = this.predictLabel(feats);
 		return label;
 		//return (this.predictLabel(this.featGen.getFeats(obs, act)));
@@ -60,9 +80,11 @@ public abstract class RegressionModel implements ObsActModel{
 	
 	
 	public ArrayList<Action> getMaxActs(Observation obs, ArrayList<Action> possActions){
+		System.out.println("getMaxAct in RegressionModel calls getMaxActs FeatureGenerator");
 		return featGen.getMaxActs(this, obs, possActions);	
 	}
-	public Action getMaxAct(Observation obs, ArrayList<Action> possActions){
+	
+	public Action getMaxAct(Observation obs, ArrayList<Action> possActions){		
 		Action maxAct;
 		ArrayList<Action> maxActs = this.featGen.getMaxActs(this, obs, possActions);
 		try{
@@ -82,6 +104,7 @@ public abstract class RegressionModel implements ObsActModel{
 	
 	public double[] getStateActOutputs(Observation obs, ArrayList<Action> actions)
 	{
+		System.out.println("Predict label called from Regression model itself: getStateActOutputs()\n\n");
 		double[] stateActOutputs = new double[actions.size()];
 		for (int actI = 0; actI < actions.size(); actI++) {
 			Action currAct = actions.get(actI);
@@ -113,5 +136,10 @@ public abstract class RegressionModel implements ObsActModel{
 		System.out.println("Model in use (" + this.getClass().getSimpleName() + ") doesn't support cloning itself.");
 		System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
 		return null;
+	}
+	
+	public void addSimulatedHuman(SimulatedHuman h)
+	{
+		simHuman = h;
 	}
 }

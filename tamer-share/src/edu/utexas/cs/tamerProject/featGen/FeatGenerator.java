@@ -92,6 +92,7 @@ public abstract class FeatGenerator{
 
 	public abstract double[] getSAFeats(Observation obs, Action act);
 	public abstract double[] getSFeats(Observation obs);
+	
 	public ArrayList<Action> getMaxActs(RegressionModel model, Observation obs){
 		return getMaxActs(model, obs, null);
 	}
@@ -106,7 +107,7 @@ public abstract class FeatGenerator{
 				if (possActions.size() == 0)
 					System.err.println("Zero possible actions returned for obs " + Arrays.toString(obs.doubleArray));
 			}
-			
+			System.out.println("FeatureGenerator getMaxActs calls getStateActsOutputs");
 			double[] stateActVals = model.getStateActOutputs(obs, possActions);
 			//System.out.println("\t****************Predicted value by action: " + Arrays.toString(stateActVals) + "**********************");	
 			for (int actI = 0; actI < possActions.size(); actI++) {

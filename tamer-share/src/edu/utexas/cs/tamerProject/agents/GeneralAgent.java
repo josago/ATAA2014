@@ -756,6 +756,7 @@ public abstract class GeneralAgent implements AgentInterface{
 //	}
     
     public double getVal(ObsAndAct obsAct){
+    	System.out.println("&&&&&&&\nPredict label is called from GeneralAgent\n&&&&&&&&&&&&&&\n");
 		return getVal(obsAct.getObs(), obsAct.getAct());
 	}
 	public double getVal(Observation obs, Action act){
@@ -766,11 +767,15 @@ public abstract class GeneralAgent implements AgentInterface{
 	}
 	
 	public double getStatePotForTrans(Observation fromObs, Observation toObs){
+				
 		if (fromObs == null || toObs == null) {
 			return 0.0;
 		}
 		Action lastGreedyAction = this.actSelector.greedyActSelect(fromObs, null);
 		double[] lastStepGreedyFeats = this.featGen.getSAFeats(fromObs, lastGreedyAction);
+		
+		System.out.println("Labels are being predicted in General agent getStatePotForTrans");
+		
 		double lastStepGreedyVal = model.predictLabel(lastStepGreedyFeats);
 		
 		double thisStepGreedyVal = 0.0;
@@ -787,6 +792,9 @@ public abstract class GeneralAgent implements AgentInterface{
 	}
 
 	public double getSAPotForTrans(Observation fromObs, Action fromAct, Observation toObs, Action toAct){
+		
+		System.out.println("Labels are being predicted grom general agent getSAPotForTrans");
+		
 		if (fromObs == null) {
 			return 0.0;
 		}

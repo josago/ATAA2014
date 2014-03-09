@@ -52,9 +52,10 @@ public class SimulatedHuman {
 	}
 
 	// TODO: make sure this gets called somewhere by the controller or something	
-	public void addInformation(StateRepresentation s, int action) {
-		stateMemory.add(s);
-		actionMemory.add(action);
+	public void addInformation(double[] feats) {
+		//TODO: process features
+		//stateMemory.add(s);
+		//actionMemory.add(action);
 		if (stateMemory.size() > SimulatedHuman.sizeMemeory){			
 			stateMemory.remove(0);
 			actionMemory.remove(0);

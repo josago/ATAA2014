@@ -70,7 +70,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	public TamerAgent(SimulatedHuman h)
 	{
 		super();
-		simHuman = h;
+		simHuman = h;		
 	}
 	
 	public TamerAgent()
@@ -85,6 +85,13 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	// Called when the environment is loaded (when "Load Experiment" is clicked in RLViz)
     public void agent_init(String taskSpec) {
     	GeneralAgent.agent_init(taskSpec, this);
+    	
+    	// Add simulated human to the regression model if 
+    	if(ParamsATAA.useSimulatedHuman)
+    	{
+    		System.out.println("Simulated human added to regression model");
+    		model.addSimulatedHuman(simHuman);
+    	}
 		
 		//// CREATE CreditAssignParamVec
 		CreditAssignParamVec credAssignParams = new CreditAssignParamVec(this.params.distClass, 
@@ -161,7 +168,13 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     
 
     public Action agent_step(double r, Observation o, double startTime, Action predeterminedAct) {
-
+    	
+    	//Provide information to human simulater using last Obs and Act & Feature generator here
+    	if(ParamsATAA.useSimulatedHuman)
+    	{
+	    	System.out.println("Updated simulated human with features and action");
+	    	simHuman.addInformation(featGen.getFeats(lastObsAndAct.getObs(), lastObsAndAct.getAct()));
+    	}
     	return agent_step(r, o, startTime, predeterminedAct, this.lastObsAndAct.getAct());
     }
     
@@ -206,6 +219,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		this.currObsAndAct.setAct(predeterminedAct);
 		//System.out.print("tamerAgent ");
 		if (this.currObsAndAct.actIsNull()) {
+			System.out.println("\n\nThis function calls slectAction in ActionSelect");
 			this.currObsAndAct.setAct(this.actSelector.selectAction(o, tieBreakAction));
 		}
     	

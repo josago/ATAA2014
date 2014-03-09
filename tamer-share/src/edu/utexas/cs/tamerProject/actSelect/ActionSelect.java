@@ -136,6 +136,7 @@ public class ActionSelect{
 		
 		
 		if (this.selectionMethod.equals("greedy")) {
+			System.out.println("greedyActSelect called inside ActionSelect");
 			return ActionSelect.greedyActSelect(this.valFcnModel, obs, lastAct);
 		}
 		else if (this.selectionMethod.equals("e-greedy")) {
@@ -178,6 +179,7 @@ public class ActionSelect{
 	}
 	
 	public Action greedyActSelect(Observation obs, Action lastAct) {
+		System.out.println("Tussenin functie in ActionSelect");
 		return ActionSelect.greedyActSelect(this.valFcnModel, obs, lastAct);
 	}
 	
@@ -186,6 +188,9 @@ public class ActionSelect{
 	private static Action chooseWValsAsProbs(RegressionModel valFcnModel,
 			Observation obs, Action lastAct) {
 		ArrayList<Action> possActs = valFcnModel.getFeatGen().getPossActions(obs);
+		
+		System.out.println("ActionSelector chooseWValsAsProbs calls getStateActsOutputs");
+		
 		double[] actVals = valFcnModel.getStateActOutputs(obs, possActs);
 		
 		/*
@@ -220,6 +225,7 @@ public class ActionSelect{
 	}
 	
 	private static Action greedyActSelect(RegressionModel valFcnModel, Observation obs, Action lastAct){
+		System.out.println("getMaxActs in RegressionModel called from AxtionSelect in greedyActSelect");
 		ArrayList<Action> maxActs =  valFcnModel.getMaxActs(obs, null);
 		if (maxActs.size() == 0) {
 			System.err.println("A list of zero maximum acts was returned by RegressionModel.getMaxActs(). Exiting.");
@@ -389,6 +395,8 @@ public class ActionSelect{
 																envTransModel, depthSoFar + 1, greedyLeafPathLength, 
 																lastAct, discountType); // rollout
 			PathAndVal pathAndVal = new PathAndVal(greedyPath.getVal());
+						
+			
 			return pathAndVal;
 		}
 		
@@ -437,6 +445,8 @@ public class ActionSelect{
 			 */
 			double rawImmedRew = rewFcnModel.predictLabel(obs, currentAct);
 			
+			System.out.println("&&&&&&&&&&&&&&&&&&\n This is actually called\n Action select plan()\n&&&&&&&&&&&&&&&&&\n");
+			
 			double discountedImmedRew = ActionSelect.getDiscount(depthSoFar, discountType) * rawImmedRew;
 			thisPathAndVal.addObsAndActBeforePath(obs, currentAct, discountedImmedRew, rawImmedRew);
 			
@@ -473,7 +483,9 @@ public class ActionSelect{
 	private static PathAndVal planWithStartAct(Observation obs, Action act, RegressionModel valFcnModel, 
 			ObsActModel rewFcnModel, EnvTransModel envTransModel, int depthSoFar, 
 			int depthToGo, Action lastAct, DiscountTypes discountType) {
-	
+		
+		System.out.println("&&&&&&&&&&&&&&&&&&\n This is actually called\n ActionSelect planWithStartAct() \n&&&&&&&&&&&&&&&&&\n");
+		
 		if (depthToGo == 0) {
 			double stateActVal = valFcnModel.predictLabel(obs, act);
 			return new PathAndVal(stateActVal, act);
@@ -517,6 +529,7 @@ public class ActionSelect{
 										int depthToGo, Action lastAct, DiscountTypes discountType) {
 //		System.out.print(depthSoFar);
 		double rawImmedRew = rewFcnModel.predictLabel(obs, act);
+		System.out.println("&&&&&&&&&&&&&&&&&&\n This is actually called\nActionSelect planWitshStartAct2\n&&&&&&&&&&&&&&&&&\n");
 		double discountedImmedRew = ActionSelect.getDiscount(depthSoFar, discountType) * rawImmedRew;
 		
 		/*
@@ -621,6 +634,9 @@ public class ActionSelect{
 			 * Get reward expected for (obs,act) after transition.
 			 */
 			double rawImmedRew = rewFcnModel.predictLabel(obs, act);
+			
+			System.out.println("&&&&&&&&&&&&&&&&&&\n This is actually called\nActionSelectGreedyPath\n&&&&&&&&&&&&&&&&&\n");
+			
 			double discountedImmedRew = ActionSelect.getDiscount(startDepth + addtlDepth, discountType) 
 											* rawImmedRew;
 			//System.out.println("Discount in sampleGreedyPath at depth " + (addtlDepth+ startDepth) 

@@ -207,7 +207,10 @@ public class TamerApplet extends RLApplet {
 				env = new Acrobot();
 			// OUR ENVIRONMENT IS INITIALIZED HERE!!!!!!!!!
 			else if (envName.equals("mario")){
-				env = new GeneralMario(simHuman);
+				if(ParamsATAA.useSimulatedHuman)
+					env = new GeneralMario(simHuman);
+				else
+					env = new GeneralMario();
 				System.out.println("Mario environment initialized here");
 			}
 		}
