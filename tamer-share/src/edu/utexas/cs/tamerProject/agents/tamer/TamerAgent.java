@@ -136,10 +136,10 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		                
 		            	double reward = simHuman.getFeedback();
 		            	balle.addHRew(reward);
-		            	System.out.println("\n-----\nSimulated human feedback requested: " + reward);
+		            	System.out.println("\n-----\nReward from simulated human added: " + reward + "\n----------");
 		                try
 		                {
-		                    Thread.sleep(500); // 1000 = 1 second
+		                    Thread.sleep(ParamsATAA.in_between_time_feedback_request_human_simulator);
 		                } catch (Exception e)
 		                {
 		                    e.printStackTrace();
@@ -171,9 +171,11 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     	
     	//Provide information to human simulater using last Obs and Act & Feature generator here
     	if(ParamsATAA.useSimulatedHuman)
-    	{
-	    	System.out.println("Updated simulated human with features and action");
-	    	simHuman.addInformation(featGen.getFeats(lastObsAndAct.getObs(), lastObsAndAct.getAct()));
+    	{	    	
+	    	if(lastObsAndAct.getAct() != null && lastObsAndAct.getObs() != null){
+	    		System.out.println("Updated simulated human with features and action");
+	    		simHuman.addInformation(featGen.getFeats(lastObsAndAct.getObs(), lastObsAndAct.getAct()));
+	    	}	    	
     	}
     	return agent_step(r, o, startTime, predeterminedAct, this.lastObsAndAct.getAct());
     }
@@ -219,7 +221,6 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		this.currObsAndAct.setAct(predeterminedAct);
 		//System.out.print("tamerAgent ");
 		if (this.currObsAndAct.actIsNull()) {
-			System.out.println("\n\nThis function calls slectAction in ActionSelect");
 			this.currObsAndAct.setAct(this.actSelector.selectAction(o, tieBreakAction));
 		}
     	

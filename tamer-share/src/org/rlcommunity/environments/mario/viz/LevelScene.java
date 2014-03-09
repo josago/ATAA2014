@@ -148,7 +148,6 @@ public class LevelScene extends Scene implements SpriteContext
     	
     	//Lydia check if mario got coins
     	int coins_mario = mario.coins;
-    	System.out.println("Level scene tick");
     	
     	if (!org.rlcommunity.environments.mario.GlueMario.glue_running) {
 	        timeLeft--;

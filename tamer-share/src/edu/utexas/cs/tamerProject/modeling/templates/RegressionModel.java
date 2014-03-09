@@ -41,7 +41,6 @@ public abstract class RegressionModel implements ObsActModel{
 	public double predictLabel(Observation obs, Action act){
 		double[] feats = this.featGen.getFeats(obs, act);
 		
-		System.out.println("Labels are being predicted in regressionModel");
 		
 		//Lydia: Dit gebeurd nu nog met alle acties ipv alleen de genomen actie!!!!!!
 		if(ParamsATAA.useSimulatedHuman)
@@ -80,7 +79,6 @@ public abstract class RegressionModel implements ObsActModel{
 	
 	
 	public ArrayList<Action> getMaxActs(Observation obs, ArrayList<Action> possActions){
-		System.out.println("getMaxAct in RegressionModel calls getMaxActs FeatureGenerator");
 		return featGen.getMaxActs(this, obs, possActions);	
 	}
 	
@@ -104,7 +102,6 @@ public abstract class RegressionModel implements ObsActModel{
 	
 	public double[] getStateActOutputs(Observation obs, ArrayList<Action> actions)
 	{
-		System.out.println("Predict label called from Regression model itself: getStateActOutputs()\n\n");
 		double[] stateActOutputs = new double[actions.size()];
 		for (int actI = 0; actI < actions.size(); actI++) {
 			Action currAct = actions.get(actI);

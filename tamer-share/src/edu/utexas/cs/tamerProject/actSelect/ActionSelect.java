@@ -136,7 +136,6 @@ public class ActionSelect{
 		
 		
 		if (this.selectionMethod.equals("greedy")) {
-			System.out.println("greedyActSelect called inside ActionSelect");
 			return ActionSelect.greedyActSelect(this.valFcnModel, obs, lastAct);
 		}
 		else if (this.selectionMethod.equals("e-greedy")) {
@@ -225,7 +224,6 @@ public class ActionSelect{
 	}
 	
 	private static Action greedyActSelect(RegressionModel valFcnModel, Observation obs, Action lastAct){
-		System.out.println("getMaxActs in RegressionModel called from AxtionSelect in greedyActSelect");
 		ArrayList<Action> maxActs =  valFcnModel.getMaxActs(obs, null);
 		if (maxActs.size() == 0) {
 			System.err.println("A list of zero maximum acts was returned by RegressionModel.getMaxActs(). Exiting.");
