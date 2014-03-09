@@ -234,6 +234,9 @@ public abstract class FeatGenerator{
 		feats[feats.length - 1] = supplFeat;
 		return feats;
 	}
+	
+	// Here the observation and action are converted to the desired state representation (features)
+	// Also the model is called to predict the label for the features
 	public double getValFromSupplModel(Observation obs, Action act){
 		double[] feats = this.featGenForSupplModel.getSAFeats(obs, act);
 		return this.modelForSupplFeatGen.predictLabel(feats);

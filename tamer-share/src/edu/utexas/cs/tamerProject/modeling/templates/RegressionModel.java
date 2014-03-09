@@ -29,10 +29,15 @@ public abstract class RegressionModel implements ObsActModel{
 	public abstract void addInstancesWReplacement(Sample[] samples);
 	public abstract void buildModel();
 	public abstract double predictLabel(double[] feats);
+	
+	
+	// This receives an observation and action and predicts a label based on extracted features
+	// and returns the label. (it was doing everything twice so i commented the return and returned the label )
 	public double predictLabel(Observation obs, Action act){
 		double[] feats = this.featGen.getFeats(obs, act);
 		double label = this.predictLabel(feats);
-		return (this.predictLabel(this.featGen.getFeats(obs, act)));
+		return label;
+		//return (this.predictLabel(this.featGen.getFeats(obs, act)));
 	}
 	public abstract void clearSamplesAndReset();
 	

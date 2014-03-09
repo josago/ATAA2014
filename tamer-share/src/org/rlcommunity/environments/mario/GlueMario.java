@@ -26,6 +26,8 @@ import org.rlcommunity.rlglue.codec.taskspec.ranges.DoubleRange;
 import org.rlcommunity.rlglue.codec.taskspec.ranges.IntRange;
 import org.rlcommunity.rlglue.codec.types.*;
 
+import ataa2014.ParamsATAA;
+import ataa2014.SimulatedHuman;
 import rlVizLib.messaging.environmentShell.TaskSpecPayload;
 import rlVizLib.general.ParameterHolder;
 import rlVizLib.messaging.interfaces.ProvidesEpisodeSummariesInterface;
@@ -70,6 +72,8 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 	static Reward_observation_terminal last_rot;//added by guangliang for adding extra time step after death to allow trainer enough time to give feedback
 	
 	protected rlVizLib.utilities.logging.EpisodeLogger theEpisodeLogger;
+	
+	protected SimulatedHuman simHuman;	
 
 	public GlueMario() {
 		setParameters(GlueMario.getDefaultParameters());
@@ -79,6 +83,14 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 		setParameters(p);
 	}
 	
+	/**
+	 * Lydia:  Constructor for using a simulated human in the mario environment 
+	 */
+	public GlueMario(SimulatedHuman h)
+	{
+		simHuman = h;
+		setParameters(GlueMario.getDefaultParameters());
+	}
 	
 	
 	
@@ -449,10 +461,18 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 		return vd;
 	}
 	
-	public static void launchMarioEnvironment() {
+	// Lydia: changed function from static to not static: only called from the non-static function 
+	// env_init() in this class anyway
+	public void launchMarioEnvironment() {
 		glue_block = new Object();
 		glue_running = true;
-        MarioComponent mario = new MarioComponent(640, 480);
+        MarioComponent mario; 
+        if(ParamsATAA.useSimulatedHuman){
+        	mario = new MarioComponent(640, 480, simHuman);
+        }
+        else{
+        	mario = new MarioComponent(640, 480);
+        }
         if (!go_dark) {
 	        frame = new JFrame("RL-Glue Mario");
 	        frame.setContentPane(mario);

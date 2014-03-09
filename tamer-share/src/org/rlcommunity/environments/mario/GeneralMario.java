@@ -14,6 +14,7 @@ import org.rlcommunity.rlglue.codec.taskspec.ranges.IntRange;
 import org.rlcommunity.rlglue.codec.types.Observation;
 import org.rlcommunity.rlglue.codec.util.EnvironmentLoader;
 
+import ataa2014.SimulatedHuman;
 import rlVizLib.general.ParameterHolder;
 import rlVizLib.general.hasVersionDetails;
 import rlVizLib.messaging.environmentShell.TaskSpecPayload;
@@ -36,6 +37,11 @@ HasImageInterface {
 	
 	public GeneralMario(ParameterHolder p) {
 		setParameters(p);
+	}
+	
+	public GeneralMario(SimulatedHuman h) {
+		// set parameters is called in super
+		super(h);		
 	}
 
 	
@@ -69,7 +75,9 @@ HasImageInterface {
 //        }
 //    }
     
-    /**
+    
+
+	/**
      * How many state variables are there (used for value function drawing)
      * @return
      */

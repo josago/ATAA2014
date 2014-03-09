@@ -136,7 +136,7 @@ public class NeuralNet extends RegressionModel
 	{	
 		neuralNet.setInput(feats);
 		neuralNet.calculate();
-		System.out.println("NN output: " + neuralNet.getOutput()[0]);
+		//System.out.println("NN output: " + neuralNet.getOutput()[0]);
 		return neuralNet.getOutput()[0];
 	}
 

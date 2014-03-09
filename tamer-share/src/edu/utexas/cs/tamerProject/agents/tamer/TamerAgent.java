@@ -67,9 +67,21 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	//Use a human simulator
 	SimulatedHuman simHuman;
 	
+	public TamerAgent(SimulatedHuman h)
+	{
+		super();
+		simHuman = h;
+	}
+	
+	public TamerAgent()
+	{
+		super();
+	}
+	
 	public SampleWithObsAct[] getLastLearningSamples(){return this.lastLearningSamples;}
     
     
+	
 	// Called when the environment is loaded (when "Load Experiment" is clicked in RLViz)
     public void agent_init(String taskSpec) {
     	GeneralAgent.agent_init(taskSpec, this);
@@ -104,7 +116,8 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 			this.actSelector.setRewModel(this.model);
 		this.endInitHelper();
 		
-		//Add here the adding of the rewards provided by the simulated human
+		//The adding of the rewards provided by the simulated human
+		// CHECK IF USING ADDHREW GOES VIA THE CREDIT ASSIGNER!!!!!!!
 		if(ParamsATAA.useSimulatedHuman)
 		{			
 			final TamerAgent balle = this;
@@ -116,7 +129,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		                
 		            	double reward = simHuman.getFeedback();
 		            	balle.addHRew(reward);
-		            	
+		            	System.out.println("\n-----\nSimulated human feedback requested: " + reward);
 		                try
 		                {
 		                    Thread.sleep(500); // 1000 = 1 second
@@ -397,10 +410,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	    }
 	    
 	    
-	    public void addSimulatedHuman(SimulatedHuman h)
-	    {
-	    	simHuman = h;
-	    }
+	    
 	
 }
 

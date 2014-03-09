@@ -13,6 +13,9 @@ import org.rlcommunity.environments.mountaincar.MountainCar;
 import org.rlcommunity.environments.tetris.Tetris;
 import org.rlcommunity.rlglue.codec.EnvironmentInterface;
 
+import ataa2014.ParamsATAA;
+import ataa2014.SimulatedFast;
+import ataa2014.SimulatedHuman;
 import edu.utexas.cs.tamerProject.agents.GeneralAgent;
 import edu.utexas.cs.tamerProject.agents.imitation.ImitationAgent;
 import edu.utexas.cs.tamerProject.agents.sarsaLambda.SarsaLambdaAgent;
@@ -62,6 +65,14 @@ public class TamerApplet extends RLApplet {
 		String envName = null;
 		String fullLogBoolStr = null;
 		String rewLogBoolStr = null;
+		
+		SimulatedHuman simHuman = null;
+		if(ParamsATAA.useSimulatedHuman)
+		{
+			simHuman = new SimulatedFast();
+		}
+		
+		
 		
 		if (IN_BROWSER) {
 			// Boolean value turns on Mechanical Turk features if true.
@@ -161,9 +172,11 @@ public class TamerApplet extends RLApplet {
 				// agentType undefined; use TAMER by default
 				
 				// OUR AGENT IS INITIALIZED HERE
-				agent = new TamerAgent();
+				if(ParamsATAA.useSimulatedHuman)
+					agent = new TamerAgent(simHuman);
+				else
+					agent = new TamerAgent();
 				
-				System.out.println("ATAA agent is initialized here!!!!");
 			}
 
 		}
@@ -194,7 +207,7 @@ public class TamerApplet extends RLApplet {
 				env = new Acrobot();
 			// OUR ENVIRONMENT IS INITIALIZED HERE!!!!!!!!!
 			else if (envName.equals("mario")){
-				env = new GeneralMario();
+				env = new GeneralMario(simHuman);
 				System.out.println("Mario environment initialized here");
 			}
 		}

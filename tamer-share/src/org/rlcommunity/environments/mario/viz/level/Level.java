@@ -2,6 +2,8 @@ package org.rlcommunity.environments.mario.viz.level;
 
 import java.io.*;
 
+import ataa2014.SimulatedHuman;
+
 
 public class Level
 {
@@ -37,7 +39,8 @@ public class Level
     public SpriteTemplate[][] spriteTemplates;
 
     public int xExit;
-    public int yExit;
+    public int yExit;    
+    
 
     public Level(int width, int height)
     {

@@ -47,6 +47,8 @@ public class HLearner {
 		this.clearHistory();
 	}
 
+	// Time of steps is recorded by the credid assigner (credA) to be able to reconstruct the
+	// credit provided for different time steps.
 	// each time step will have a endTime, which is the next step's startTime
 	public void recordTimeStep(Observation o, Action a, FeatGenerator featGen, double startTime){
 		this.recordTimeStepEnd(startTime);

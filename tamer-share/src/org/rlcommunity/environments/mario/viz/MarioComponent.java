@@ -19,6 +19,9 @@ import org.rlcommunity.environments.mario.FakeGraphics;
 import org.rlcommunity.environments.mario.FakeImage;
 import org.rlcommunity.environments.mario.GlueMario;
 
+import ataa2014.ParamsATAA;
+import ataa2014.SimulatedHuman;
+
 
 public class MarioComponent extends JComponent implements Runnable, KeyListener, FocusListener
 {
@@ -35,6 +38,8 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
     private MapScene mapScene;
 
     private Scale2x scale2x = new Scale2x(320, 240);
+    
+    private SimulatedHuman simHuman;
 
     public MarioComponent(int width, int height)
     {
@@ -68,6 +73,50 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
         }
 
         setFocusable(true);
+        
+    }
+    
+    /**
+     * Constructor for when using a simulated human to provide reinforcement in the human reinforcement
+     * setting
+     * @param width
+     * @param height
+     * @param h = Simulated human
+     */
+    public MarioComponent(int width, int height, SimulatedHuman h)
+    {
+        this.setFocusable(true);
+        this.setEnabled(true);
+        this.width = width;
+        this.height = height;
+        setFocusable(true);
+		setFocusTraversalKeysEnabled(false);
+		setRequestFocusEnabled(true);
+		addKeyListener(this);
+
+        Dimension size = new Dimension(width, height);
+        setPreferredSize(size);
+        setMinimumSize(size);
+        setMaximumSize(size);
+
+        sound = new FakeSoundEngine();
+        try
+        {
+            if (org.rlcommunity.environments.mario.GlueMario.go_quiet) {
+            	throw new LineUnavailableException("No sound when fast or dark");
+            }
+            else {
+            	sound = new SonarSoundEngine(64);
+            }
+        }
+        catch (LineUnavailableException e)
+        {
+            System.out.println(e);
+        }
+
+        setFocusable(true);
+        
+        simHuman = h;
     }
 
     private void toggleKey(int keyCode, boolean isPressed)
@@ -300,8 +349,13 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
     }
 
     public void startLevel(long seed, int difficulty, int type)
-    {
+    {    	
         scene = new LevelScene(graphicsConfiguration, this, seed, difficulty, type);
+        
+        if(ParamsATAA.useSimulatedHuman)
+        	scene.addSimulatedHuman(simHuman);
+        
+        System.out.println("LevelScene generated");
         scene.setSound(sound);
         scene.init();
     }

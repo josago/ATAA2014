@@ -486,6 +486,7 @@ public abstract class GeneralAgent implements AgentInterface{
 //		this.hRewCounter = 0;
     }
     
+    // Here it is 'decided' what feature generater is used.
     public FeatGenerator getFeatGen(Params params) {
 		System.out.println("Creating feature generation class " + params.featClass + ".");
 		FeatGenerator featGen = null;
@@ -521,6 +522,7 @@ public abstract class GeneralAgent implements AgentInterface{
     		featGen = new FeatGen_Tetris(this.theObsIntRanges, this.theObsDoubleRanges, 
     				actIntRanges, actDoubleRanges);
     	}
+		// Guangliangs feature generater, we need to add our thing here. 		
     	else if(params.featClass.equals("FeatGen_Mario")){//added by Guangliang
     		featGen = new FeatGen_Mario(this.theObsIntRanges, this.theObsDoubleRanges, 
     				actIntRanges, actDoubleRanges);
@@ -586,6 +588,9 @@ public abstract class GeneralAgent implements AgentInterface{
     }
 	
     
+    // Here the feature generator is returned based on the parameter setting (getFeatGen)
+    // The function setSupplModel provides the model to the feature generator makes it 
+    // possible to query the model for a prediction using the extracted features.
     public void addModelBasedFeat(String taskSpec, RegressionModel model, FeatGenerator featGen) {
     	this.startInitHelper(taskSpec);
     	//this.featGen = getFeatGen();
@@ -618,6 +623,7 @@ public abstract class GeneralAgent implements AgentInterface{
     
     public abstract Action agent_start(Observation o, double time, Action predeterminedAct);
 
+    // Bunch of initializations called from the class that extends this class (at least TamerAgent)
     protected void startHelper(){
     	//System.out.println("startHelper in " + this.getClass().getSimpleName());
     	this.currEpNum += 1;

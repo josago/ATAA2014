@@ -34,9 +34,7 @@ public class LevelScene extends Scene implements SpriteContext
     public static Image tmpImage;
     private int tick;
     
-    //Added to use a simulated human
-    private SimulatedHuman human;
-    private boolean hasHuman;
+    
     
 
     private LevelRenderer layer;
@@ -65,7 +63,7 @@ public class LevelScene extends Scene implements SpriteContext
 
     public LevelScene(GraphicsConfiguration graphicsConfiguration, MarioComponent renderer, long seed, int levelDifficulty, int type)
     {
-    	this.hasHuman = false;
+    	hasHuman = false;
         this.graphicsConfiguration = graphicsConfiguration;
         this.levelSeed = seed;
         this.renderer = renderer;
@@ -150,6 +148,7 @@ public class LevelScene extends Scene implements SpriteContext
     	
     	//Lydia check if mario got coins
     	int coins_mario = mario.coins;
+    	System.out.println("Level scene tick");
     	
     	if (!org.rlcommunity.environments.mario.GlueMario.glue_running) {
 	        timeLeft--;
@@ -630,11 +629,6 @@ public class LevelScene extends Scene implements SpriteContext
         }
         
         
-    }
+    }    
     
-    public void addSimulatedHuman(SimulatedHuman h){
-    	System.out.println("human added");
-    	human = h;
-    	hasHuman = true;
-    }
 }
