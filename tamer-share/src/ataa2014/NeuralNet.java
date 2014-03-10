@@ -8,7 +8,6 @@ import org.neuroph.core.data.DataSetRow;
 import org.neuroph.core.transfer.TransferFunction;
 import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.nnet.learning.*;
-import org.neuroph.util.TransferFunctionType;
 
 import edu.utexas.cs.tamerProject.modeling.Sample;
 import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
@@ -81,7 +80,7 @@ public class NeuralNet extends RegressionModel
 	
 	public NeuralNet(int num_inputs, int num_hidden, boolean binary_labels)
 	{
-		System.out.println("Initializing neural network with " + num_inputs + " inputs, " + num_hidden + " hidden nodes and 1 output.");
+		//System.out.println("Initializing neural network with " + num_inputs + " inputs, " + num_hidden + " hidden nodes and 1 output.");
 		
 		this.num_inputs = num_inputs;
 		this.num_hidden = num_hidden;
@@ -121,7 +120,7 @@ public class NeuralNet extends RegressionModel
 				outputList.add(new Double(sample.label));
 			}
 			
-			System.err.println("Neural network added instance with label = " + sample.label + " to a list of size " + sampleList.size());
+			//System.err.println("Neural network added instance with label = " + sample.label + " to a list of size " + sampleList.size());
 		//}
 	}
 
@@ -174,6 +173,7 @@ public class NeuralNet extends RegressionModel
 	{
 		/*for (int i = 0; i < neuralNet.getWeights().length; i++)
 		{
+			System.out.print(feats[i] + ", ");
 			System.out.print(neuralNet.getWeights()[i] + ", ");
 		}
 		
@@ -181,7 +181,7 @@ public class NeuralNet extends RegressionModel
 		
 		neuralNet.setInput(feats);
 		neuralNet.calculate();
-		System.out.println("Neural network output for the action (" + feats[0] + ", " + feats[1] + ", " + feats[2] + "): " + neuralNet.getOutput()[0]);
+		//System.out.println("Neural network output for the action (" + feats[0] + ", " + feats[1] + ", " + feats[2] + "): " + neuralNet.getOutput()[0]);
 		return neuralNet.getOutput()[0];
 	}
 
