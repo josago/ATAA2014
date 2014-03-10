@@ -175,6 +175,7 @@ public class CreditAssign{
 	 * be ignored.
 	 */
 	public SampleWithObsAct[] processSamplesAndRemoveFinished(double currTime, boolean inTrainSess) {
+		
 //		println("\n\n\n-------processSamplesAndRemoveFinished");
 		
 		// enforce calling this method at the right time
@@ -414,6 +415,9 @@ public class CreditAssign{
 
 
 	public void processNewHReward(double hReward, double hRewTime){
+		
+		System.out.println("processNewHReward in CresditAssign");
+		
 		//println("-------processNewHRew\nhRewTime: " + String.format("%f", hRewTime) + "hReward: " + hReward);
 		double totalRewardShare = 0.0; // The amount of credit-weighted reward spread across all time steps; 
 									// should equal hReward at end...

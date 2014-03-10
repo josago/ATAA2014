@@ -78,7 +78,7 @@ public class NeuralNet extends RegressionModel
 	
 	public NeuralNet(int num_inputs, int num_hidden)
 	{
-		System.out.println("Initializing neural network with " + num_inputs + " inputs, " + num_hidden + " hidden nodes and 1 output.");
+		//System.out.println("Initializing neural network with " + num_inputs + " inputs, " + num_hidden + " hidden nodes and 1 output.");
 		
 		this.num_inputs = num_inputs;
 		this.num_hidden = num_hidden;
@@ -111,7 +111,7 @@ public class NeuralNet extends RegressionModel
 				outputList.add(sample.label);
 			}
 			
-			System.err.println("Neural network added instance with label = " + sample.label + " to a list of size " + sampleList.size());
+			//System.err.println("Neural network added instance with label = " + sample.label + " to a list of size " + sampleList.size());
 		//}
 	}
 
@@ -163,14 +163,14 @@ public class NeuralNet extends RegressionModel
 		for (int i = 0; i < neuralNet.getWeights().length; i++)
 		{
 			//System.out.print(feats[i] + ", ");
-			System.out.print(neuralNet.getWeights()[i] + ", ");
+			//System.out.print(neuralNet.getWeights()[i] + ", ");
 		}
 		
-		System.out.println();
+		//System.out.println();
 		
 		neuralNet.setInput(feats);
 		neuralNet.calculate();
-		System.out.println("Neural network output for the action (" + feats[0] + ", " + feats[1] + ", " + feats[2] + "): " + neuralNet.getOutput()[0]);
+		//System.out.println("Neural network output for the action (" + feats[0] + ", " + feats[1] + ", " + feats[2] + "): " + neuralNet.getOutput()[0]);
 		return neuralNet.getOutput()[0];
 	}
 
