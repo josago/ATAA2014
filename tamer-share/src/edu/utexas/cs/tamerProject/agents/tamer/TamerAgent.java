@@ -25,6 +25,7 @@ import org.rlcommunity.rlglue.codec.util.AgentLoader;
 
 import ataa2014.ParamsATAA;
 import ataa2014.SimulatedHuman;
+import ataa2014.StateRepresentation;
 import rlVizLib.general.ParameterHolder;
 import rlVizLib.general.hasVersionDetails;
 import edu.utexas.cs.tamerProject.actSelect.ActionSelect;
@@ -66,11 +67,14 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	
 	//Use a human simulator
 	SimulatedHuman simHuman;
+	StateRepresentation featureProcessorHuman;
 	
 	public TamerAgent(SimulatedHuman h)
 	{
 		super();
-		simHuman = h;		
+		simHuman = h;	
+		featureProcessorHuman = new StateRepresentation(this.theObsIntRanges, this.theObsDoubleRanges, 
+				this.theActIntRanges, this.theActDoubleRanges);
 	}
 	
 	public TamerAgent()
@@ -177,8 +181,9 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     	{	    	
 	    	if(lastObsAndAct.getAct() != null && lastObsAndAct.getObs() != null){
 	    		System.out.println("Updated simulated human with features and action");
-	    		System.out.println(this.getInTrainSess());
-	    		simHuman.addInformation(featGen.getFeats(lastObsAndAct.getObs(), lastObsAndAct.getAct()));
+
+	    		simHuman.addInformation(featureProcessorHuman.getFeats(lastObsAndAct.getObs(), lastObsAndAct.getAct()));
+
 	    	}	    	
     	}
     	return agent_step(r, o, startTime, predeterminedAct, this.lastObsAndAct.getAct());
