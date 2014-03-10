@@ -12,16 +12,15 @@ public class SimulatedHuman {
 	
 	public static enum Event {hurtByEnemy, wasShooting, gotPowerUp, killedEnemy, gotCoin, wasRunning, carryingSomething, nothing, threwSomething};
 	
-	public ArrayList <StateRepresentation> stateMemory;
+	public ArrayList <double[]> stateMemory;
 	public ArrayList <ArrayList<SimulatedHuman.Event>> eventMemory;
-	public ArrayList <Integer> actionMemory;
 	public int stepsSinceLastFeedback;	
 	public Random r;
 	public ArrayList<double []> feedbackList; 
 	
 	
 	public SimulatedHuman(){
-		stateMemory = new ArrayList <StateRepresentation> ();
+		stateMemory = new ArrayList <double[]> ();
 		eventMemory = new ArrayList<ArrayList <SimulatedHuman.Event>>();
 		stepsSinceLastFeedback = 1000;
 		for(int i = 0; i< SimulatedHuman.sizeMemeory; i++){
@@ -54,11 +53,9 @@ public class SimulatedHuman {
 	// TODO: make sure this gets called somewhere by the controller or something	
 	public void addInformation(double[] feats) {
 		//TODO: process features
-		//stateMemory.add(s);
-		//actionMemory.add(action);
+		stateMemory.add(feats);
 		if (stateMemory.size() > SimulatedHuman.sizeMemeory){			
 			stateMemory.remove(0);
-			actionMemory.remove(0);
 		}
 		
 	}
@@ -66,7 +63,6 @@ public class SimulatedHuman {
 	
 	public void receiveEvent(Event e) {
 		eventMemory.get(eventMemory.size()-1).add(e);	
-		System.out.println("Event received, feedback: " + getFeedback()); 
 	}
 	
 	

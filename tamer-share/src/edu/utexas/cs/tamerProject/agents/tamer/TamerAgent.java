@@ -126,7 +126,10 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		//The adding of the rewards provided by the simulated human
 		// CHECK IF USING ADDHREW GOES VIA THE CREDIT ASSIGNER!!!!!!!
 		if(ParamsATAA.useSimulatedHuman)
-		{			
+		{
+			if(!this.inTrainSess)
+				this.inTrainSess = true;
+			
 			final TamerAgent balle = this;
 		    Thread randomRewthread = new Thread()
 		    {
@@ -174,6 +177,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     	{	    	
 	    	if(lastObsAndAct.getAct() != null && lastObsAndAct.getObs() != null){
 	    		System.out.println("Updated simulated human with features and action");
+	    		System.out.println(this.getInTrainSess());
 	    		simHuman.addInformation(featGen.getFeats(lastObsAndAct.getObs(), lastObsAndAct.getAct()));
 	    	}	    	
     	}
@@ -181,7 +185,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     }
     
     public Action agent_step(double r, Observation o, double startTime, Action predeterminedAct, Action tieBreakAction) {
-    	System.out.println("\n-----------------Tamer step---------------\n");
+    	//System.out.println("\n-----------------Tamer step---------------\n");
     	//System.out.println("Training? " + this.inTrainSess);
     	//System.out.println("r:"+r);
     	//System.out.println("Tamer obs intArray: " + Arrays.toString(o.intArray));
@@ -194,7 +198,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     	//System.out.println("rew list in TAMER: " + this.hRewList.toString());
     	this.stepStartTime = startTime;
 		this.stepStartHelper(r, o); // this.stepStartTime (set in stepStartHelper()) ends last step and starts new step
-		System.out.println("TAMER this.stepStartTime: " + String.format("%f", this.stepStartTime));
+		//System.out.println("TAMER this.stepStartTime: " + String.format("%f", this.stepStartTime));
     	this.hLearner.recordTimeStepEnd(startTime);
 //    	if (this.stepsThisEp > 1)
 //    		System.out.println("Tamer feats for last obs-act: " + Arrays.toString(this.featGen.getFeats(o, this.lastObsAndAct.getAct())));
