@@ -8,6 +8,7 @@ import org.neuroph.core.data.DataSetRow;
 import org.neuroph.core.transfer.TransferFunction;
 import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.nnet.learning.*;
+import org.neuroph.util.TransferFunctionType;
 
 import edu.utexas.cs.tamerProject.modeling.Sample;
 import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
@@ -18,8 +19,8 @@ import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
  */
 public class NeuralNet extends RegressionModel
 {
-	public static final double LEARNING_RATE = 0.1;
-	public static final double MOMENTUM_RATE = 0.0;
+	public static final double LEARNING_RATE = 0.0001;
+	public static final double MOMENTUM_RATE = 0.01;
 	
 	public static final int MAX_ITERATIONS = 1000;
 	
@@ -30,6 +31,8 @@ public class NeuralNet extends RegressionModel
 	
 	private final int num_inputs;
 	private final int num_hidden;
+	
+	private final boolean binary_labels;
 	
 	private class Sigmoid extends TransferFunction
 	{
@@ -45,7 +48,7 @@ public class NeuralNet extends RegressionModel
 		@Override
 		public double getOutput(double net)
 		{
-			double o = factor * (net / Math.sqrt(1 + Math.pow(net, 2)));
+			double o = factor * (net / (3 * Math.sqrt(1 + Math.pow(net / 3, 2))));
 				
 			if (Double.isNaN(o))
 			{
@@ -58,30 +61,32 @@ public class NeuralNet extends RegressionModel
 					return -1;
 				}
 			}
-			
+			//System.out.println("Output: " + o);
 			return o;
 		}
 		
 		@Override
 		public double getDerivative(double net)
 		{
-			double d = factor / (Math.pow(1 + Math.pow(net, 2), 3.0 / 2.0));
+			double d = (9 * factor) / (Math.pow(9 + Math.pow(net, 2), 3.0 / 2.0));
 			
 			if (Double.isNaN(d))
 			{
 				return 0;
 			}
-			
+			//System.out.println("Derivative: " + d);
 			return d;
 		}
 	}
 	
-	public NeuralNet(int num_inputs, int num_hidden)
+	public NeuralNet(int num_inputs, int num_hidden, boolean binary_labels)
 	{
 		System.out.println("Initializing neural network with " + num_inputs + " inputs, " + num_hidden + " hidden nodes and 1 output.");
 		
 		this.num_inputs = num_inputs;
 		this.num_hidden = num_hidden;
+		
+		this.binary_labels = binary_labels;
 		
 		clearSamplesAndReset();
 	}
@@ -89,6 +94,11 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void addInstance(Sample sample)
 	{
+		if (binary_labels && sample.label != 0)
+		{
+			sample.label = sample.label > 0 ? 1 : -1;
+		}
+		
 		//if (sample.label != 0.0)
 		//{
 			boolean found = false;
@@ -98,7 +108,7 @@ public class NeuralNet extends RegressionModel
 				if (Arrays.equals(sample.feats, sampleList.get(i)))
 				{
 					outputList.set(i, (outputList.get(i) + sample.label) / 2); // Weighted average.
-					//outputList.set(i, sample.label); // Latest value.
+					//outputList.set(i, new Double(sample.label)); // Latest value.
 					
 					found = true;
 					break;
@@ -108,7 +118,7 @@ public class NeuralNet extends RegressionModel
 			if (!found)
 			{
 				sampleList.add(sample.feats);
-				outputList.add(sample.label);
+				outputList.add(new Double(sample.label));
 			}
 			
 			System.err.println("Neural network added instance with label = " + sample.label + " to a list of size " + sampleList.size());
@@ -137,17 +147,19 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void buildModel()
 	{
-		DataSet trainingSet = new DataSet(num_inputs, 1);	
+		DataSet trainingSet = new DataSet(num_inputs, 1);
 		
-		for (int i = 0; i < sampleList.size(); i++){
+		for (int i = 0; i < sampleList.size(); i++)
+		{
 			trainingSet.addRow(new DataSetRow(sampleList.get(i), new double[]{outputList.get(i)}));
 		}
-	   
+
+		resetNetwork();
 	    neuralNet.learnInNewThread(trainingSet);
 	    
 	    try
 	    {
-			Thread.sleep(1000 / 24);
+			Thread.sleep(1000 / 8);
 		}
 	    catch (InterruptedException e)
 		{
@@ -160,13 +172,12 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public double predictLabel(double[] feats)
 	{
-		for (int i = 0; i < neuralNet.getWeights().length; i++)
+		/*for (int i = 0; i < neuralNet.getWeights().length; i++)
 		{
-			//System.out.print(feats[i] + ", ");
 			System.out.print(neuralNet.getWeights()[i] + ", ");
 		}
 		
-		System.out.println();
+		System.out.println();*/
 		
 		neuralNet.setInput(feats);
 		neuralNet.calculate();
@@ -177,25 +188,41 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void clearSamplesAndReset()
 	{
-		outputList = new ArrayList <Double>();
-		sampleList = new ArrayList <double[]>();
-		
+		clearSamples();
+		resetNetwork();
+	}
+	
+	private void clearSamples()
+	{
+		outputList = new ArrayList<Double>();
+		sampleList = new ArrayList<double[]>();
+	}
+	
+	private void resetNetwork()
+	{
 		neuralNet = new MultiLayerPerceptron(num_inputs, num_hidden, 1);
-		neuralNet.randomizeWeights();
 		
 		for (int i = 0; i < num_hidden; i++)
 		{
 			neuralNet.getLayerAt(1).getNeuronAt(i).setTransferFunction(new Sigmoid(1));
 		}
 		
-		neuralNet.getLayerAt(2).getNeuronAt(0).setTransferFunction(new Sigmoid(10));
+		if (binary_labels)
+		{
+			neuralNet.getLayerAt(2).getNeuronAt(0).setTransferFunction(new Sigmoid(1));
+		}
+		else
+		{
+			neuralNet.getLayerAt(2).getNeuronAt(0).setTransferFunction(new Sigmoid(10));
+		}
 		
 		MomentumBackpropagation mbp = new MomentumBackpropagation();
 		
+		mbp.setMaxError(0.01);
 		mbp.setLearningRate(LEARNING_RATE);
 		mbp.setMomentum(MOMENTUM_RATE);
 		mbp.setMaxIterations(MAX_ITERATIONS);
 		
-		neuralNet.setLearningRule(new MomentumBackpropagation());	    
+		neuralNet.setLearningRule(mbp);
 	}
 }

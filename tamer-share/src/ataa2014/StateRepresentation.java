@@ -14,7 +14,7 @@ import org.rlcommunity.rlglue.codec.types.Observation;
 public class StateRepresentation extends FeatGenerator
 {
 	public final static int FEATURES_ACTION = 3;  // Number of features generated from the Action objects.
-	public final static int FEATURES_STATE  = 34; // Number of features generated from the Observation objects.
+	public final static int FEATURES_STATE  = 36; // Number of features generated from the Observation objects.
 	
 	public final static int VIEW_WIDTH  = 20; // Expressed in game blocks.
 	public final static int VIEW_HEIGHT = 15; // Expressed in game blocks.
@@ -41,8 +41,8 @@ public class StateRepresentation extends FeatGenerator
 	public static final int ENTITY_STEP               = 15;
 	public static final int ENTITY_PLATFORM           = 16;
 	
-	public static final int STATE_LARGE = 32; // Use this index directly.
-	public static final int STATE_FIRE  = 33; // Use this index directly.
+	public static final int STATE_LARGE = 34; // Use this index directly.
+	public static final int STATE_FIRE  = 35; // Use this index directly.
 	
 	public static final int VECTOR_DX = 0; // Horizontal distance to an entity.
 	public static final int VECTOR_DY = 1; // Vertical distance to an entity.
