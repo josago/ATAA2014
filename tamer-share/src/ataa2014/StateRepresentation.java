@@ -95,6 +95,8 @@ public class StateRepresentation extends FeatGenerator
 	// private final static int SPRITE_FIREBALL   = 8; // We don't encode fire balls in our state representation.
 	private final static int SPRITE_SHELL      = 9;
 	
+	private double[] lastMarioCoords;
+	
 	public StateRepresentation(int[][] theObsIntRanges, double[][] theObsDoubleRanges, int[][] theActIntRanges, double[][] theActDoubleRanges)
 	{
 		super(theObsIntRanges, theObsDoubleRanges, theActIntRanges, theActDoubleRanges);
@@ -161,6 +163,15 @@ public class StateRepresentation extends FeatGenerator
 		double[] v = new double[FEATURES_STATE];
 		
 		double[] coords_mario = coordsMario(v, obs.intArray, obs.doubleArray);
+		
+		if (coords_mario == null)
+		{
+			coords_mario = lastMarioCoords;
+		}
+		else
+		{
+			lastMarioCoords = coords_mario;
+		}
 		
 		addClosestSprites(v,                obs.intArray, obs.doubleArray, coords_mario);
 		addClosestPit(    v, obs.charArray,                                coords_mario);

@@ -159,8 +159,8 @@ public class Params{
 			else if (envName.equals("Mario")){
 				//PROJECT ATAA PARAMS HERE:
 				
-				params.featClass = "FeatGen_Mario";
-				//params.featClass = "StateRepresentation";
+				//params.featClass = "FeatGen_Mario";
+				params.featClass = "StateRepresentation";
 				
 				//params.modelClass =  "WekaModelPerActionModel"; // "WekaModel";
 				//params.wekaModelName = "M5P";

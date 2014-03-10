@@ -7,8 +7,7 @@ import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.neuroph.core.transfer.TransferFunction;
 import org.neuroph.nnet.MultiLayerPerceptron;
-import org.neuroph.nnet.learning.LMS;
-import org.neuroph.util.TransferFunctionType;
+import org.neuroph.nnet.learning.*;
 
 import edu.utexas.cs.tamerProject.modeling.Sample;
 import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
@@ -19,7 +18,10 @@ import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
  */
 public class NeuralNet extends RegressionModel
 {
-	public static final double LEARNING_RATE = 0.01;
+	public static final double LEARNING_RATE = 0.1;
+	public static final double MOMENTUM_RATE = 0.0;
+	
+	public static final int MAX_ITERATIONS = 1000;
 	
 	private ArrayList<Double>   outputList;
 	private ArrayList<double[]> sampleList;
@@ -29,20 +31,48 @@ public class NeuralNet extends RegressionModel
 	private final int num_inputs;
 	private final int num_hidden;
 	
-	private class TransferFunctionCustom extends TransferFunction
+	private class Sigmoid extends TransferFunction
 	{
 		private static final long serialVersionUID = 1L;
+		
+		private final double factor;
+		
+		public Sigmoid(double factor)
+		{
+			this.factor = factor;
+		}
 
 		@Override
 		public double getOutput(double net)
 		{
-			return 10 * Math.tanh(net / 2);
+			double o = factor * (net / Math.sqrt(1 + Math.pow(net, 2)));
+				
+			if (Double.isNaN(o))
+			{
+				if (net == Double.POSITIVE_INFINITY || net > 0)
+				{
+					return 1;
+				}
+				else
+				{
+					return -1;
+				}
+			}
+			
+			return o;
 		}
 		
 		@Override
 		public double getDerivative(double net)
 		{
-			return 5 * Math.pow((2 * Math.cosh(net / 2)) / (Math.cosh(net) + 1), 2);
+			double d = factor / (Math.pow(1 + Math.pow(net, 2), 3.0 / 2.0));
+			
+			if (Double.isNaN(d))
+			{
+				return 0;
+			}
+			
+			return d;
 		}
 	}
 	
@@ -67,8 +97,8 @@ public class NeuralNet extends RegressionModel
 			{
 				if (Arrays.equals(sample.feats, sampleList.get(i)))
 				{
-					//outputList.set(i, (outputList.get(i) + sample.label) / 2); // Weighted average.
-					outputList.set(i, sample.label); // Latest value.
+					outputList.set(i, (outputList.get(i) + sample.label) / 2); // Weighted average.
+					//outputList.set(i, sample.label); // Latest value.
 					
 					found = true;
 					break;
@@ -81,7 +111,7 @@ public class NeuralNet extends RegressionModel
 				outputList.add(sample.label);
 			}
 			
-			//System.err.println("NN adding instance " + sample.label + " to a list of size " + sampleList.size());
+			System.err.println("Neural network added instance with label = " + sample.label + " to a list of size " + sampleList.size());
 		//}
 	}
 
@@ -129,10 +159,18 @@ public class NeuralNet extends RegressionModel
 
 	@Override
 	public double predictLabel(double[] feats)
-	{	
+	{
+		for (int i = 0; i < neuralNet.getWeights().length; i++)
+		{
+			//System.out.print(feats[i] + ", ");
+			System.out.print(neuralNet.getWeights()[i] + ", ");
+		}
+		
+		System.out.println();
+		
 		neuralNet.setInput(feats);
 		neuralNet.calculate();
-		//System.out.println("NN output: " + neuralNet.getOutput()[0]);
+		System.out.println("Neural network output for the action (" + feats[0] + ", " + feats[1] + ", " + feats[2] + "): " + neuralNet.getOutput()[0]);
 		return neuralNet.getOutput()[0];
 	}
 
@@ -142,13 +180,22 @@ public class NeuralNet extends RegressionModel
 		outputList = new ArrayList <Double>();
 		sampleList = new ArrayList <double[]>();
 		
-		neuralNet = new MultiLayerPerceptron(TransferFunctionType.SIGMOID, num_inputs, num_hidden, 1);
+		neuralNet = new MultiLayerPerceptron(num_inputs, num_hidden, 1);
 		neuralNet.randomizeWeights();
 		
-		neuralNet.getLayerAt(2).getNeuronAt(0).setTransferFunction(new TransferFunctionCustom());
+		for (int i = 0; i < num_hidden; i++)
+		{
+			neuralNet.getLayerAt(1).getNeuronAt(i).setTransferFunction(new Sigmoid(1));
+		}
 		
-	    ((LMS) neuralNet.getLearningRule()).setMaxError(0.001);
-	    ((LMS) neuralNet.getLearningRule()).setLearningRate(LEARNING_RATE);
-	    ((LMS) neuralNet.getLearningRule()).setMaxIterations(Integer.MAX_VALUE);
+		neuralNet.getLayerAt(2).getNeuronAt(0).setTransferFunction(new Sigmoid(10));
+		
+		MomentumBackpropagation mbp = new MomentumBackpropagation();
+		
+		mbp.setLearningRate(LEARNING_RATE);
+		mbp.setMomentum(MOMENTUM_RATE);
+		mbp.setMaxIterations(MAX_ITERATIONS);
+		
+		neuralNet.setLearningRule(new MomentumBackpropagation());	    
 	}
 }
