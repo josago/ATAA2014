@@ -41,6 +41,7 @@ import org.rlcommunity.rlglue.codec.types.Action;
 import org.rlcommunity.rlglue.codec.types.Observation;
 
 import ataa2014.NeuralNet;
+import ataa2014.StateRepresentation;
 import rlVizLib.general.ParameterHolder;
 import rlVizLib.general.hasVersionDetails;
 import rlVizLib.messaging.NotAnRLVizMessageException;
@@ -522,9 +523,13 @@ public abstract class GeneralAgent implements AgentInterface{
     		featGen = new FeatGen_Tetris(this.theObsIntRanges, this.theObsDoubleRanges, 
     				actIntRanges, actDoubleRanges);
     	}
-		// Guangliangs feature generater, we need to add our thing here. 		
-    	else if(params.featClass.equals("FeatGen_Mario")){//added by Guangliang
+		// Guangliang's feature generater, we need to add our thing here. 		
+    	else if (params.featClass.equals("FeatGen_Mario")){//added by Guangliang
     		featGen = new FeatGen_Mario(this.theObsIntRanges, this.theObsDoubleRanges, 
+    				actIntRanges, actDoubleRanges);
+    	}
+    	else if (params.featClass.equals("StateRepresentation")){ // Note by josago: this initializes our state representation:
+    		featGen = new StateRepresentation(this.theObsIntRanges, this.theObsDoubleRanges, 
     				actIntRanges, actDoubleRanges);
     	}
     	else {
@@ -573,8 +578,11 @@ public abstract class GeneralAgent implements AgentInterface{
 																this.params.traceType);
     	}
     	
-    	else if(this.params.modelClass.equals("NeuralNet")){
-    		this.model = new NeuralNet(this.featGen.getNumFeatures(), 10); // TODO: Number of hidden units.
+    	// Note by josago: Initialization of our neural network comes here:
+    	
+    	else if (this.params.modelClass.equals("NeuralNet"))
+    	{
+    		this.model = new NeuralNet(this.featGen.getNumFeatures(), this.featGen.getNumFeatures() / 6); // TODO: Decide on the number of hidden units.
     		this.model.setFeatGen(this.featGen);
     	}
     	else {

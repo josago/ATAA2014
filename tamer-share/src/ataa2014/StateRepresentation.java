@@ -13,6 +13,9 @@ import org.rlcommunity.rlglue.codec.types.Observation;
  */
 public class StateRepresentation extends FeatGenerator
 {
+	public final static int FEATURES_ACTION = 3;  // Number of features generated from the Action objects.
+	public final static int FEATURES_STATE  = 34; // Number of features generated from the Observation objects.
+	
 	public final static int VIEW_WIDTH  = 20; // Expressed in game blocks.
 	public final static int VIEW_HEIGHT = 15; // Expressed in game blocks.
 	
@@ -98,6 +101,12 @@ public class StateRepresentation extends FeatGenerator
 		
 		// Note from josago: It seems we don't need to do anything else in here.
 	}
+	
+	@Override
+	public int getNumFeatures()
+	{
+		return FEATURES_ACTION + FEATURES_STATE;
+	}
 
 	/**
 	 * This method returns a list of indices that indicate where the action features lie in the vectors returned by the other methods of this class.
@@ -105,8 +114,7 @@ public class StateRepresentation extends FeatGenerator
 	@Override
 	public int[] getActionFeatIndices()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new int[]{0, 1, 2};
 	}
 
 	/**
@@ -116,8 +124,13 @@ public class StateRepresentation extends FeatGenerator
 	@Override
 	public int[] getNumFeatValsPerFeatI()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		int[] output = new int[FEATURES_ACTION + FEATURES_STATE];
+		
+		output[0] = 3;
+		output[1] = 2;
+		output[2] = 2;
+		
+		return output;
 	}
 
 	/**
@@ -126,14 +139,14 @@ public class StateRepresentation extends FeatGenerator
 	@Override
 	public double[] getSAFeats(Observation obs, Action act)
 	{
-		double[] SFeats = getSFeats(obs);
 		double[] AFeats = getAFeats(act);
+		double[] SFeats = getSFeats(obs);
 		
-		double[] SAFeats = Arrays.copyOf(SFeats, SFeats.length + AFeats.length);
+		double[] SAFeats = Arrays.copyOf(AFeats, AFeats.length + SFeats.length);
 		
-		for (int i = SFeats.length; i < SAFeats.length; i++)
+		for (int i = AFeats.length; i < SAFeats.length; i++)
 		{
-			SAFeats[i] = AFeats[i - SFeats.length];
+			SAFeats[i] = SFeats[i - AFeats.length];
 		}
 		
 		return SAFeats;
@@ -145,7 +158,7 @@ public class StateRepresentation extends FeatGenerator
 	@Override
 	public double[] getSFeats(Observation obs)
 	{
-		double[] v = new double[34];
+		double[] v = new double[FEATURES_STATE];
 		
 		double[] coords_mario = coordsMario(v, obs.intArray, obs.doubleArray);
 		
@@ -164,7 +177,14 @@ public class StateRepresentation extends FeatGenerator
 	
 	private double[] getAFeats(Action act)
 	{
-		return new double[0];
+		double[] v = new double[FEATURES_ACTION];
+
+		for (int i = 0; i < act.intArray.length; i++)
+		{
+			v[i] = act.intArray[i];
+		}
+		
+		return v;
 	}
 	
 	// The following overriden methods are not implemented in the original TAMER class FeatGen_Mario, so we won't be implementing them here either:

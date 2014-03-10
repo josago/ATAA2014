@@ -160,6 +160,8 @@ public class Params{
 				//PROJECT ATAA PARAMS HERE:
 				
 				params.featClass = "FeatGen_Mario";
+				//params.featClass = "StateRepresentation";
+				
 				//params.modelClass =  "WekaModelPerActionModel"; // "WekaModel";
 				//params.wekaModelName = "M5P";
 				params.modelClass = "NeuralNet";
