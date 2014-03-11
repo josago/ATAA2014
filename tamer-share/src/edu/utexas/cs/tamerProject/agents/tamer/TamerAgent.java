@@ -72,9 +72,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	public TamerAgent(SimulatedHuman h)
 	{
 		super();
-		simHuman = h;	
-		featureProcessorHuman = new StateRepresentation(this.theObsIntRanges, this.theObsDoubleRanges, 
-				this.theActIntRanges, this.theActDoubleRanges);
+		simHuman = h;			
 	}
 	
 	public TamerAgent()
@@ -95,6 +93,8 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     	{
     		System.out.println("Simulated human added to regression model");
     		model.addSimulatedHuman(simHuman);
+    		featureProcessorHuman = new StateRepresentation(this.theObsIntRanges, this.theObsDoubleRanges, 
+    				this.theActIntRanges, this.theActDoubleRanges);
     	}
 		
 		//// CREATE CreditAssignParamVec
@@ -143,7 +143,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		                
 		            	double reward = simHuman.getFeedback();
 		            	balle.addHRew(reward);
-		            	System.out.println("\n-----\nReward from simulated human added: " + reward + "\n----------");
+		            	//System.out.println("\n-----\nReward from simulated human added: " + reward + "\n----------");
 		                try
 		                {
 		                    Thread.sleep(ParamsATAA.in_between_time_feedback_request_human_simulator);
@@ -180,8 +180,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     	if(ParamsATAA.useSimulatedHuman)
     	{	    	
 	    	if(lastObsAndAct.getAct() != null && lastObsAndAct.getObs() != null){
-	    		System.out.println("Updated simulated human with features and action");
-
+	    		//System.out.println("Updated simulated human with features and action");
 	    		simHuman.addInformation(featureProcessorHuman.getFeats(lastObsAndAct.getObs(), lastObsAndAct.getAct()));
 
 	    	}	    	
@@ -218,7 +217,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		
 		try{
 			for(SampleWithObsAct sample: this.lastLearningSamples){
-				System.out.println("Sample Value: " + sample.label);
+				;//System.out.println("Sample Value: " + sample.label);
 				 //System.out.println("Obs: " + Arrays.toString(sample.obs.intArray) + "Act: " + Arrays.toString(sample.act.intArray));
 			}
 		}
@@ -274,7 +273,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	protected void processPrevTimeStep(double borderTime){
 		//inTrainSess=true;//guangliang add
 		//inTrainSess=!this.hRewThisStep.isEmpty();//added by guangliang, no training no updating model
-		System.out.print("inTrainSess "+inTrainSess);
+		//System.out.print("inTrainSess "+inTrainSess);
 		if (inTrainSess) //// UPDATE
 			this.hLearner.processHRew(this.hRewThisStep);
 

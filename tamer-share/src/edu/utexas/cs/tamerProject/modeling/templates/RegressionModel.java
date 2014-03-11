@@ -41,19 +41,19 @@ public abstract class RegressionModel implements ObsActModel{
 	public double predictLabel(Observation obs, Action act){
 		double[] feats = this.featGen.getFeats(obs, act);
 		
-		
+		/*
 		//Lydia: Dit gebeurd nu nog met alle acties ipv alleen de genomen actie!!!!!!
 		if(ParamsATAA.useSimulatedHuman)
 		{
-			System.out.println("\n****************\nFeatures added to simulated human \n **************");
+			//System.out.println("\n****************\nFeatures added to simulated human \n **************");
 			if(simHuman == null){
-				System.out.println("Simulated human supposed to be present in regressionmodel");
+				;//System.out.println("Simulated human supposed to be present in regressionmodel");
 			}
 			else
 			{
 				simHuman.addInformation(feats);
 			}
-		}
+		}*/
 		double label = this.predictLabel(feats);
 		return label;
 		//return (this.predictLabel(this.featGen.getFeats(obs, act)));

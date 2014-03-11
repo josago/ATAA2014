@@ -81,7 +81,7 @@ public class HLearner {
 
 
 	public void processHRew(ArrayList<HRew> hRewThisStep){
-		System.out.println("\n\nprocessHRew in HLearner");
+		//System.out.println("\n\nprocessHRew in HLearner");
 		//System.out.println("Updating with human reward. Size: " + hRewThisStep.size());
 		//Sample[] newSamples = new Sample[0];
 		for (HRew hRew: hRewThisStep) {
