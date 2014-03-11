@@ -160,8 +160,8 @@ public abstract class GeneralAgent implements AgentInterface{
 	protected boolean learningOnly = false;
     
 	public void processPreInitArgs(String[] args) {
-		System.out.println("\n[------Process pre-init args in " + this.getClass().getSimpleName() 
-				+ "------] " + Arrays.toString(args));
+		//System.out.println("\n[------Process pre-init args in " + this.getClass().getSimpleName() 
+		//		+ "------] " + Arrays.toString(args));
 		for (int i = 0; i < args.length; i++) {
     		String argType = args[i];
     		if (argType.equals("-expName") && (i+1) < args.length){
@@ -922,12 +922,14 @@ public abstract class GeneralAgent implements AgentInterface{
      * @param obs
      */
     public void checkObs(Observation obs) {
+    	/*
     	if (obs == null)
     		System.err.println("Observation is null.");
     	if (obs.intArray.length != this.theObsIntRanges.length)
     		System.err.println("Unexpected number of observation integers: " + obs.intArray.length + ". Expected: " + this.theObsIntRanges.length);
     	if (obs.doubleArray.length != this.theObsDoubleRanges.length)
     		System.err.println("Unexpected number of observation doubles: " + obs.doubleArray.length + ". Expected: " + this.theObsDoubleRanges.length);
+    	*/
     }
     
 	protected void overwriteLastObsAndAct(GeneralAgent agent) {
