@@ -26,6 +26,7 @@ import org.rlcommunity.rlviz.app.VisualizerFactory;
 import org.rlcommunity.rlviz.app.VisualizerPanel;
 import org.rlcommunity.rlviz.app.frames.VisualizerVizFrame;
 
+import ataa2014.ParamsATAA;
 import rlVizLib.messaging.environment.EnvVisualizerNameRequest;
 import rlVizLib.messaging.environment.EnvVisualizerNameResponse;
 import rlVizLib.visualization.AbstractVisualizer;
@@ -73,7 +74,15 @@ public class RLPanel extends JPanel
 		addMouseListener(this);
 		//setDoubleBuffered(true);
 		setBackground(Color.white);	
+		
+		// Resize thing here if ATAA experiment????? Maybe then it works
+		if(ParamsATAA.ATAA_Exp)
+		{
+			this.setSize(200, 200);
+		}
+		
 		System.out.println("RLPanel size after in RLPanel.init(): " + this.getWidth() + ", " + this.getHeight());
+		
 
 		runLocal = new RunLocalExperiment();
 		runLocal.theAgent = agent;

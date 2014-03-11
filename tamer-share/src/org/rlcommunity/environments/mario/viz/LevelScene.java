@@ -13,8 +13,7 @@ import org.rlcommunity.environments.mario.viz.sprites.*;
 import org.rlcommunity.environments.mario.sonar.FixedSoundSource;
 import org.rlcommunity.environments.mario.viz.level.*;
 
-
-
+import ataa2014.ParamsATAA;
 import ataa2014.SimulatedHuman;
 
 
@@ -75,8 +74,17 @@ public class LevelScene extends Scene implements SpriteContext
     {
         try
         {
+        	//System.out.println("Current directory = " + System.getProperty("user.dir"));
+        	String p = "";
+        	if(ParamsATAA.ATAA_Exp)
+        		p = "src/org/rlcommunity/environments/mario/res/tiles.dat";
+        	
             //Level.loadBehaviors(new DataInputStream(LevelScene.class.getResourceAsStream("res/tiles.dat")));//guangliang changed
-        	Level.loadBehaviors(new DataInputStream(new FileInputStream("../src/org/rlcommunity/environments/mario/res/tiles.dat")));
+        	else
+        		p = "../src/org/rlcommunity/environments/mario/res/tiles.dat";
+        		
+        	Level.loadBehaviors(new DataInputStream(new FileInputStream(p)));
+        	
         }
         catch (IOException e)
         {

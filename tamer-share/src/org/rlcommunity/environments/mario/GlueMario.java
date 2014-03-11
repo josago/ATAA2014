@@ -147,6 +147,9 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 	}
 	
 	public static void restartLevel() {
+		
+		System.out.println("StartLevel called with level difficulty = " + param.level_difficulty);
+		
 		if (!glue_running) return;
 		comp.startLevel(param.level_seed, param.level_difficulty, param.level_type);
 		ticks_since_last_action = 0;
@@ -686,6 +689,10 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 		}
 	} 
 	
+	/**
+	 * Settings for the levels that are actually used
+	 * @return
+	 */
 	public static ParameterHolder getDefaultParameters() {
 		ParameterHolder p = new ParameterHolder();
 
@@ -696,7 +703,9 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 		
 		p.addIntegerParam("level seed", 121);
 		p.addIntegerParam("level type", 0);
-		p.addIntegerParam("level difficulty", 0);
+		
+		// Parameter level difficulty that is actually used		
+		p.addIntegerParam("level difficulty", 2);
 		
 		p.addIntegerParam("instance", 0);
 		/*

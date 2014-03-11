@@ -49,6 +49,7 @@ public class LevelGenerator
 
     protected Level createLevel(long seed, int difficulty, int type)
     {
+    	//System.out.println("\n@@@@@@@@@@@@@@@@@@@@@@@@Level is actually generated random based on seed\ndifficulty: " + difficulty);
         this.type = type;
         this.difficulty = difficulty;
         odds[ODDS_STRAIGHT] = 20;
@@ -150,6 +151,12 @@ public class LevelGenerator
         return 0;
     }
 
+    /**
+     * Lydia: Pits are created here 
+     * @param xo
+     * @param maxLength
+     * @return
+     */
     protected int buildJump(int xo, int maxLength)
     {
         int js = random.nextInt(4) + 2;
