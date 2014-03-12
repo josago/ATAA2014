@@ -28,7 +28,7 @@ public class SimulatedHuman {
 		feedbackList = new ArrayList<double []>();
 	}
 
-	public double getFeedback() {		
+	public double getFeedback() {
 		for(double[] elem: feedbackList){
 			elem[0] -= 1.0;
 		}
@@ -56,7 +56,7 @@ public class SimulatedHuman {
 		if (stateMemory.size() > SimulatedHuman.sizeMemeory){			
 			stateMemory.remove(0);
 		}
-		System.out.println();
+		
 		
 	}
 
