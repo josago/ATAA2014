@@ -8,6 +8,8 @@ import javax.sound.sampled.*;
 import org.rlcommunity.environments.mario.sonar.mixer.ListenerMixer;
 import org.rlcommunity.environments.mario.sonar.sample.*;
 
+import ataa2014.ParamsATAA;
+
 
 public class SonarSoundEngine implements Runnable
 {
@@ -71,9 +73,15 @@ public class SonarSoundEngine implements Runnable
 
     public SonarSample loadSample(String resourceName)
     {
+    	String p = "";
+    	if(ParamsATAA.ATAA_Exp)
+    		p = "src/org/rlcommunity/environments/mario/res";
+    	else
+    		p = "../src/org/rlcommunity/environments/mario/res";
+    			
         try
         {
-            return SampleLoader.loadSample("../src/org/rlcommunity/environments/mario/res" + resourceName);
+            return SampleLoader.loadSample(p + resourceName);
         }
         catch (Exception e)
         {

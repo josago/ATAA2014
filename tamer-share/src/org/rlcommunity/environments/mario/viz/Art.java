@@ -18,6 +18,8 @@ import javax.sound.midi.Sequencer;
 import org.rlcommunity.environments.mario.sonar.SonarSoundEngine;
 import org.rlcommunity.environments.mario.sonar.sample.SonarSample;
 
+import ataa2014.ParamsATAA;
+
 
 public class Art
 {
@@ -61,20 +63,25 @@ public class Art
     {
         try
         {
-            mario = cutImage(gc, "../src/org/rlcommunity/environments/mario/res/mariosheet.png", 32, 32);
-            smallMario = cutImage(gc, "../src/org/rlcommunity/environments/mario/res/smallmariosheet.png", 16, 16);
-            fireMario = cutImage(gc, "../src/org/rlcommunity/environments/mario/res/firemariosheet.png", 32, 32);
-            enemies = cutImage(gc, "../src/org/rlcommunity/environments/mario/res/enemysheet.png", 16, 32);
-            items = cutImage(gc, "../src/org/rlcommunity/environments/mario/res/itemsheet.png", 16, 16);
-            level = cutImage(gc, "../src/org/rlcommunity/environments/mario/res/mapsheet.png", 16, 16);
-            map = cutImage(gc, "../src/org/rlcommunity/environments/mario/res/worldmap.png", 16, 16);
-            particles = cutImage(gc, "../src/org/rlcommunity/environments/mario/res/particlesheet.png", 8, 8);
-            bg = cutImage(gc, "../src/org/rlcommunity/environments/mario/res/bgsheet.png", 32, 32);
-            logo = getImage(gc, "../src/org/rlcommunity/environments/mario/res/logo.gif");
-            titleScreen = getImage(gc, "../src/org/rlcommunity/environments/mario/res/title.gif");
-            font = cutImage(gc, "../src/org/rlcommunity/environments/mario/res/font.gif", 8, 8);
-            endScene = cutImage(gc, "../src/org/rlcommunity/environments/mario/res/endscene.gif", 96, 96);
-            gameOver = cutImage(gc, "../src/org/rlcommunity/environments/mario/res/gameovergost.gif", 96, 64);
+        	String prefix = "";
+        	if(ParamsATAA.ATAA_Exp)
+        		prefix = "src/org/rlcommunity/environments/mario/res/";
+        	else
+        		prefix = "../src/org/rlcommunity/environments/mario/res/";
+            mario = cutImage(gc, prefix + "mariosheet.png", 32, 32);
+            smallMario = cutImage(gc, prefix + "smallmariosheet.png", 16, 16);
+            fireMario = cutImage(gc, prefix + "firemariosheet.png", 32, 32);
+            enemies = cutImage(gc, prefix + "enemysheet.png", 16, 32);
+            items = cutImage(gc, prefix + "itemsheet.png", 16, 16);
+            level = cutImage(gc, prefix + "mapsheet.png", 16, 16);
+            map = cutImage(gc, prefix + "worldmap.png", 16, 16);
+            particles = cutImage(gc, prefix + "particlesheet.png", 8, 8);
+            bg = cutImage(gc, prefix + "bgsheet.png", 32, 32);
+            logo = getImage(gc, prefix + "logo.gif");
+            titleScreen = getImage(gc, prefix + "title.gif");
+            font = cutImage(gc, prefix + "font.gif", 8, 8);
+            endScene = cutImage(gc, prefix + "endscene.gif", 96, 96);
+            gameOver = cutImage(gc, prefix + "gameovergost.gif", 96, 64);
 
             if (sound != null)
             {
@@ -120,6 +127,8 @@ public class Art
     {
         //BufferedImage source = ImageIO.read(Art.class.getResourceAsStream(imageName));//static way
         //BufferedImage source = ImageIO.read(getClass().getResourceAsStream(imageName));//non-static way
+    	
+    	    	
         BufferedImage source = ImageIO.read(new FileInputStream(imageName));
         Image image = gc.createCompatibleImage(source.getWidth(), source.getHeight(), Transparency.BITMASK);
         Graphics2D g = (Graphics2D) image.getGraphics();

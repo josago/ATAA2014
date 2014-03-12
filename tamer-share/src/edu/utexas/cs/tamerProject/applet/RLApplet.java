@@ -31,10 +31,9 @@ import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.util.*;
 
-import java.util.Properties;
-
-
 import javax.swing.JApplet;
+
+import ataa2014.ParamsATAA;
 
 
 public class RLApplet extends JApplet 
@@ -60,61 +59,71 @@ public class RLApplet extends JApplet
 	
 	
 	public void init() {
+		
+		System.out.println("Init RLApplet");
+		
 		super.init();
 		RunLocalExperiment.isApplet = true;
 		int height = this.getHeight();
 		int width = this.getWidth();
 		rlPanel = makeRLPanel();
-		System.out.println("setting to size: " + width + ", " + height);
-		System.out.println("size before in RLApplet.init(): " + this.getWidth() + ", " + this.getHeight());
-		System.out.flush();
+		//System.out.println("setting to size: " + width + ", " + height);
+		//System.out.println("size before in RLApplet.init(): " + this.getWidth() + ", " + this.getHeight());
+		//System.out.flush();
 		rlPanel.setSize(width, height);
-		System.out.println("size after in RLApplet.init(): " + this.getWidth() + ", " + this.getHeight());
-		System.out.println("rlpanel size after in RLApplet.init(): " + rlPanel.getWidth() + ", " + rlPanel.getHeight());
-		System.out.flush();
+		//System.out.println("size after in RLApplet.init(): " + this.getWidth() + ", " + this.getHeight());
+		//System.out.println("rlpanel size after in RLApplet.init(): " + rlPanel.getWidth() + ", " + rlPanel.getHeight());
+		//System.out.flush();
 		this.setBackground(Color.black);
 
-		if (IN_BROWSER) {
-			
-			// Get max number of episodes from parameters set in HTML; will exit once this limit is reached
-			String numEpsStr = getParameter("numEpisodes");
-			if (numEpsStr != null) RunLocalExperiment.numEpisodes = Integer.parseInt(numEpsStr);
-	
-			// Get max total number of steps from parameters set in HTML; will exit once this limit is reached
-			String maxTotalStepsStr = getParameter("maxTotalSteps");
-			if (maxTotalStepsStr != null)
-				RunLocalExperiment.maxTotalSteps = Integer.parseInt(maxTotalStepsStr);
-				
-			// If set, this gives a number of time steps that one episode must last before the experiment will
-			// end. This can be used while training a subject before an experiment to force a certain control
-			// or training performance before moving to the real experiment.
-			String finishExpAtStepsStr = getParameter("timeRequirement");
-			if (finishExpAtStepsStr != null)
-				RunLocalExperiment.finishExpIfNumStepsInOneEp = Integer.parseInt(finishExpAtStepsStr);		
+		if (IN_BROWSER) {			
+				System.out.println("In browser statement RL Applet");
+			if(! ParamsATAA.ATAA_Exp){
+				// Get max number of episodes from parameters set in HTML; will exit once this limit is reached
+				String numEpsStr = getParameter("numEpisodes");
+				System.out.println("Parameter num episodes requested: " +numEpsStr);
+				if (numEpsStr != null) RunLocalExperiment.numEpisodes = Integer.parseInt(numEpsStr);
+		
+				// Get max total number of steps from parameters set in HTML; will exit once this limit is reached
+				String maxTotalStepsStr = getParameter("maxTotalSteps");
+				if (maxTotalStepsStr != null)
+					RunLocalExperiment.maxTotalSteps = Integer.parseInt(maxTotalStepsStr);
 					
-			// Get the duration of a time step in milliseconds. Smaller values create faster transitions.
-			String speedStr = getParameter("speed");
-			System.out.println("speed: " + speedStr);
-			if (speedStr != null) 
-				RunLocalExperiment.stepDurInMilliSecs = Integer.valueOf(speedStr);
-			
-			// Boolean value determines whether the keys '+' and '-' can speed and slow transitions.
-			String speedControlsStr = getParameter("speedControls");
-			if (speedControlsStr != null) 
-				RLPanel.enableSpeedControls = Boolean.valueOf(speedControlsStr);
-	
-			// Boolean value determines whether the key '1' can be used to move one step forward (only useful when paused).
-			String singleStepControlStr = getParameter("singleStepControl");
-			if (singleStepControlStr != null) 
-				RLPanel.enableSingleStepControl = Boolean.valueOf(singleStepControlStr);
-			
+				// If set, this gives a number of time steps that one episode must last before the experiment will
+				// end. This can be used while training a subject before an experiment to force a certain control
+				// or training performance before moving to the real experiment.
+				String finishExpAtStepsStr = getParameter("timeRequirement");
+				if (finishExpAtStepsStr != null)
+					RunLocalExperiment.finishExpIfNumStepsInOneEp = Integer.parseInt(finishExpAtStepsStr);		
+						
+				// Get the duration of a time step in milliseconds. Smaller values create faster transitions.
+				String speedStr = getParameter("speed");
+				System.out.println("speed: " + speedStr);
+				if (speedStr != null) 
+					RunLocalExperiment.stepDurInMilliSecs = Integer.valueOf(speedStr);
+				
+				// Boolean value determines whether the keys '+' and '-' can speed and slow transitions.
+				String speedControlsStr = getParameter("speedControls");
+				if (speedControlsStr != null) 
+					RLPanel.enableSpeedControls = Boolean.valueOf(speedControlsStr);
+		
+				// Boolean value determines whether the key '1' can be used to move one step forward (only useful when paused).
+				String singleStepControlStr = getParameter("singleStepControl");
+				if (singleStepControlStr != null) 
+					RLPanel.enableSingleStepControl = Boolean.valueOf(singleStepControlStr);
+			}
+			else
+			{
+				System.out.println("RLApplet: Maybe do something else but nothing right now");
+			}
+				
 		}
 		
 		initPanel();
 		
 		
 		
-		System.out.println("\n\n\nEnd of init()\n\n\n");
+		System.out.println("\nEnd of init()\n");
 	}
 	
 	public RLPanel getRLPanel(){return this.rlPanel;}

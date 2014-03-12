@@ -67,6 +67,7 @@ public class TamerApplet extends RLApplet {
 		String rewLogBoolStr = null;
 		
 		SimulatedHuman simHuman = null;
+		
 		if(ParamsATAA.useSimulatedHuman)
 		{
 			simHuman = new SimulatedFast();
@@ -75,28 +76,47 @@ public class TamerApplet extends RLApplet {
 		
 		
 		if (IN_BROWSER) {
-			// Boolean value turns on Mechanical Turk features if true.
-			 isHITStr = getParameter("isHIT");
-			 
-			 numInTaskSeqStr = getParameter("numInTaskSeq");	
-			 
-			// Get agent type.
-			 this.agentType = getParameter("agent"); // TAMER is default	
-			 
-			// If false, trainer cannot stop or start training (time step
-			// transitions can still occur though).
-			 trainControlStr = getParameter("trainingControl");
-			 
-			// Get task domain.
-			 envName = getParameter("domain");
 			
-			// Determines whether all time-step info is saved to file.
-			 fullLogBoolStr = getParameter("fullLog");
-			 
-			// Determines whether a file with reward per episode is saved.
-			 rewLogBoolStr = getParameter("rewLog");
-			 
-			 this.lastTask = getParameter("lastTask");
+			System.out.println("In browser in the TamerApplet");
+			
+			if(!ParamsATAA.ATAA_Exp){
+				// Boolean value turns on Mechanical Turk features if true.
+				 isHITStr = getParameter("isHIT");
+				 
+				 numInTaskSeqStr = getParameter("numInTaskSeq");	
+				 
+				// Get agent type.
+				 this.agentType = getParameter("agent"); // TAMER is default	
+				 
+				// If false, trainer cannot stop or start training (time step
+				// transitions can still occur though).
+				 trainControlStr = getParameter("trainingControl");
+				 
+				// Get task domain.
+				 envName = getParameter("domain");
+				
+				// Determines whether all time-step info is saved to file.
+				 fullLogBoolStr = getParameter("fullLog");
+				 
+				// Determines whether a file with reward per episode is saved.
+				 rewLogBoolStr = getParameter("rewLog");
+				 
+				 this.lastTask = getParameter("lastTask");
+			}
+			else{
+				this.setSize(200, 200);
+				envName = "mario";
+				System.out.println("Tamer Applet set with and height and domain");
+			}
+			System.out.println("=============\nListing params inited in thingy");
+			System.out.println("1 " + isHITStr);
+			System.out.println("2 " + numInTaskSeqStr);
+			System.out.println("3 " + agentType);
+			System.out.println("4 " + trainControlStr);
+			System.out.println("5 " + envName);
+			System.out.println("6 " + fullLogBoolStr);
+			System.out.println("7 " + rewLogBoolStr);
+			System.out.println("8 " + lastTask + "\n=========================\n");
 		}
 		
 		
@@ -205,6 +225,7 @@ public class TamerApplet extends RLApplet {
 				env = new LoopMaze();
 			else if (envName.equals("acrobot"))
 				env = new Acrobot();
+			
 			// OUR ENVIRONMENT IS INITIALIZED HERE!!!!!!!!!
 			else if (envName.equals("mario")){
 				if(ParamsATAA.useSimulatedHuman)
@@ -273,7 +294,7 @@ public class TamerApplet extends RLApplet {
 	}
 
 	protected void startTask() {
-		System.err.println("TamerApplet.startTask()");
+		System.out.println("TamerApplet.startTask()");
 		rlPanel.runLocal.startExp();
 		if (TamerApplet.isHIT
 				&& !((GeneralAgent) rlPanel.agent).getInTrainSess()
