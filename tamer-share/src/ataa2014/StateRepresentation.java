@@ -16,7 +16,7 @@ public class StateRepresentation extends FeatGenerator
 	public final static int FEATURES_ACTION = 3;  // Number of features generated from the Action objects.
 	public final static int FEATURES_STATE  = 36; // Number of features generated from the Observation objects.
 	
-	public final static int VIEW_WIDTH  = 20; // Expressed in game blocks.
+	public final static int VIEW_WIDTH  = 21; // Expressed in game blocks.
 	public final static int VIEW_HEIGHT = 15; // Expressed in game blocks.
 	
 	public final static double DISTANCE_FAR_AWAY = Math.max(VIEW_WIDTH, VIEW_HEIGHT) * 1.5; // Distance used when an entity is not within the current view. Expressed in game blocks.
@@ -62,7 +62,7 @@ public class StateRepresentation extends FeatGenerator
 	
 	// Tile information within obs.charArray as used in the TAMER framework:
 	
-	// private final static char TILE_MARIO      = 'M';
+	private final static char TILE_MARIO      = 'M';
 	private final static char TILE_EXIT       = '!';
 	private final static char TILE_EMPTY      = ' ';
 	private final static char TILE_COIN       = '$';
@@ -70,10 +70,10 @@ public class StateRepresentation extends FeatGenerator
 	private final static char TILE_SURPRISE   = '?';
 	private final static char TILE_PIPE       = '|';
 	
-	private final static char TILE_BLOCK_UPPER    = 1;
-	private final static char TILE_BLOCK_LOWER    = 2;
-	private final static char TILE_BLOCK_ALL      = 7;
-	private final static char TILE_BLOCK_WHATEVER = 8; // If case we don't care about the blocking properties of the tile.
+	private final static char TILE_BLOCK_UPPER    = (int) 49;
+	private final static char TILE_BLOCK_LOWER    = 2; // TODO: Possibly this does not work, but it is not used.
+	private final static char TILE_BLOCK_ALL      = (int) 55;
+	private final static char TILE_BLOCK_WHATEVER = (int) 0; // If case we don't care about the blocking properties of the tile.
 	
 	// Sprite information within obs.intArray as used in the TAMER framework:
 	
@@ -361,39 +361,42 @@ public class StateRepresentation extends FeatGenerator
 				// Step template matching:
 				
 				// Outer corners:
+				// 
+				// X
+				// or
+				// 
+				//  X
 				
-				if (charArray[a] == TILE_EMPTY && charArray[b] == TILE_EMPTY)
+				if ((charArray[a] == TILE_EMPTY || charArray[a] == TILE_MARIO) && (charArray[b] == TILE_EMPTY || charArray[b] == TILE_MARIO))
 				{
-					if ((charArray[c] == TILE_BLOCK_ALL || charArray[c] == TILE_PIPE) && charArray[d] == TILE_EMPTY)
+					if ((charArray[c] == TILE_BLOCK_ALL || charArray[c] == TILE_PIPE) && (charArray[d] == TILE_EMPTY || charArray[d] == TILE_MARIO))
 					{
 						step_x = x;
 						step_y = y + 1;
-						System.out.println("Step found");
 					}
-					else if (charArray[c] == TILE_EMPTY && (charArray[d] == TILE_BLOCK_ALL || charArray[d] == TILE_PIPE))
+					else if ((charArray[c] == TILE_EMPTY || charArray[c] == TILE_MARIO) && (charArray[d] == TILE_BLOCK_ALL || charArray[d] == TILE_PIPE))
 					{
 						step_x = x + 1;
 						step_y = y + 1;
-						System.out.println("Step found");
 					}
 				}
 				
 				// Inner corners:
+				// X
+				//  X
+				// or
+				//  X
+				// X 
 				
-				if ((charArray[c] == TILE_BLOCK_ALL || charArray[c] == TILE_PIPE) && (charArray[d] == TILE_BLOCK_ALL || charArray[d] == TILE_PIPE))
+				else if ((charArray[a] == TILE_BLOCK_ALL || charArray[a] == TILE_PIPE) && (charArray[b] == TILE_EMPTY || charArray[b] == TILE_MARIO) && (charArray[c] == TILE_EMPTY || charArray[c] == TILE_MARIO) && (charArray[d] == TILE_BLOCK_ALL || charArray[d] == TILE_PIPE))
 				{
-					if ((charArray[a] == TILE_BLOCK_ALL || charArray[a] == TILE_PIPE) && charArray[b] == TILE_EMPTY)
-					{
-						step_x = x;
-						step_y = y + 1;
-						System.out.println("Step found");
-					}
-					else if (charArray[a] == TILE_EMPTY && (charArray[b] == TILE_BLOCK_ALL || charArray[b] == TILE_PIPE))
-					{
-						step_x = x + 1;
-						step_y = y + 1;
-						System.out.println("Step found");
-					}
+					step_x = x;
+					step_y = y + 1;
+				}
+				else if ((charArray[a] == TILE_EMPTY || charArray[a] == TILE_MARIO) && (charArray[b] == TILE_BLOCK_ALL || charArray[b] == TILE_PIPE) && (charArray[c] == TILE_BLOCK_ALL || charArray[c] == TILE_PIPE) && (charArray[d] == TILE_EMPTY || charArray[d] == TILE_MARIO))
+				{
+					step_x = x + 1;
+					step_y = y + 1;
 				}
 				
 				if (step_x >= 0)
@@ -402,11 +405,11 @@ public class StateRepresentation extends FeatGenerator
 					
 					double dist_x = step_x - (coords_mario[VECTOR_X] - xCam);
 					double dist_y = (VIEW_HEIGHT - 1 - step_y) - coords_mario[VECTOR_Y];
-	
-					if (dist_y != 1 && Math.sqrt(Math.pow(dist_x, 2) + Math.pow(dist_y, 2)) < Math.sqrt(Math.pow(v[2 * ENTITY_STEP + VECTOR_DX], 2) + Math.pow(v[2 * ENTITY_STEP + VECTOR_DY], 2)))
+					
+					if (Math.abs(dist_y) >= 1.07 && Math.sqrt(Math.pow(dist_x, 2) + Math.pow(dist_y, 2)) < Math.sqrt(Math.pow(v[2 * ENTITY_STEP + VECTOR_DX], 2) + Math.pow(v[2 * ENTITY_STEP + VECTOR_DY], 2)))
 					{
 						v[2 * ENTITY_STEP + VECTOR_DX] = dist_x;
-						v[2 * ENTITY_STEP + VECTOR_DY] = dist_y; // - 1 for a small distance fix (TODO: not sure if correct).
+						v[2 * ENTITY_STEP + VECTOR_DY] = dist_y; 
 					}
 				}
 			}
