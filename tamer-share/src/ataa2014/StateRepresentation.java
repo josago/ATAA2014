@@ -414,7 +414,7 @@ public class StateRepresentation extends FeatGenerator
 				}
 			}
 		}
-		//System.out.println("Step: " + v[2 * ENTITY_STEP + VECTOR_DX] + ", " + v[2 * ENTITY_STEP + VECTOR_DY]);
+
 	}
 	
 	/**
