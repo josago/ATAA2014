@@ -2,10 +2,18 @@ package ataa2014;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+/*
+ * The objective is to finish the level as fast as possible.
+ * Gives negative reward when mario: runs in the wrong direction for a time,
+ * get stucked in front of a step.
+ * positive reward when run in the right direction for a time 
+ * 
+ */
 public class SimulatedFast extends SimulatedHuman {
 
 	private final double pFeedback = 0.3;
+	private double step_x;
+	private double step_y;
 	
 	public SimulatedFast(){
 		super();
@@ -44,7 +52,7 @@ public class SimulatedFast extends SimulatedHuman {
 		if(stateMemory.size() <= 4)
 		{
 			feedback[0] = 1;
-			if(getdir(stateMemory) < 0 )
+			if(getdir(stateMemory) > 0 )
 				feedback[1] = 1.0;
 			else
 				feedback[1] = -1.0;
@@ -76,6 +84,12 @@ public class SimulatedFast extends SimulatedHuman {
 				feedback[1] = 1.0;
 			}
 			
+			step_x = stateMemory.get(0)[StateRepresentation.FEATURES_ACTION + 2 * StateRepresentation.ENTITY_STEP + StateRepresentation.VECTOR_DX];
+			step_y = stateMemory.get(0)[StateRepresentation.FEATURES_ACTION + 2 * StateRepresentation.ENTITY_STEP + StateRepresentation.VECTOR_DY];
+			
+			//if(step != 0)
+			System.out.println(" STEEEP X :" + step_x);
+			System.out.println(" STEEEP Y :" + step_y);
 			
 		}
 		
@@ -85,7 +99,7 @@ public class SimulatedFast extends SimulatedHuman {
 				System.out.println("DIEEEEEEEEEEEEEEEEED");
 				feedback[1] = -1.0;
 			}		
-			else if(eventMemory.get(0) == Event.killedEnemy)
+			else if(eventMemory.get(0) == Event.killedEnemy || eventMemory.get(0) == Event.gotPowerUp )
 			{
 				feedback[1] = 1.0;	
 				System.out.println("KILLED ENEMY HAHAHAHAHAHAHAH");
