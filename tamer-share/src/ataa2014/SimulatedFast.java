@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Random;
 /*
  * The objective is to finish the level as fast as possible.
+ * This simulation
  * Gives negative reward when mario: runs in the wrong direction for a time,
  * get stucked in front of a step.
- * positive reward when run in the right direction for a time 
+ * positive reward when run in the right direction for a time
+ * Get out of stuckenes  
  * 
  */
 public class SimulatedFast extends SimulatedHuman {
@@ -14,12 +16,21 @@ public class SimulatedFast extends SimulatedHuman {
 	private final double pFeedback = 0.3;
 	private double step_x;
 	private double step_y;
+	private static final int x = 0;
+	private static final int y = 1;
 	
 	public SimulatedFast(){
 		super();
 	}
-
 	
+	private double[] getstep(){
+		step_x = stateMemory.get(0)[StateRepresentation.FEATURES_ACTION + 2 * StateRepresentation.ENTITY_STEP + StateRepresentation.VECTOR_DX];
+		step_y = stateMemory.get(0)[StateRepresentation.FEATURES_ACTION + 2 * StateRepresentation.ENTITY_STEP + StateRepresentation.VECTOR_DY];
+		
+		return new double[]{step_x, step_y};
+	}
+
+	//return a sum of directions in memery (dir: -1=left 0=still 1=right)
 	private int getdir(ArrayList<double[]> stateMemory) {
 		int dir = 0;
 		
@@ -29,7 +40,7 @@ public class SimulatedFast extends SimulatedHuman {
 	    return dir;
 	    }
 	
-	
+	//return a sum of all jumps in memory
 	private int getjumps(ArrayList<double[]> stateMemory) {
 		int jumps = 0;
 		
@@ -68,29 +79,35 @@ public class SimulatedFast extends SimulatedHuman {
 			int direction = getdir(stateMemory);
 			
 			double speed = stateMemory.get(0)[1] + stateMemory.get(1)[1] + stateMemory.get(2)[1] + stateMemory.get(3)[1] + stateMemory.get(4)[1];
-			/*
-			System.err.println("direction : " + direction);
-			System.err.println("jump : " + jump);
-			System.out.println(getjumps(stateMemory));
-			System.err.println("speed : " + speed);
-			*/
+
 			// If Mario has been running to the right in the last x frames: positive
 			if(direction < 3){
-				System.err.println("LEFT :");
 				feedback[1] = -1.0;
 			}
 			else if(direction >= 3){
-				System.err.println("RIGHT :");
 				feedback[1] = 1.0;
 			}
 			
-			step_x = stateMemory.get(0)[StateRepresentation.FEATURES_ACTION + 2 * StateRepresentation.ENTITY_STEP + StateRepresentation.VECTOR_DX];
-			step_y = stateMemory.get(0)[StateRepresentation.FEATURES_ACTION + 2 * StateRepresentation.ENTITY_STEP + StateRepresentation.VECTOR_DY];
+			double[] step = getstep(); 
 			
-			//if(step != 0)
-			System.out.println(" STEEEP X :" + step_x);
-			System.out.println(" STEEEP Y :" + step_y);
-			
+			if(step[x] < 2 && step[x] > -2 )
+			{
+				//System.out.println("Close to step, need to not get stucked");
+				
+				//Close to step, need to get un stucked
+				if(jump < 3 )
+				{
+					System.out.println("Getting stucked");
+					feedback[1] = -1.0;
+				}
+					
+				else if(direction >= 3 && jump >= 3 )
+				{
+					feedback[1] = 1.0;
+					System.out.println("Close to step and get out of there");
+				}
+	
+			}
 		}
 		
 		if(eventMemory.size() > 0)
@@ -102,7 +119,7 @@ public class SimulatedFast extends SimulatedHuman {
 			else if(eventMemory.get(0) == Event.killedEnemy || eventMemory.get(0) == Event.gotPowerUp )
 			{
 				feedback[1] = 1.0;	
-				System.out.println("KILLED ENEMY HAHAHAHAHAHAHAH");
+				System.out.println("KILLED ENEMY ");
 			}
 		}
 		
