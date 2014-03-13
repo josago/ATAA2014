@@ -74,7 +74,7 @@ public class SonarSoundEngine implements Runnable
     public SonarSample loadSample(String resourceName)
     {
     	String p = "";
-    	if(ParamsATAA.ATAA_Exp)
+    	if(ParamsATAA.ATAA_Exp_attempt1 || ParamsATAA.ATAA_Exp)
     		p = "src/org/rlcommunity/environments/mario/res";
     	else
     		p = "../src/org/rlcommunity/environments/mario/res";

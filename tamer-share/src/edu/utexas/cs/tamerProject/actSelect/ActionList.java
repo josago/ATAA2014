@@ -28,13 +28,19 @@ public class ActionList {
 	}
 	
 	public ArrayList<Action> getActionList(){return actions;} // TODO return copy?
+	
 	public ArrayList<Action> getForbiddenActionList(){return forbiddenActions;} // TODO return copy?
+	
 	public void clearActionList(){this.actions = new ArrayList<Action>();}
+	
 	public void clearForbiddenActionList(){this.forbiddenActions = new ArrayList<Action>();}
+	
 	public void addActionToList(Action a){this.actions.add(a.duplicate());}
+	
 	public int size(){return this.actions.size();}
 	
 	public void forbidAction(Action act){System.out.println("Forbidding action " + act); forbiddenActions.add(act);}
+	
 	public void allowAction(Action act){
 		if (!forbiddenActions.remove(act)) {
 			System.out.println("Attempted to allow an action that wasn't forbidden.");

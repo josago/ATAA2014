@@ -124,6 +124,7 @@ public class LocalGlue implements RLGlueInterface {
 
 
     public synchronized Action RL_agent_step( double theReward, Observation theObservation) {
+    	//System.out.println("This is where agent step is accessed");
         Action theAction=A.agent_step(theReward, theObservation);
             if (theAction == null) {
                 System.err.println("theAction came back as null from agent_step");

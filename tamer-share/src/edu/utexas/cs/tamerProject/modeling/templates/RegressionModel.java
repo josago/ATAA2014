@@ -139,4 +139,9 @@ public abstract class RegressionModel implements ObsActModel{
 	{
 		simHuman = h;
 	}
+	
+	public void reset()
+	{
+		
+	}
 }

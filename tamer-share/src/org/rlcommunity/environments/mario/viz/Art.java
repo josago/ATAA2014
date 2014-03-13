@@ -64,7 +64,7 @@ public class Art
         try
         {
         	String prefix = "";
-        	if(ParamsATAA.ATAA_Exp)
+        	if(ParamsATAA.ATAA_Exp_attempt1 || ParamsATAA.ATAA_Exp)
         		prefix = "src/org/rlcommunity/environments/mario/res/";
         	else
         		prefix = "../src/org/rlcommunity/environments/mario/res/";

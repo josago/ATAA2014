@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.rlcommunity.rlglue.codec.types.Action;
 
+import ataa2014.ParamsATAA;
 import edu.utexas.cs.tamerProject.envModels.EnvTransModel;
 import edu.utexas.cs.tamerProject.envModels.rewModels.MountainCarRewModel;
 import edu.utexas.cs.tamerProject.envModels.transModels.CartPoleTransModel;
@@ -159,12 +160,28 @@ public class Params{
 			else if (envName.equals("Mario")){
 				//PROJECT ATAA PARAMS HERE:
 				
-				//params.featClass = "FeatGen_Mario";
-				params.featClass = "StateRepresentation";
+				//For running experiments
+				if(ParamsATAA.ATAA_Exp)
+				{
+					params.featClass = ParamsATAA.features;
+					
+					params.modelClass = ParamsATAA.model;
+					if(params.modelClass.equals("WekaModelPerActionModel"))
+					{
+						params.wekaModelName = "M5P";
+					}
+				}
+				// If you are just using the tamer applet
+				else{
+					params.featClass = "FeatGen_Mario";
+					//params.featClass = "StateRepresentation";
+					
+					//params.modelClass =  "WekaModelPerActionModel"; // "WekaModel";
+					//params.wekaModelName = "M5P";
+					params.modelClass = "NeuralNet";
+				}
 				
-				//params.modelClass =  "WekaModelPerActionModel"; // "WekaModel";
-				//params.wekaModelName = "M5P";
-				params.modelClass = "NeuralNet";
+				
 			}
 			else if (envName.equals("Tetris")){
 				params.distClass = "previousStep";

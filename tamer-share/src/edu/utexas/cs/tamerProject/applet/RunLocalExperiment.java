@@ -53,7 +53,7 @@ public class RunLocalExperiment extends Observable{
 	public EnvironmentInterface theEnvironment = null;
 	TinyGlueExtended glue;
 	
-	public static int numEpisodes = 10;
+	public static int numEpisodes = 3;
 	public static int maxStepsPerEpisode=100000;	// TODO this cutoff isn't implemented
 	public static long maxTotalSteps = numEpisodes * maxStepsPerEpisode;
 	public static int finishExpIfNumStepsInOneEp = Integer.MAX_VALUE; // used to require some minimal performance before the experiment ends; could use return alternatively 

@@ -66,12 +66,16 @@ public class HLearner {
 	}
 	
 	public SampleWithObsAct[] processSamples(double currTime, boolean inTrainSess) {
+		System.out.println("Process samples is called wit inTrainsSess: " + inTrainSess);
 		//System.out.print("\n\nHLearner processSamples()");
 		SampleWithObsAct[] samples = this.credA.processSamplesAndRemoveFinished(currTime, inTrainSess);
 		//if (samples.length > 0)
 		//	System.out.println("Adding " + samples.length + " samples.");
 		if (samples.length > 0)
 			addSamplesAndBuild(samples);
+		else{
+			System.out.println("There are no samples to add");
+		}
 		return samples;
 	}
 	

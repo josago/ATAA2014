@@ -76,7 +76,7 @@ public class LevelScene extends Scene implements SpriteContext
         {
         	//System.out.println("Current directory = " + System.getProperty("user.dir"));
         	String p = "";
-        	if(ParamsATAA.ATAA_Exp)
+        	if(ParamsATAA.ATAA_Exp_attempt1 || ParamsATAA.ATAA_Exp)
         		p = "src/org/rlcommunity/environments/mario/res/tiles.dat";
         	
             //Level.loadBehaviors(new DataInputStream(LevelScene.class.getResourceAsStream("res/tiles.dat")));//guangliang changed

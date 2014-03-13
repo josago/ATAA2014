@@ -79,7 +79,7 @@ public class TamerApplet extends RLApplet {
 			
 			System.out.println("In browser in the TamerApplet");
 			
-			if(!ParamsATAA.ATAA_Exp){
+			if(!ParamsATAA.ATAA_Exp_attempt1){
 				// Boolean value turns on Mechanical Turk features if true.
 				 isHITStr = getParameter("isHIT");
 				 
@@ -108,7 +108,7 @@ public class TamerApplet extends RLApplet {
 				envName = "mario";
 				System.out.println("Tamer Applet set with and height and domain");
 			}
-			System.out.println("=============\nListing params inited in thingy");
+			/*System.out.println("=============\nListing params inited in thingy");
 			System.out.println("1 " + isHITStr);
 			System.out.println("2 " + numInTaskSeqStr);
 			System.out.println("3 " + agentType);
@@ -116,7 +116,7 @@ public class TamerApplet extends RLApplet {
 			System.out.println("5 " + envName);
 			System.out.println("6 " + fullLogBoolStr);
 			System.out.println("7 " + rewLogBoolStr);
-			System.out.println("8 " + lastTask + "\n=========================\n");
+			System.out.println("8 " + lastTask + "\n=========================\n");*/
 		}
 		
 		
@@ -305,6 +305,12 @@ public class TamerApplet extends RLApplet {
 
 	public void reset() {
 		System.out.println("reset() called in TamerApplet");
+		
+		if(ParamsATAA.ATAA_Exp_attempt1)
+		{
+			agent.reset();
+		}	
+		
 		if (resetCheckTimer != null)
 			resetCheckTimer.cancel();
 		// if (preExpPanel != null)

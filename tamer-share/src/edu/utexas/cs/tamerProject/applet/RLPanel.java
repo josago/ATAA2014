@@ -67,6 +67,9 @@ public class RLPanel extends JPanel
 	
 	public void init(AgentInterface agent, EnvironmentInterface env) {	
 		
+		
+		System.out.println("Initialize reinforcement learning panel");
+		
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		setRequestFocusEnabled(true);
@@ -76,19 +79,21 @@ public class RLPanel extends JPanel
 		setBackground(Color.white);	
 		
 		// Resize thing here if ATAA experiment????? Maybe then it works
-		if(ParamsATAA.ATAA_Exp)
+		if(ParamsATAA.ATAA_Exp_attempt1)
 		{
 			this.setSize(200, 200);
 		}
 		
 		System.out.println("RLPanel size after in RLPanel.init(): " + this.getWidth() + ", " + this.getHeight());
 		
-
+		// Initialize the experiment
 		runLocal = new RunLocalExperiment();
 		runLocal.theAgent = agent;
 		runLocal.theEnvironment = env;
 		runLocal.init();
 		System.out.println("runLocal: " + runLocal);
+		
+		
 		this.agent = runLocal.theAgent;
 		this.env = runLocal.theEnvironment;
         EnvVisualizerNameResponse theNameResponse = EnvVisualizerNameRequest.Execute();
@@ -285,6 +290,7 @@ public class RLPanel extends JPanel
 		}
 		else if (e.getKeyChar() == '0') { // stop exp
 			runLocal.stopExp();
+			System.out.println("Local experiment stopped");
 		}
 		else if (RLPanel.enableSingleStepControl 
 				&& e.getKeyChar() == '1') { // take step (only makes sense when stopped)

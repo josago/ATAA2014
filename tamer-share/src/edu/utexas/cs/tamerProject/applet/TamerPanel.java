@@ -31,6 +31,7 @@ public class TamerPanel extends RLPanel {
 
 
 	public void init(AgentInterface agent, EnvironmentInterface env) {
+		System.out.println("\n%%%%%%%%%%%%%%%%%%%%%%%%%\nTamer Panel initialized\n%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		super.init(agent, env);
 	}
 

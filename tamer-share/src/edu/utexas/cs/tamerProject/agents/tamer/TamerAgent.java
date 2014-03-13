@@ -135,7 +135,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 				this.inTrainSess = true;
 			
 			final TamerAgent balle = this;
-		    Thread randomRewthread = new Thread()
+		    new Thread("simHuman feedback thread")
 		    {
 		        public void run()
 		        {
@@ -154,7 +154,6 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		            }
 		        }
 		    };
-		    randomRewthread.start();
 		}
 	
     }
@@ -189,7 +188,10 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     }
     
     public Action agent_step(double r, Observation o, double startTime, Action predeterminedAct, Action tieBreakAction) {
-    	//System.out.println("\n-----------------Tamer step---------------\n");
+    	
+    	
+    	
+    	System.out.println("\n-----------------Tamer step---------------\n");
     	//System.out.println("Training? " + this.inTrainSess);
     	//System.out.println("r:"+r);
     	//System.out.println("Tamer obs intArray: " + Arrays.toString(o.intArray));
@@ -390,7 +392,8 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		
 		//Process input from reward taken from the human feedback window
 		public void receiveKeyInput(char c){
-			if(!ParamsATAA.useSimulatedHuman){
+			if(!ParamsATAA.useSimulatedHuman || !ParamsATAA.ATAA_Exp){
+				System.out.println("In receive shizzle where it shouldnt be");
 				super.receiveKeyInput(c);
 				//System.out.println("TamerAgent receives key: " + c);
 				if (c == '/') {
@@ -432,7 +435,10 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	        return p;
 	    }
 	    
-	    
+	    public void setTrainSess(boolean x)
+		{
+	    	this.inTrainSess = x;
+		}	    
 	    
 	
 }

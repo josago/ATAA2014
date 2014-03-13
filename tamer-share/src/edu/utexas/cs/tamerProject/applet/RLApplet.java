@@ -78,7 +78,7 @@ public class RLApplet extends JApplet
 
 		if (IN_BROWSER) {			
 				System.out.println("In browser statement RL Applet");
-			if(! ParamsATAA.ATAA_Exp){
+			if(!ParamsATAA.ATAA_Exp_attempt1){
 				// Get max number of episodes from parameters set in HTML; will exit once this limit is reached
 				String numEpsStr = getParameter("numEpisodes");
 				System.out.println("Parameter num episodes requested: " +numEpsStr);

@@ -355,7 +355,7 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
         if(ParamsATAA.useSimulatedHuman)
         	scene.addSimulatedHuman(simHuman);
         
-        System.out.println("LevelScene generated");
+        //System.out.println("LevelScene generated");
         scene.setSound(sound);
         scene.init();
     }

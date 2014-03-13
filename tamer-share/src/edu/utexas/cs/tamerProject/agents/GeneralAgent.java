@@ -582,6 +582,7 @@ public abstract class GeneralAgent implements AgentInterface{
     	
     	else if (this.params.modelClass.equals("NeuralNet"))
     	{
+    		System.out.println("Neural net used as model");
     		this.model = new NeuralNet(this.featGen.getNumFeatures(), this.featGen.getNumFeatures() / 10, false); // TODO: Decide on the number of hidden units.
     		this.model.setFeatGen(this.featGen);
     	}
@@ -876,6 +877,7 @@ public abstract class GeneralAgent implements AgentInterface{
   
 
 	public void toggleInTrainSess() {
+		System.err.println("================\nToggle in trainsess is called\n===============");
 			this.inTrainSess = !this.inTrainSess;
 			if (this.inTrainSess)
 				System.out.println("---Starting training session.---");
@@ -1114,6 +1116,11 @@ public abstract class GeneralAgent implements AgentInterface{
     public void println(String str){
     	if (verbose)
     		System.out.println(str);
+    }
+    
+    public void reset()
+    {
+    	
     }
 
 }
