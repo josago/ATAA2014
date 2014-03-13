@@ -16,7 +16,7 @@ public class StateRepresentation extends FeatGenerator
 	public final static int FEATURES_ACTION = 3;  // Number of features generated from the Action objects.
 	public final static int FEATURES_STATE  = 36; // Number of features generated from the Observation objects.
 	
-	public final static int VIEW_WIDTH  = 20; // Expressed in game blocks.
+	public final static int VIEW_WIDTH  = 21; // Expressed in game blocks.
 	public final static int VIEW_HEIGHT = 15; // Expressed in game blocks.
 	
 	public final static double DISTANCE_FAR_AWAY = Math.max(VIEW_WIDTH, VIEW_HEIGHT) * 1.5; // Distance used when an entity is not within the current view. Expressed in game blocks.
@@ -62,7 +62,7 @@ public class StateRepresentation extends FeatGenerator
 	
 	// Tile information within obs.charArray as used in the TAMER framework:
 	
-	// private final static char TILE_MARIO      = 'M';
+	private final static char TILE_MARIO      = 'M';
 	private final static char TILE_EXIT       = '!';
 	private final static char TILE_EMPTY      = ' ';
 	private final static char TILE_COIN       = '$';
@@ -70,12 +70,14 @@ public class StateRepresentation extends FeatGenerator
 	private final static char TILE_SURPRISE   = '?';
 	private final static char TILE_PIPE       = '|';
 	
-	private final static char TILE_BLOCK_UPPER    = 1;
-	private final static char TILE_BLOCK_LOWER    = 2;
-	private final static char TILE_BLOCK_ALL      = 7;
-	private final static char TILE_BLOCK_WHATEVER = 8; // If case we don't care about the blocking properties of the tile.
+	private final static char TILE_BLOCK_UPPER    = (int) 49;
+	private final static char TILE_BLOCK_LOWER    = 2; // TODO: Possibly this does not work, but it is not used.
+	private final static char TILE_BLOCK_ALL      = (int) 55;
+	private final static char TILE_BLOCK_WHATEVER = (int) 0; // If case we don't care about the blocking properties of the tile.
 	
 	// Sprite information within obs.intArray as used in the TAMER framework:
+	
+	private final static int INT_XCAM = 0;
 	
 	// private final static int SPRITE_NOT_WINGED = 0;
 	private final static int SPRITE_WINGED     = 1;
@@ -95,7 +97,8 @@ public class StateRepresentation extends FeatGenerator
 	// private final static int SPRITE_FIREBALL   = 8; // We don't encode fire balls in our state representation.
 	private final static int SPRITE_SHELL      = 9;
 	
-	private double[] lastMarioCoords;
+	private int      xCam;            // Horizontal position of the camera within the level, used to calculate relative distances between entities.
+	private double[] lastMarioCoords; // Last known coordinates of Mario within the level.
 	
 	public StateRepresentation(int[][] theObsIntRanges, double[][] theObsDoubleRanges, int[][] theActIntRanges, double[][] theActDoubleRanges)
 	{
@@ -227,7 +230,7 @@ public class StateRepresentation extends FeatGenerator
 	// Useful support methods:
 	
 	/**
-	 * This method returns the relative coordinates of Mario within the current view and updates the feature vector with Mario's state.
+	 * This method returns the absolute coordinates of Mario within the current level and updates the feature vector with Mario's state.
 	 * @param v A reference to the final feature vector to populate.
 	 * @param intArray As contained within an Observation object.
 	 * @param doubleArray As contained within an Observation object.
@@ -235,15 +238,14 @@ public class StateRepresentation extends FeatGenerator
 	 */
 	private double[] coordsMario(double[] v, int[] intArray, double[] doubleArray)
 	{
-		for (int i = 0; i < intArray.length / 2; i++)
+		xCam = intArray[INT_XCAM]; // Horizontal position of the camera within the level, used to calculate relative distances between entities.
+		
+		if (intArray[1 + VECTOR_TYPE] == SPRITE_MARIO_SMALL || intArray[1 + VECTOR_TYPE] == SPRITE_MARIO_BIG || intArray[1 + VECTOR_TYPE] == SPRITE_MARIO_FIRE)
 		{
-			if (intArray[i * 2 + VECTOR_TYPE] == SPRITE_MARIO_SMALL || intArray[i * 2 + VECTOR_TYPE] == SPRITE_MARIO_BIG || intArray[i * 2 + VECTOR_TYPE] == SPRITE_MARIO_FIRE)
-			{
-				v[STATE_LARGE] = (intArray[i * 2 + VECTOR_TYPE] == SPRITE_MARIO_BIG || intArray[i * 2 + VECTOR_TYPE] == SPRITE_MARIO_FIRE) ? 1 : 0;
-				v[STATE_FIRE]  =  intArray[i * 2 + VECTOR_TYPE] == SPRITE_MARIO_FIRE ? 1 : 0;
-				
-				return new double[]{doubleArray[i * 4 + VECTOR_X], doubleArray[i * 4 + VECTOR_Y]};
-			}
+			v[STATE_LARGE] = (intArray[1 + VECTOR_TYPE] == SPRITE_MARIO_BIG || intArray[1 + VECTOR_TYPE] == SPRITE_MARIO_FIRE) ? 1 : 0;
+			v[STATE_FIRE]  =  intArray[1 + VECTOR_TYPE] == SPRITE_MARIO_FIRE ? 1 : 0;
+			
+			return new double[]{doubleArray[VECTOR_X], doubleArray[VECTOR_Y]};
 		}
 		
 		return null; // Note from josago: In principle, this point should never be reached.
@@ -267,9 +269,9 @@ public class StateRepresentation extends FeatGenerator
                 
     			if (charArray[i] == tile || (tile == TILE_BLOCK_WHATEVER && (charArray[i] == TILE_BLOCK_UPPER || charArray[i] == TILE_BLOCK_LOWER || charArray[i] == TILE_BLOCK_ALL)))
     			{
-    				double dist_x = x - coords_mario[VECTOR_X];
-    				double dist_y = y - coords_mario[VECTOR_Y];
-    						
+    				double dist_x = x - (coords_mario[VECTOR_X] - xCam);
+    				double dist_y = (VIEW_HEIGHT - 1 - y) - coords_mario[VECTOR_Y];
+
     				if (Math.sqrt(Math.pow(dist_x, 2) + Math.pow(dist_y, 2)) < Math.sqrt(Math.pow(v[2 * pos + VECTOR_DX], 2) + Math.pow(v[2 * pos + VECTOR_DY], 2)))
                     {
     					v[2 * pos + VECTOR_DX] = dist_x;
@@ -353,21 +355,26 @@ public class StateRepresentation extends FeatGenerator
     			int c = (y + 1) * (VIEW_WIDTH + 1) + x;
     			int d = (y + 1) * (VIEW_WIDTH + 1) + x + 1;
     			
-				int step_x = - (int) DISTANCE_FAR_AWAY;
-				int step_y = - (int) DISTANCE_FAR_AWAY;
+				int step_x = - 1;
+				int step_y = - 1;
 				
 				// Step template matching:
 				
 				// Outer corners:
+				// 
+				// X
+				// or
+				// 
+				//  X
 				
-				if (charArray[a] == TILE_EMPTY && charArray[b] == TILE_EMPTY)
+				if ((charArray[a] == TILE_EMPTY || charArray[a] == TILE_MARIO) && (charArray[b] == TILE_EMPTY || charArray[b] == TILE_MARIO))
 				{
-					if ((charArray[c] == TILE_BLOCK_ALL || charArray[c] == TILE_PIPE) && charArray[d] == TILE_EMPTY)
+					if ((charArray[c] == TILE_BLOCK_ALL || charArray[c] == TILE_PIPE) && (charArray[d] == TILE_EMPTY || charArray[d] == TILE_MARIO))
 					{
 						step_x = x;
 						step_y = y + 1;
 					}
-					else if (charArray[c] == TILE_EMPTY && (charArray[d] == TILE_BLOCK_ALL || charArray[d] == TILE_PIPE))
+					else if ((charArray[c] == TILE_EMPTY || charArray[c] == TILE_MARIO) && (charArray[d] == TILE_BLOCK_ALL || charArray[d] == TILE_PIPE))
 					{
 						step_x = x + 1;
 						step_y = y + 1;
@@ -375,33 +382,39 @@ public class StateRepresentation extends FeatGenerator
 				}
 				
 				// Inner corners:
+				// X
+				//  X
+				// or
+				//  X
+				// X 
 				
-				if ((charArray[c] == TILE_BLOCK_ALL || charArray[c] == TILE_PIPE) && (charArray[d] == TILE_BLOCK_ALL || charArray[d] == TILE_PIPE))
+				else if ((charArray[a] == TILE_BLOCK_ALL || charArray[a] == TILE_PIPE) && (charArray[b] == TILE_EMPTY || charArray[b] == TILE_MARIO) && (charArray[c] == TILE_EMPTY || charArray[c] == TILE_MARIO) && (charArray[d] == TILE_BLOCK_ALL || charArray[d] == TILE_PIPE))
 				{
-					if ((charArray[a] == TILE_BLOCK_ALL || charArray[a] == TILE_PIPE) && charArray[b] == TILE_EMPTY)
-					{
-						step_x = x;
-						step_y = y + 1;
-					}
-					else if (charArray[a] == TILE_EMPTY && (charArray[b] == TILE_BLOCK_ALL || charArray[b] == TILE_PIPE))
-					{
-						step_x = x + 1;
-						step_y = y + 1;
-					}
+					step_x = x;
+					step_y = y + 1;
+				}
+				else if ((charArray[a] == TILE_EMPTY || charArray[a] == TILE_MARIO) && (charArray[b] == TILE_BLOCK_ALL || charArray[b] == TILE_PIPE) && (charArray[c] == TILE_BLOCK_ALL || charArray[c] == TILE_PIPE) && (charArray[d] == TILE_EMPTY || charArray[d] == TILE_MARIO))
+				{
+					step_x = x + 1;
+					step_y = y + 1;
 				}
 				
-				// Distance check (TODO: not sure if the first check within the "if" is correct):
-				
-				double dist_x = step_x - coords_mario[VECTOR_X];
-				double dist_y = step_y - coords_mario[VECTOR_Y];
-				
-				if (step_y - coords_mario[VECTOR_DY] != 1 && Math.sqrt(Math.pow(dist_x, 2) + Math.pow(dist_y, 2)) < Math.sqrt(Math.pow(v[2 * ENTITY_STEP + VECTOR_DX], 2) + Math.pow(v[2 * ENTITY_STEP + VECTOR_DY], 2)))
+				if (step_x >= 0)
 				{
-					v[2 * ENTITY_STEP + VECTOR_DX] = dist_x;
-					v[2 * ENTITY_STEP + VECTOR_DY] = dist_y - 1; // - 1 for a small distance fix (TODO: not sure if correct).
+					// Distance check (TODO: not sure if the first check within the "if" is correct):
+					
+					double dist_x = step_x - (coords_mario[VECTOR_X] - xCam);
+					double dist_y = (VIEW_HEIGHT - 1 - step_y) - coords_mario[VECTOR_Y];
+					
+					if (Math.abs(dist_y) >= 1.07 && Math.sqrt(Math.pow(dist_x, 2) + Math.pow(dist_y, 2)) < Math.sqrt(Math.pow(v[2 * ENTITY_STEP + VECTOR_DX], 2) + Math.pow(v[2 * ENTITY_STEP + VECTOR_DY], 2)))
+					{
+						v[2 * ENTITY_STEP + VECTOR_DX] = dist_x;
+						v[2 * ENTITY_STEP + VECTOR_DY] = dist_y; 
+					}
 				}
 			}
 		}
+
 	}
 	
 	/**
@@ -423,20 +436,20 @@ public class StateRepresentation extends FeatGenerator
 		
 		// Sprite distance update:
 		
-		for (int i = 0; i < intArray.length / 2; i++)
+		for (int i = 0; i < (intArray.length - 3) / 2; i++)
 		{
 			int pos = -1;
 			
-			switch (intArray[2 * i + VECTOR_TYPE])
+			switch (intArray[3 + 2 * i + VECTOR_TYPE])
 			{
 				case SPRITE_ENEMY_RED_KOOPA:
 					pos = ENTITY_KOOPA_RED;
 				break;
 				case SPRITE_ENEMY_GREEN_KOOPA:
-					pos = intArray[2 * i + VECTOR_WINGED] == SPRITE_WINGED ? ENTITY_KOOPA_GREEN_WINGED : ENTITY_KOOPA_GREEN;
+					pos = intArray[3 + 2 * i + VECTOR_WINGED] == SPRITE_WINGED ? ENTITY_KOOPA_GREEN_WINGED : ENTITY_KOOPA_GREEN;
 				break;
 				case SPRITE_ENEMY_GOOMBA:
-					pos = intArray[2 * i + VECTOR_WINGED] == SPRITE_WINGED ? ENTITY_GOOMBA_WINGED : ENTITY_GOOMBA;
+					pos = intArray[3 + 2 * i + VECTOR_WINGED] == SPRITE_WINGED ? ENTITY_GOOMBA_WINGED : ENTITY_GOOMBA;
 				break;
 				case SPRITE_ENEMY_SPIKY:
 					pos = ENTITY_SPIKY;
@@ -457,8 +470,8 @@ public class StateRepresentation extends FeatGenerator
 			
 			if (pos != -1)
 			{
-				double dist_x = doubleArray[4 * i + VECTOR_X] - coords_mario[VECTOR_X];
-				double dist_y = doubleArray[4 * i + VECTOR_Y] - coords_mario[VECTOR_Y];
+				double dist_x = doubleArray[4 * (i + 1) + VECTOR_X] - coords_mario[VECTOR_X];
+				double dist_y = doubleArray[4 * (i + 1) + VECTOR_Y] - coords_mario[VECTOR_Y];
 				
 				if (Math.sqrt(Math.pow(dist_x, 2) + Math.pow(dist_y, 2)) < Math.sqrt(Math.pow(v[2 * pos + VECTOR_DX], 2) + Math.pow(v[2 * pos + VECTOR_DY], 2)))
 				{
