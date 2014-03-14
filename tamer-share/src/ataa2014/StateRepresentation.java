@@ -327,15 +327,19 @@ public class StateRepresentation extends FeatGenerator
     {
     	int h = 0;
     	
+    	boolean seen_floor = false;
+    	
     	for (int y = VIEW_HEIGHT - 1; y >= 0; y--)
     	{
     		char block = charArray[y * (VIEW_WIDTH + 1) + x]; // + 1 in order to skip the '\n' chars.
     		
     		if (block == TILE_BLOCK_ALL)
     		{
-    			h++;
+    			h = VIEW_HEIGHT - y;
+    			
+    			seen_floor = true;
     		}
-    		else
+    		else if (seen_floor)
     		{
     			break;
     		}
@@ -368,7 +372,7 @@ public class StateRepresentation extends FeatGenerator
     		dist_x = pit_r - (coords_mario[VECTOR_X] - xCam);
     	}
     	
-    	if (dist_x < v[2 * ENTITY_PIT + VECTOR_DX])
+    	if (Math.abs(dist_x) < Math.abs(v[2 * ENTITY_PIT + VECTOR_DX]))
     	{
     		v[2 * ENTITY_PIT + VECTOR_DX] = dist_x;
     		v[2 * ENTITY_PIT + VECTOR_LX] = pit_r - pit_l - 1;
