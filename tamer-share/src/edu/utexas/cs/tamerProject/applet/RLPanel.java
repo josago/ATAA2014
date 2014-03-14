@@ -77,12 +77,7 @@ public class RLPanel extends JPanel
 		addMouseListener(this);
 		//setDoubleBuffered(true);
 		setBackground(Color.white);	
-		
-		// Resize thing here if ATAA experiment????? Maybe then it works
-		if(ParamsATAA.ATAA_Exp_attempt1)
-		{
-			this.setSize(200, 200);
-		}
+				
 		
 		System.out.println("RLPanel size after in RLPanel.init(): " + this.getWidth() + ", " + this.getHeight());
 		
