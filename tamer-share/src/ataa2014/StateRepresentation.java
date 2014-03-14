@@ -71,7 +71,7 @@ public class StateRepresentation extends FeatGenerator
 	private final static char TILE_PIPE       = '|';
 	
 	private final static char TILE_BLOCK_UPPER    = (int) 49;
-	private final static char TILE_BLOCK_LOWER    = 2; // TODO: Possibly this does not work, but it is not used.
+	private final static char TILE_BLOCK_LOWER    = 2; // TODO: Possibly this does not work, but it is not used anywhere.
 	private final static char TILE_BLOCK_ALL      = (int) 55;
 	private final static char TILE_BLOCK_WHATEVER = (int) 0; // If case we don't care about the blocking properties of the tile.
 	
@@ -290,47 +290,89 @@ public class StateRepresentation extends FeatGenerator
      */
     private void addClosestPit(double[] v, char[] charArray, double[] coords_mario)
     {
-		int pit_l = 0;
-		int pit_r = 0;
+		int pit_l = -1;
+		int pit_r = -1;
 		
 		for (int x = 0; x < VIEW_WIDTH; x++)
 		{
-			char block = charArray[(VIEW_HEIGHT - 1) * (VIEW_WIDTH + 1) + x]; // + 1 in order to skip the '\n' chars.
-			
-			// TODO: This probably doesn't work with TAMER Observation objects.
-			
-			if (block == TILE_BLOCK_ALL && pit_l == pit_r)
+			if (floorHeight(charArray, x) > 0)
 			{
-				pit_l++;
-				pit_r++;
-			}
-			else if (block == TILE_EMPTY)
-			{
-				pit_r++;
-			}
-		}
-		
-		if (pit_l < pit_r)
-		{
-			if (coords_mario[VECTOR_X] <= pit_l)
-			{
-				v[2 * ENTITY_PIT + VECTOR_DX] = pit_l - coords_mario[VECTOR_X];
-			}
-			else if (coords_mario[VECTOR_X] >= pit_r)
-			{
-				v[2 * ENTITY_PIT + VECTOR_DX] = pit_r - coords_mario[VECTOR_X];
+				if (pit_l == pit_r)
+				{
+					pit_l++;
+					pit_r++;
+				}
+				else
+				{
+					pit_r++;
+					
+					maybeAddPit(pit_l, pit_r, v, coords_mario);
+					
+					pit_l = pit_r;
+				}
 			}
 			else
 			{
-				v[2 * ENTITY_PIT + VECTOR_DX] = 0;
+				pit_r++;
 			}
 		}
-		else
-		{
-			v[2 * ENTITY_PIT + VECTOR_DX] = DISTANCE_FAR_AWAY;
-		}
-		
-		v[2 * ENTITY_PIT + VECTOR_LX] = pit_r - pit_l;
+    }
+    
+    /**
+     * This method calculates the floor height at a particular position. No floor is denoted by a height of zero.
+     * @param charArray As contained within an Observation object.
+     * @param x Horizontal coordinate, relative to the current view.
+     */
+    private int floorHeight(char[] charArray, int x)
+    {
+    	int h = 0;
+    	
+    	for (int y = VIEW_HEIGHT - 1; y >= 0; y--)
+    	{
+    		char block = charArray[y * (VIEW_WIDTH + 1) + x]; // + 1 in order to skip the '\n' chars.
+    		
+    		if (block == TILE_BLOCK_ALL)
+    		{
+    			h++;
+    		}
+    		else
+    		{
+    			break;
+    		}
+    	}
+    	
+    	return h;
+    }
+    
+    /**
+     * This method will check if the pit passed as parameter is the closest one to Mario, and if so, add it to the state representation.
+     * @param pit_l Left edge of the pit.
+     * @param pit_r Right edge of the pit.
+     * @param v A reference to the final feature vector to populate.
+     * @param coords_mario As returned by the coordsMario() method.
+     */
+    private void maybeAddPit(int pit_l, int pit_r, double[] v, double[] coords_mario)
+    {
+    	double dist_x;
+
+    	if (pit_l < coords_mario[VECTOR_X] - xCam && coords_mario[VECTOR_X] - xCam < pit_r)
+    	{
+    		dist_x = 0; // Mario is directly above or in the pit.
+    	}
+    	else if (Math.abs(pit_l - (coords_mario[VECTOR_X] - xCam)) < Math.abs(pit_r - (coords_mario[VECTOR_X] - xCam)))
+    	{
+    		dist_x = pit_l - (coords_mario[VECTOR_X] - xCam);
+    	}
+    	else
+    	{
+    		dist_x = pit_r - (coords_mario[VECTOR_X] - xCam);
+    	}
+    	
+    	if (dist_x < v[2 * ENTITY_PIT + VECTOR_DX])
+    	{
+    		v[2 * ENTITY_PIT + VECTOR_DX] = dist_x;
+    		v[2 * ENTITY_PIT + VECTOR_LX] = pit_r - pit_l - 1;
+    	}
     }
     
     /**
