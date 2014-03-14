@@ -72,9 +72,10 @@ public class SimulatedFast extends SimulatedHuman {
 			else if(stateMemory.size() > 4)
 			{		
 				double[] pit = getPit(0);
-				if(pit[0] < 2 && pit[0] > -2)
+				System.out.println("Distance to pit: " + pit[0] + " " + pit[1]);
+				if(pit[0] < 1 && pit[0] > -1)
 				{
-					//System.out.println("Pit is close");
+					System.out.println("Pit is close");
 				}
 				
 				int direction = getdir(stateMemory);
@@ -89,10 +90,14 @@ public class SimulatedFast extends SimulatedHuman {
 				
 				double[] step = getstep(0); 
 				
+				/*if( (step[x] < 2 && step[x] > -2) && step[y] > 0 )
+				{
+					System.out.println("Close to step down: " +step[x]+" " +step[y]);
+				}*/
 				
 				if( (step[x] < 2 && step[x] > -2) && step[y] < 0 )
 				{
-					//System.out.println("Close to step up");
+					//System.out.println("Close to step up: " +step[x]+" " +step[y]);
 					
 					
 					//If stuck at step					
@@ -102,7 +107,7 @@ public class SimulatedFast extends SimulatedHuman {
 						feedback[1] = -1.0;
 					}
 					
-					//If the last action was to jump towards the step
+					/*//If the last action was to jump towards the step
 					else
 					{
 						boolean towardsStep = stateMemory.get(0)[1] > 0 && step[x] > 0;
@@ -111,7 +116,7 @@ public class SimulatedFast extends SimulatedHuman {
 							feedback[1] = 1.0;
 							//System.out.println("Close to step and get out of there");
 						}
-					}
+					}*/
 		
 				}
 			}	

@@ -705,7 +705,7 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 		p.addIntegerParam("level type", 0);
 		
 		// Parameter level difficulty that is actually used		
-		p.addIntegerParam("level difficulty", 5);
+		p.addIntegerParam("level difficulty", 2);
 		
 		p.addIntegerParam("instance", 0);
 		/*
