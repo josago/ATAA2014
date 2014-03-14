@@ -72,6 +72,7 @@ public class SimulatedFast extends SimulatedHuman {
 			else if(stateMemory.size() > 4)
 			{		
 				double[] pit = getPit(0);
+				System.out.println("PIT BITCH: " + pit[0]);
 				if(pit[0] < 2 && pit[0] > -2)
 				{
 					//System.out.println("Pit is close");
