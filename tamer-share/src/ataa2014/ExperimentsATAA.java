@@ -132,40 +132,46 @@ public class ExperimentsATAA {
 		{
 			for(String feat: ParamsATAA.featureGeneratorOptions)
 			{
-				System.out.println("Current experiment:\nmodel: " + mod + "\nfeature generator: " + feat);
+				System.out.println("============\nCurrent experiment:\nmodel: " + mod + "\nfeature generator: " + feat+"\n==================");
 				//Set parameters for this experimental setting
 				ParamsATAA.fileNameResults = "resultsATAA_" + mod + "_" + feat + ".txt";
 				results.openFile();
 				ParamsATAA.model = mod;
-				ParamsATAA.features = feat;				
-				init();
-				if(ParamsATAA.nr_steps_per_evaluation%ParamsATAA.nr_steps_for_episode != 0)
+				ParamsATAA.features = feat;	
+				for(int run = 0; run<ParamsATAA.nr_of_runs; run++)
 				{
-					System.err.println("Not all steps will be recorded!");
-				}				
-				
-				//Run the number of steps for a evaluation
-				for(int i = 1; i<ParamsATAA.nr_steps_per_evaluation+1; i++)
-				{					
-					//Make the agent and environment take a step
-					rew_obs = glue.RL_env_step(currentAction);
-					if(!ParamsATAA.useSimulatedHuman){
-						agent.addHRew(rewardHuman);
-						rewardHuman = 0;
-					}
-					
-					currentAction = glue.RL_agent_step(rew_obs.getReward(), rew_obs.getObservation());
-					
-					//Process results if neccessary
-					if(i%ParamsATAA.nr_steps_for_episode == 0 && i>1)
+					System.out.println("Run number: " + run);
+					init();
+					if(ParamsATAA.nr_steps_per_evaluation%ParamsATAA.nr_steps_for_episode != 0)
 					{
-						results.processResults();
+						System.err.println("Not all steps will be recorded!");
+					}				
+					
+					//Run the number of steps for a evaluation
+					for(int i = 1; i<ParamsATAA.nr_steps_per_evaluation+1; i++)
+					{					
+						//Make the agent and environment take a step
+						rew_obs = glue.RL_env_step(currentAction);
+						if(!ParamsATAA.useSimulatedHuman){
+							agent.addHRew(rewardHuman);
+							rewardHuman = 0;
+						}
+						
+						currentAction = glue.RL_agent_step(rew_obs.getReward(), rew_obs.getObservation());
+						
+						//Process results if neccessary
+						if(i%ParamsATAA.nr_steps_for_episode == 0 && i>1)
+						{
+							results.processResults();
+						}
 					}
-				}
-				
+					results.run_finished();
+					cleanUp();
+					System.out.println("Run finished and cleaned up");
+				}				
 				//Write results to file
 				results.writeToFile();
-				cleanUp();
+				
 			}
 		}
 	}	
@@ -180,7 +186,7 @@ public class ExperimentsATAA {
 		ExperimentsATAA exp = new ExperimentsATAA();
 		//exp.testExperimentEnvironment();		
 		exp.run_experiment();
-		System.exit(0);
+		System.exit(0);				
 	}
 	
 	private void checkoutThreads()

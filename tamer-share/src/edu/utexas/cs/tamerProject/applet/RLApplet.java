@@ -77,45 +77,40 @@ public class RLApplet extends JApplet
 		this.setBackground(Color.black);
 
 		if (IN_BROWSER) {			
-				System.out.println("In browser statement RL Applet");
-			if(!ParamsATAA.ATAA_Exp_attempt1){
-				// Get max number of episodes from parameters set in HTML; will exit once this limit is reached
-				String numEpsStr = getParameter("numEpisodes");
-				System.out.println("Parameter num episodes requested: " +numEpsStr);
-				if (numEpsStr != null) RunLocalExperiment.numEpisodes = Integer.parseInt(numEpsStr);
-		
-				// Get max total number of steps from parameters set in HTML; will exit once this limit is reached
-				String maxTotalStepsStr = getParameter("maxTotalSteps");
-				if (maxTotalStepsStr != null)
-					RunLocalExperiment.maxTotalSteps = Integer.parseInt(maxTotalStepsStr);
-					
-				// If set, this gives a number of time steps that one episode must last before the experiment will
-				// end. This can be used while training a subject before an experiment to force a certain control
-				// or training performance before moving to the real experiment.
-				String finishExpAtStepsStr = getParameter("timeRequirement");
-				if (finishExpAtStepsStr != null)
-					RunLocalExperiment.finishExpIfNumStepsInOneEp = Integer.parseInt(finishExpAtStepsStr);		
-						
-				// Get the duration of a time step in milliseconds. Smaller values create faster transitions.
-				String speedStr = getParameter("speed");
-				System.out.println("speed: " + speedStr);
-				if (speedStr != null) 
-					RunLocalExperiment.stepDurInMilliSecs = Integer.valueOf(speedStr);
+			System.out.println("In browser statement RL Applet");
+			// Get max number of episodes from parameters set in HTML; will exit once this limit is reached
+			String numEpsStr = getParameter("numEpisodes");
+			System.out.println("Parameter num episodes requested: " +numEpsStr);
+			if (numEpsStr != null) RunLocalExperiment.numEpisodes = Integer.parseInt(numEpsStr);
+	
+			// Get max total number of steps from parameters set in HTML; will exit once this limit is reached
+			String maxTotalStepsStr = getParameter("maxTotalSteps");
+			if (maxTotalStepsStr != null)
+				RunLocalExperiment.maxTotalSteps = Integer.parseInt(maxTotalStepsStr);
 				
-				// Boolean value determines whether the keys '+' and '-' can speed and slow transitions.
-				String speedControlsStr = getParameter("speedControls");
-				if (speedControlsStr != null) 
-					RLPanel.enableSpeedControls = Boolean.valueOf(speedControlsStr);
-		
-				// Boolean value determines whether the key '1' can be used to move one step forward (only useful when paused).
-				String singleStepControlStr = getParameter("singleStepControl");
-				if (singleStepControlStr != null) 
-					RLPanel.enableSingleStepControl = Boolean.valueOf(singleStepControlStr);
-			}
-			else
-			{
-				System.out.println("RLApplet: Maybe do something else but nothing right now");
-			}
+			// If set, this gives a number of time steps that one episode must last before the experiment will
+			// end. This can be used while training a subject before an experiment to force a certain control
+			// or training performance before moving to the real experiment.
+			String finishExpAtStepsStr = getParameter("timeRequirement");
+			if (finishExpAtStepsStr != null)
+				RunLocalExperiment.finishExpIfNumStepsInOneEp = Integer.parseInt(finishExpAtStepsStr);		
+					
+			// Get the duration of a time step in milliseconds. Smaller values create faster transitions.
+			String speedStr = getParameter("speed");
+			System.out.println("speed: " + speedStr);
+			if (speedStr != null) 
+				RunLocalExperiment.stepDurInMilliSecs = Integer.valueOf(speedStr);
+			
+			// Boolean value determines whether the keys '+' and '-' can speed and slow transitions.
+			String speedControlsStr = getParameter("speedControls");
+			if (speedControlsStr != null) 
+				RLPanel.enableSpeedControls = Boolean.valueOf(speedControlsStr);
+	
+			// Boolean value determines whether the key '1' can be used to move one step forward (only useful when paused).
+			String singleStepControlStr = getParameter("singleStepControl");
+			if (singleStepControlStr != null) 
+				RLPanel.enableSingleStepControl = Boolean.valueOf(singleStepControlStr);			
+			
 				
 		}
 		

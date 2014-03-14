@@ -10,8 +10,10 @@ public class ResultContainer {
 	
 	private int nrVars = 5; 
 	private ArrayList<ArrayList<Integer>> vars;
+	private int[][] vars_total;
 	private PrintWriter printer;
 	private boolean openFile = false;
+	private int nrRuns;
 	
 	//Variables that are kept track of
 	public static int nrLevelsFinished; //
@@ -21,11 +23,11 @@ public class ResultContainer {
 	public static int power_ups_received;//
 	
 	public ResultContainer(){
-		System.out.println("Current directory = " + System.getProperty("user.dir"));
-		openFile();
+		System.out.println("Current directory = " + System.getProperty("user.dir"));		
 		resetVars();
-		
 		vars = new ArrayList<ArrayList<Integer>> () ;
+		vars_total = null;
+		nrRuns = 0;
 		for(int i = 0; i<nrVars;i++)
 		{
 			vars.add(new ArrayList<Integer> ());
@@ -66,25 +68,46 @@ public class ResultContainer {
 		if(openFile)
 		{
 			//Write the containers to file	
-			for(int i = 0; i< vars.size();i++)
+			for(int i = 0; i< vars_total.length;i++)
 			{
-				for(int j = 0; j<vars.get(i).size();j++)
+				for(int j = 0; j<vars_total[i].length;j++)
 				{
-					printer.print(vars.get(i).get(j));
-					if(j<vars.get(i).size()-1)
+					printer.print(vars_total[i][j]/(double)nrRuns);
+					vars_total[i][j] = 0;
+					if(j<vars_total[i].length-1)
 						printer.print("\t");
 				}
-				printer.print("\n");
-				vars.get(i).clear();
+				printer.print("\n");				
 			}
 			close_all();
 			resetVars();			
 			openFile = false;
+			nrRuns = 0;
 		}
 		else
 		{
 			System.err.println("Trying to write to file without an opened file!");
 		}
+	}
+	
+	public void run_finished()
+	{
+		if(vars_total == null)
+		{
+			vars_total = new int[vars.size()][vars.get(0).size()];
+		}
+		
+			
+		for(int i = 0; i<vars.size();i++)
+		{
+			for(int j = 0; j<vars.get(i).size();j++)
+			{
+				vars_total[i][j] += vars.get(i).get(j);
+			}
+			vars.get(i).clear();
+		}
+		nrRuns++;
+		resetVars();
 	}
 	
 	/**
