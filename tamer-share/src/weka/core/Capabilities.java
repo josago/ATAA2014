@@ -1134,13 +1134,15 @@ public class Capabilities
 	    
 	    // not enough instances with class labels?
 	    if (hasClass < getMinimumNumberInstances()) {
+	    //Turned of this warning because it is annoying
+	    	
 	      m_FailReason = new WekaException(
 		  createMessage("Not enough training instances with class labels (required: " 
 		      + getMinimumNumberInstances() 
 		      + ", provided: " 
 		      + hasClass + ")!"));
 	      return false;
-	    }
+	    }	    
 	  }
 	}
       }

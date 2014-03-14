@@ -16,7 +16,7 @@ public class SimulatedHuman {
 	public Random r;
 	public ArrayList<double []> feedbackList; 
 	
-	protected double prob_feedback = 0.6;
+	protected double prob_feedback = 0.3;
 	
 	
 	public SimulatedHuman(){
@@ -68,7 +68,7 @@ public class SimulatedHuman {
 	
 	
 	//return a sum of directions in memory (dir: -1=left 0=still 1=right)
-	protected int getdir(ArrayList<double[]> stateMemory) {
+	protected int getdir() {
 		int dir = 0;
 		
 		for (int i = 0; i < stateMemory.size(); i++)
@@ -78,7 +78,7 @@ public class SimulatedHuman {
 	    }
 	
 	//return a sum of all jumps in memory
-	protected int getjumps(ArrayList<double[]> stateMemory) {
+	protected int getjumps() {
 		int jumps = 0;
 		
 		for (int i = 0; i < stateMemory.size(); i++)
@@ -97,8 +97,8 @@ public class SimulatedHuman {
 	protected boolean stuckAtStep(){		
 		if(stateMemory.size()>1)
 		{
-			double[] step_0 = getstep(0);
-			double[] step_1 = getstep(1);
+			double[] step_0 = getstep(stateMemory.size()-1);
+			double[] step_1 = getstep(stateMemory.size()-2);
 			return step_0[0] == step_1[0] && step_0[1] == step_1[1];
 		}
 		return false;

@@ -134,7 +134,7 @@ public class ExperimentsATAA {
 			{
 				System.out.println("============\nCurrent experiment:\nmodel: " + mod + "\nfeature generator: " + feat+"\n==================");
 				//Set parameters for this experimental setting
-				ParamsATAA.fileNameResults = "resultsATAA_" + mod + "_" + feat + ".txt";
+				ParamsATAA.fileNameResults = "resultsATAA_" + mod + "_" + feat + "_" + ParamsATAA.personName + ".txt";
 				results.openFile();
 				ParamsATAA.model = mod;
 				ParamsATAA.features = feat;	

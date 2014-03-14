@@ -22,6 +22,7 @@ public class SimulatedFast extends SimulatedHuman {
 	
 	@Override
 	protected void addFeedback(){
+		boolean feedbackGiven = false;
 		// Actions represented as first three entries: 
 		// 1st entry: -1 for going left, 1 for going right and 0 for nothing
 		// 2nd entry: running or not. 3rd entry: jumping or not.
@@ -52,18 +53,37 @@ public class SimulatedFast extends SimulatedHuman {
 			if(eventMemory.contains(Event.hurtByEnemy) || eventMemory.contains(Event.diedInPit)){
 				System.out.println("DIEEEEEEEEEEEEEEEEED");
 				feedback[1] = -1.0;
+				feedbackGiven=true;
 			}		
 			else if(eventMemory.contains(Event.killedEnemy) || eventMemory.contains(Event.gotPowerUp) )
 			{
 				feedback[1] = 1.0;	
 				System.out.println("KILLED ENEMY OR GOT POWERUP");
+				feedbackGiven=true;
 			}			
-		}		
-		else if(r.nextDouble() < prob_feedback)
+		}
+		//If there are no events check if mario is stuck at a step
+		else if(stateMemory.size()>0){
+			double[] step = getstep(stateMemory.size()-1); 
+						
+			if( (step[x] < 2 && step[x] > -2) && step[y] < 0 )
+			{
+				//If stuck at step					
+				if(stuckAtStep())
+				{
+					System.out.println("Getting stuck");
+					feedback[1] = -1.0;
+					feedbackGiven=true;
+				}	
+			}
+		}
+		
+		//If there has been no feedback given above
+		if(!feedbackGiven && r.nextDouble() < prob_feedback)
 		{			
 			if(stateMemory.size() <= 4)
 			{
-				if(getdir(stateMemory) > 0 )
+				if(getdir() > 0 )
 					feedback[1] = 1.0;
 				else
 					feedback[1] = -1.0;
@@ -71,14 +91,14 @@ public class SimulatedFast extends SimulatedHuman {
 			}
 			else if(stateMemory.size() > 4)
 			{		
-				double[] pit = getPit(0);
-				System.out.println("Distance to pit: " + pit[0] + " " + pit[1]);
+				double[] pit = getPit(stateMemory.size()-1);
+				//System.out.println("Distance to pit: " + pit[0] + " " + pit[1]);
 				if(pit[0] < 1 && pit[0] > -1)
 				{
 					System.out.println("Pit is close");
 				}
 				
-				int direction = getdir(stateMemory);
+				int direction = getdir();
 					
 				// If Mario has been running to the right in the last x frames: positive
 				if(direction < 3){
@@ -88,37 +108,7 @@ public class SimulatedFast extends SimulatedHuman {
 					feedback[1] = 1.0;
 				}
 				
-				double[] step = getstep(0); 
 				
-				/*if( (step[x] < 2 && step[x] > -2) && step[y] > 0 )
-				{
-					System.out.println("Close to step down: " +step[x]+" " +step[y]);
-				}*/
-				
-				if( (step[x] < 2 && step[x] > -2) && step[y] < 0 )
-				{
-					//System.out.println("Close to step up: " +step[x]+" " +step[y]);
-					
-					
-					//If stuck at step					
-					if(stuckAtStep())
-					{
-						//System.out.println("Getting stuck");
-						feedback[1] = -1.0;
-					}
-					
-					/*//If the last action was to jump towards the step
-					else
-					{
-						boolean towardsStep = stateMemory.get(0)[1] > 0 && step[x] > 0;
-						if(stateMemory.get(0)[1] == 1 && towardsStep)
-						{						
-							feedback[1] = 1.0;
-							//System.out.println("Close to step and get out of there");
-						}
-					}*/
-		
-				}
 			}	
 		}
 		
