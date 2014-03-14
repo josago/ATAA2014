@@ -368,7 +368,7 @@ public class StateRepresentation extends FeatGenerator
     		dist_x = pit_r - (coords_mario[VECTOR_X] - xCam);
     	}
     	
-    	if (dist_x < v[2 * ENTITY_PIT + VECTOR_DX])
+    	if (Math.abs(dist_x) < Math.abs(v[2 * ENTITY_PIT + VECTOR_DX]))
     	{
     		v[2 * ENTITY_PIT + VECTOR_DX] = dist_x;
     		v[2 * ENTITY_PIT + VECTOR_LX] = pit_r - pit_l - 1;
