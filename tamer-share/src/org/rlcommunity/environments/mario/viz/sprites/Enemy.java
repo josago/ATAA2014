@@ -6,6 +6,7 @@ import org.rlcommunity.environments.mario.viz.Art;
 import org.rlcommunity.environments.mario.viz.LevelScene;
 import org.rlcommunity.environments.mario.GlueMario;
 
+import ataa2014.ResultContainer;
 import ataa2014.SimulatedHuman;
 
 
@@ -118,6 +119,7 @@ public class Enemy extends Sprite
                             spriteContext.addSprite(new Shell(world, x, y, 1));
                         }
                     }
+                    ResultContainer.enemies_killed++;
                     return SimulatedHuman.Event.killedEnemy;
                 }
                 else

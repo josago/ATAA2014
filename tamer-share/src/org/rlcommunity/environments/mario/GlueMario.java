@@ -44,7 +44,7 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 	
 	public static GlueMarioParameters param = new GlueMarioParameters();
 	
-	static JFrame frame;
+	public static JFrame frame;
 	
 	
 	static int ticks_since_last_action;
@@ -61,7 +61,7 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 	static boolean last_action_jump = false;//added by guangliang
 	static boolean last_action_speed = false;//added by guangliang
 
-	static MarioComponent comp;
+	public static MarioComponent comp;
 
 	static int mario_x;
 	static int mario_y;

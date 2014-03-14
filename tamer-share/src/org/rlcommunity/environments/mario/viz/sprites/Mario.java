@@ -10,6 +10,7 @@ import org.rlcommunity.environments.mario.viz.LevelScene;
 import org.rlcommunity.environments.mario.sonar.FixedSoundSource;
 import org.rlcommunity.environments.mario.GlueMario;
 
+import ataa2014.ResultContainer;
 import ataa2014.SimulatedHuman;
 
 
@@ -308,6 +309,8 @@ public class Mario extends Sprite
         if (y > world.level.height * 16 + 16)
         {
             die();
+            System.out.println("Event: Died because of pit");
+            return SimulatedHuman.Event.diedInPit;
         }
 
         if (x < 0)
@@ -318,6 +321,7 @@ public class Mario extends Sprite
 
         if (x > world.level.xExit * 16)
         {
+        	ResultContainer.nrLevelsFinished++;
             win();
         }
 
@@ -623,6 +627,7 @@ public class Mario extends Sprite
 
     public void die()
     {
+    	ResultContainer.timesDied++;
         xDeathPos = (int) x;
         yDeathPos = (int) y;
         world.paused = true;

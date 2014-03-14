@@ -1,19 +1,24 @@
 package ataa2014;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class ResultContainer {
 	
 	private int nrVars = 5; 
-	ArrayList<ArrayList<Integer>> vars;
+	private ArrayList<ArrayList<Integer>> vars;
+	private PrintWriter printer;
+	private boolean openFile = false;
 	
 	//Variables that are kept track of
-	//TODO: get these updated in the process
-	public static int nrLevelsFinished;
-	public static int timesDied;
-	public static int coins_received;
-	public static int enemies_killed;
-	public static int power_ups_received;
+	public static int nrLevelsFinished; //
+	public static int timesDied; //
+	public static int coins_received; //
+	public static int enemies_killed; //
+	public static int power_ups_received;//
 	
 	public ResultContainer(){
 		System.out.println("Current directory = " + System.getProperty("user.dir"));
@@ -41,13 +46,45 @@ public class ResultContainer {
 	
 	public void openFile()
 	{
-		//Open file using name in ParamsATAA
-		//Create buffered writer and shizzle
+		File f = new File("src/ataa2014_expResults/" + ParamsATAA.fileNameResults);
+		try {
+			printer = new PrintWriter(f, "UTF-8");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		openFile = true;
 	}
 	
+	/**
+	 * In the final file each row contains a variable
+	 * The order is the the order to which they are added to the container (see processResults)
+	 */
 	public void writeToFile()
 	{
-		//Write the containers to file		
+		if(openFile)
+		{
+			//Write the containers to file	
+			for(int i = 0; i< vars.size();i++)
+			{
+				for(int j = 0; j<vars.get(i).size();j++)
+				{
+					printer.print(vars.get(i).get(j));
+					if(j<vars.get(i).size()-1)
+						printer.print("\t");
+				}
+				printer.print("\n");
+				vars.get(i).clear();
+			}
+			close_all();
+			resetVars();			
+			openFile = false;
+		}
+		else
+		{
+			System.err.println("Trying to write to file without an opened file!");
+		}
 	}
 	
 	/**
@@ -64,7 +101,7 @@ public class ResultContainer {
 	
 	public void close_all()
 	{
-		//Close file and buffered writer and everything
+		printer.close();
 	}
 	
 }

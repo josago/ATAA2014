@@ -170,8 +170,10 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
 
     public void stop()
     {
+    	System.out.println("Stop function called in MarioComponent");
         Art.stopMusic();
         running = false;
+        sound.shutDown();
     }
 
     public int tick;
@@ -182,6 +184,8 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
     
     public void run()
     {
+    	
+    	
     	if (!GlueMario.go_dark)
     		graphicsConfiguration = getGraphicsConfiguration();
     	else
@@ -313,6 +317,9 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
 	            }
             }
         }
+        
+        System.out.println("Game thread past the while running loop");
+        
         renderedFrames++;
 
         if (!org.rlcommunity.environments.mario.GlueMario.go_fast) {
@@ -326,7 +333,8 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
         }
 
         if (!GlueMario.go_dark)
-        	Art.stopMusic();
+        	Art.stopMusic();        
+        
     }
 
     private void drawString(Graphics g, String text, int x, int y, int c)

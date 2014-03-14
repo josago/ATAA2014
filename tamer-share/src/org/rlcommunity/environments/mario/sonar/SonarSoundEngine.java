@@ -55,7 +55,7 @@ public class SonarSoundEngine implements Runnable
         leftBuf = new float[bufferSize];
         rightBuf = new float[bufferSize];
 
-        Thread thread = new Thread(this);
+        Thread thread = new Thread(this, "Sonar Sound Thread Mario");
         thread.setDaemon(true);
         thread.setPriority(10);
         thread.start();

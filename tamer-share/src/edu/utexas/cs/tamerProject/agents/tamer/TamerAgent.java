@@ -23,6 +23,8 @@ import org.rlcommunity.rlglue.codec.types.Action;
 import org.rlcommunity.rlglue.codec.types.Observation;
 import org.rlcommunity.rlglue.codec.util.AgentLoader;
 
+import ataa2014.ExperimentsATAA;
+import ataa2014.InputPanel;
 import ataa2014.ParamsATAA;
 import ataa2014.SimulatedHuman;
 import ataa2014.StateRepresentation;
@@ -91,7 +93,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     	// Add simulated human to the regression model if 
     	if(ParamsATAA.useSimulatedHuman)
     	{
-    		System.out.println("Simulated human added to regression model");
+    		//System.out.println("Simulated human added to regression model");
     		model.addSimulatedHuman(simHuman);
     		featureProcessorHuman = new StateRepresentation(this.theObsIntRanges, this.theObsDoubleRanges, 
     				this.theActIntRanges, this.theActDoubleRanges);
@@ -127,22 +129,36 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 			this.actSelector.setRewModel(this.model);
 		this.endInitHelper();
 		
+		
 		//The adding of the rewards provided by the simulated human
-		// CHECK IF USING ADDHREW GOES VIA THE CREDIT ASSIGNER!!!!!!!
 		if(ParamsATAA.useSimulatedHuman)
 		{
 			if(!this.inTrainSess)
 				this.inTrainSess = true;
 			
 			final TamerAgent balle = this;
-		    new Thread("simHuman feedback thread")
-		    {
+		    Thread t = new Thread("simHuman feedback thread")
+		    {		    	
 		        public void run()
 		        {
-		            while (true){
-		                
+		        	System.out.println("Human feedbackloop started");
+		            while (true){		                
 		            	double reward = simHuman.getFeedback();
+		            	//System.out.println("Reward requested from simHuman = " + reward);
 		            	balle.addHRew(reward);
+		            	//Make sure the human feedback from the simulated human is 
+		            	//visible in the feedback window
+		            	if(ParamsATAA.ATAA_Exp)
+		            	{
+		            		if(reward != 0.0)
+		            		{
+		            			if(reward>0.0)
+		            				ExperimentsATAA.ip.f = InputPanel.Feedback.positive;
+		            			else
+		            				ExperimentsATAA.ip.f = InputPanel.Feedback.negative;
+		            			ExperimentsATAA.ip.repaint();
+		            		}
+		            	}
 		            	//System.out.println("\n-----\nReward from simulated human added: " + reward + "\n----------");
 		                try
 		                {
@@ -153,7 +169,11 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		                }
 		            }
 		        }
+		        
+		        
 		    };
+		    t.start();
+		    System.out.println("Feedbackloop simulated human started!!!");
 		}
 	
     }
@@ -191,7 +211,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     	
     	
     	
-    	System.out.println("\n-----------------Tamer step---------------\n");
+    	//System.out.println("\n-----------------Tamer step---------------\n");
     	//System.out.println("Training? " + this.inTrainSess);
     	//System.out.println("r:"+r);
     	//System.out.println("Tamer obs intArray: " + Arrays.toString(o.intArray));

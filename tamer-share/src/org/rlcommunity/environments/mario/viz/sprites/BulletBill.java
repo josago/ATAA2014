@@ -3,6 +3,7 @@ package org.rlcommunity.environments.mario.viz.sprites;
 import org.rlcommunity.environments.mario.viz.Art;
 import org.rlcommunity.environments.mario.viz.LevelScene;
 
+import ataa2014.ResultContainer;
 import ataa2014.SimulatedHuman;
 
 
@@ -63,6 +64,7 @@ public class BulletBill extends Sprite
                     ya = 1;
                     deadTime = 100;
                     
+                    ResultContainer.enemies_killed++;
                     return SimulatedHuman.Event.killedEnemy;
                 }
                 else

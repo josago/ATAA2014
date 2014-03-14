@@ -32,7 +32,7 @@ public class NoDelayGlueRunner implements GlueRunner,Runnable {
 	}
 
 	public void start() {
-		theThread=new Thread(this);
+		theThread=new Thread(this, "NoDelayGlueRunner Thread");
 		theThread.start();
 
 	}

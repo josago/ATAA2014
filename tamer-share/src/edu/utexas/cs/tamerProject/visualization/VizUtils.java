@@ -13,6 +13,7 @@ public class VizUtils {
 
 	
 	public static JFrame createGenericDisplay(int width, int height){
+		System.out.println("createGenericDisplay in VizUtils is used!!!!!");
 		JFrame frame = new JFrame( "" );
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		frame.setSize(width, height); // set frame size

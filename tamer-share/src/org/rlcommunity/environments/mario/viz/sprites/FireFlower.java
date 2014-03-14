@@ -3,6 +3,7 @@ package org.rlcommunity.environments.mario.viz.sprites;
 import org.rlcommunity.environments.mario.viz.Art;
 import org.rlcommunity.environments.mario.viz.LevelScene;
 
+import ataa2014.ResultContainer;
 import ataa2014.SimulatedHuman;
 
 
@@ -48,6 +49,7 @@ public class FireFlower extends Sprite
             {
                 world.mario.getFlower();
                 spriteContext.removeSprite(this);
+                ResultContainer.power_ups_received++;
                 return SimulatedHuman.Event.gotPowerUp;
             }
         }

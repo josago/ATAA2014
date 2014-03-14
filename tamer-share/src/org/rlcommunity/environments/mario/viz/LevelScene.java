@@ -14,6 +14,7 @@ import org.rlcommunity.environments.mario.sonar.FixedSoundSource;
 import org.rlcommunity.environments.mario.viz.level.*;
 
 import ataa2014.ParamsATAA;
+import ataa2014.ResultContainer;
 import ataa2014.SimulatedHuman;
 
 
@@ -161,7 +162,7 @@ public class LevelScene extends Scene implements SpriteContext
 	        timeLeft--;
 	        if (timeLeft==0)
 	        {
-	            mario.die();
+	            mario.die();	            
 	        }
     	}
     	else {
@@ -340,6 +341,7 @@ public class LevelScene extends Scene implements SpriteContext
                         if (sprite.fireballCollideCheck(fireball))
                         {
                         	System.out.println("killedEnemy with fireball");
+                        	ResultContainer.enemies_killed++;
                         	if (hasHuman) human.receiveEvent(SimulatedHuman.Event.killedEnemy);
 
                             fireball.die();
@@ -363,6 +365,7 @@ public class LevelScene extends Scene implements SpriteContext
         	{
         		human.receiveEvent(SimulatedHuman.Event.gotCoin);
         	}
+        	ResultContainer.coins_received++;
         }
         
         org.rlcommunity.environments.mario.GlueMario.levelCheckIn(this);

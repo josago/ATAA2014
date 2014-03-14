@@ -1071,7 +1071,6 @@ public abstract class GeneralAgent implements AgentInterface{
 	
 	public void addHRew(double feedbackVal) {
 		this.hRewList.add(new HRew(feedbackVal, Stopwatch.getComparableTimeInSec()));
-		System.out.println("Adding reward : " + feedbackVal );
 	}
 	
 

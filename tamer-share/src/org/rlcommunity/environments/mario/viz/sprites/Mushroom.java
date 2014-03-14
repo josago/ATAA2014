@@ -4,6 +4,7 @@ import org.rlcommunity.environments.mario.GlueMario;
 import org.rlcommunity.environments.mario.viz.Art;
 import org.rlcommunity.environments.mario.viz.LevelScene;
 
+import ataa2014.ResultContainer;
 import ataa2014.SimulatedHuman;
 
 
@@ -61,6 +62,7 @@ public class Mushroom extends Sprite
             {
                 world.mario.getMushroom();
                 spriteContext.removeSprite(this);
+                ResultContainer.power_ups_received++;
                 return SimulatedHuman.Event.gotPowerUp;
             }
         }

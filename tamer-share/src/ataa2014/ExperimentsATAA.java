@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 import org.rlcommunity.environments.mario.GeneralMario;
+import org.rlcommunity.environments.mario.GlueMario;
+import org.rlcommunity.environments.mario.viz.MarioComponent;
 import org.rlcommunity.rlglue.codec.EnvironmentInterface;
 import org.rlcommunity.rlglue.codec.LocalGlue;
 import org.rlcommunity.rlglue.codec.types.Action;
@@ -29,10 +31,48 @@ public class ExperimentsATAA {
 	private Reward_observation_terminal rew_obs;
 	public static InputPanel ip;
 	private int rewardHuman;
+	private JFrame f;
 	
+	
+	
+	public void testExperimentEnvironment()
+	{
+		init();	
+		System.out.println("========================\nINITIALIZED EVERYTHING FOR EXPERIMENT\n========================\n\n");
+		ResultContainer results = new ResultContainer();		
+		results.openFile();
+		for(int i = 0; i<10; i++)
+		{
+			// Make sure here the right reward is propagated (from this window definitely not yet, from simHuman: check)
+			rew_obs = glue.RL_env_step(currentAction);
+			if(!ParamsATAA.useSimulatedHuman){
+				agent.addHRew(rewardHuman);
+				rewardHuman = 0;
+			}
+			currentAction = glue.RL_agent_step(rew_obs.getReward(), rew_obs.getObservation());
+		}
+		
+		cleanUp();
+		
+		results.processResults();
+		results.writeToFile();		
+		System.out.println("END OF TEST ROUND\n\n\n\n\n\n\n");
+		
+	}
+	
+	private void cleanUp() {
+		
+		if(!ParamsATAA.useSimulatedHuman)
+			f.dispose();
+		GlueMario.frame.dispose();
+	}
+
+	/**
+	 * Initialize the agent, feedback (real or simulated human), 
+	 */
 	public void init()
 	{
-		int[] initAction = {1, 0, 0};
+		int[] initAction = {0, 0, 0};
 		currentAction = new Action(3, 0);
 		currentAction.intArray = initAction;
 		
@@ -48,73 +88,130 @@ public class ExperimentsATAA {
 			rewardHuman = 0;
 			agent = new TamerAgent();
 			env = new GeneralMario();
-			
-			//Create reinforcement window
-			ip = new InputPanel(this);			
-			JFrame f = new JFrame();	        
-	        f.getContentPane().add(ip);
-	        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        f.pack();
-	        f.setVisible(true);
-	        
-	        ActionListener painter = new ActionListener(){        	
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					ip.f = InputPanel.Feedback.nothing;
-					ip.repaint();
-					//System.out.println("Timer repaint");
-				}
-				
-	        };
-	        
-	        int delay = 350;
-	        new Timer(delay, painter).start();
 		}
+		
+		// Create reinforcement window
+		// Also displays the feedback from the simulated human
+		ip = new InputPanel(this);			
+		f = new JFrame();	        
+        f.getContentPane().add(ip);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.pack();
+        f.setVisible(true);
+        
+        ActionListener painter = new ActionListener(){        	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ip.f = InputPanel.Feedback.nothing;
+				ip.repaint();
+			}
+			
+        };
+        
+        int delay = 350;
+        Timer tim  = new Timer(delay, painter);
+        tim.start();
+		
+        //Initialize the glue 
 		glue = new LocalGlue(env, agent);
 		glue.RL_init();	
 		agent.setInTrainSess(true);
 		System.out.println("In train sess after init vanuit RLglue: " + agent.getInTrainSess());
+				
 	}
 	
-	//TODO: Collect interesting shizzle and put to file and stuff
-	//TODO: Make sure different combinations and shit can be runned and then results are processed
+	//Different combinations of models and feature generators are tested and 
+	//the results are collected and written to file
+	//Set parameters for the experiment in ParamsATAA
 	public void run_experiment()
 	{
-		init();	
-		System.out.println("========================\nINITIALIZED EVERYTHING FOR EXPERIMENT\n========================\n\n");
-		ResultContainer results = new ResultContainer();		
+		ResultContainer results = new ResultContainer();
 		
-		for(int i = 0; i<1000; i++)
+		//Each combination of features and models is an experimental setting
+		for(String mod: ParamsATAA.modelOptions)
 		{
-			// Make sure here the right reward is propagated (from this window definitely not yet, from simHuman: check)
-			rew_obs = glue.RL_env_step(currentAction);
-			if(!ParamsATAA.useSimulatedHuman){
-				agent.addHRew(rewardHuman);
-				rewardHuman = 0;
+			for(String feat: ParamsATAA.featureGeneratorOptions)
+			{
+				System.out.println("Current experiment:\nmodel: " + mod + "\nfeature generator: " + feat);
+				//Set parameters for this experimental setting
+				ParamsATAA.fileNameResults = "resultsATAA_" + mod + "_" + feat + ".txt";
+				results.openFile();
+				ParamsATAA.model = mod;
+				ParamsATAA.features = feat;				
+				init();
+				if(ParamsATAA.nr_steps_per_evaluation%ParamsATAA.nr_steps_for_episode != 0)
+				{
+					System.err.println("Not all steps will be recorded!");
+				}				
+				
+				//Run the number of steps for a evaluation
+				for(int i = 1; i<ParamsATAA.nr_steps_per_evaluation+1; i++)
+				{					
+					//Make the agent and environment take a step
+					rew_obs = glue.RL_env_step(currentAction);
+					if(!ParamsATAA.useSimulatedHuman){
+						agent.addHRew(rewardHuman);
+						rewardHuman = 0;
+					}
+					
+					currentAction = glue.RL_agent_step(rew_obs.getReward(), rew_obs.getObservation());
+					
+					//Process results if neccessary
+					if(i%ParamsATAA.nr_steps_for_episode == 0 && i>1)
+					{
+						results.processResults();
+					}
+				}
+				
+				//Write results to file
+				results.writeToFile();
+				cleanUp();
 			}
-			currentAction = glue.RL_agent_step(rew_obs.getReward(), rew_obs.getObservation());
 		}
-		System.exit(0);		
 	}	
 	
-	/**
-	 * Gets called by our own input panel if reward is added by a human
-	 * @param i
-	 */
-	public void updateOnHumanReward(int i)
+	public void setHumanReward(int i)
 	{
-		//System.out.println("Human feedback received: " + i);
 		rewardHuman = i;
 	}
-	
-	
-	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		ExperimentsATAA exp = new ExperimentsATAA();
-		exp.run_experiment();
 		
+	
+	public static void main(String[] args) {		
+		ExperimentsATAA exp = new ExperimentsATAA();
+		//exp.testExperimentEnvironment();		
+		exp.run_experiment();
+		System.exit(0);
+	}
+	
+	private void checkoutThreads()
+	{
+		Set<Thread> tset = Thread.getAllStackTraces().keySet();
+		System.out.println("\n============\nAll running threads:\n=============");
+		for(Thread t: tset)
+		{
+			System.out.println(t.getName());
+			if(t.getName().equals("Game Thread"))
+			{
+				GlueMario.comp.stop();
+				System.out.println("Game Thread stopped");
+			}
+			else if(t.getName().equals("simHuman feedback thread"))
+			{
+				t.interrupt();
+			}
+		}
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
+		tset = Thread.getAllStackTraces().keySet();
+		System.out.println("\n\nList threads again:\n");
+		for(Thread t: tset)
+		{
+			System.out.println(t.getName());			
+		}
 	}
 
 }

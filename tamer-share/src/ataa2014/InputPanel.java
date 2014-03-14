@@ -2,6 +2,7 @@ package ataa2014;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,13 +16,13 @@ import javax.swing.Timer;
 
 
 
-class InputPanel extends JPanel implements KeyListener {
+public class InputPanel extends JPanel implements KeyListener {
     private char c = 'e';
     ExperimentsATAA exp;
 
 
     public enum Feedback {positive, negative, nothing};
-    Feedback f; 
+    public Feedback f; 
     
     public InputPanel() {
     	f = Feedback.nothing;
@@ -44,19 +45,20 @@ class InputPanel extends JPanel implements KeyListener {
 
     public void paintComponent(Graphics g) {
         g.clearRect(0, 0, getWidth(), getHeight());
-        g.setColor(Color.red);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
         if(f == Feedback.positive)
         {
-        	g.drawString("POSITIVE", 75, 100);
-        	
+        	g.setColor(Color.green);
+        	g.drawString("POSITIVE", 35, 100);        	
         }
         else if (f == Feedback.negative){
-        	g.drawString("NEGATIVE", 75, 100);
+        	g.setColor(Color.red);
+        	g.drawString("NEGATIVE", 25, 100);
         	
-        }
+        }/*
         else{
-        	g.drawString("other key" , 250, 250);
-        }
+        	g.drawString("other key" , 20, 100);
+        }*/
         
     }
 
@@ -65,27 +67,31 @@ class InputPanel extends JPanel implements KeyListener {
     public void keyReleased(KeyEvent e) { }
     
     public void keyTyped(KeyEvent e) {
-        c = e.getKeyChar();
-        //System.out.println("Pressed key = " + c);
-        int output = 0;
-        if (c == 'a') {
-        	output = -1;
-        	f = Feedback.negative;
-        }
-        else if (c == 'l'){
-        	output = 1;
-        	f = Feedback.positive;
-        }
-        else{        	
-        	f = Feedback.nothing;
-        }    
-        
-        repaint();        
-        //System.out.println("Output: " + output);  
-        if(exp != null)
-        {
-        	exp.updateOnHumanReward(output);
-        }
+    	if(ParamsATAA.useSimulatedHuman)
+    	{
+	        c = e.getKeyChar();
+	        //System.out.println("Pressed key = " + c);
+	        int output = 0;
+	        if (c == 'a') {
+	        	output = -1;
+	        	f = Feedback.negative;
+	        }
+	        else if (c == 'l'){
+	        	output = 1;
+	        	f = Feedback.positive;
+	        }
+	        else{        	
+	        	f = Feedback.nothing;
+	        }    
+	        
+	        repaint();        
+	        //System.out.println("Output: " + output);  
+	        
+	        if(exp!=null)
+	        {
+	        	exp.setHumanReward(output);
+	        }
+    	}    	
     }    
     
     static InputPanel panel;
@@ -118,7 +124,7 @@ class InputPanel extends JPanel implements KeyListener {
             public void run()
             {
             	int i = 0;
-                while (true){
+                while (i<2){
                     //System.out.println("Hello World");
                     
                 	System.out.println("Step " + i);
@@ -131,6 +137,7 @@ class InputPanel extends JPanel implements KeyListener {
                         e.printStackTrace();
                     }
                 }
+                
             }            
         };
         thread.start();

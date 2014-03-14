@@ -35,7 +35,6 @@ public abstract class Scene implements SoundListener
     public abstract void render(Graphics og, float alpha);
     
     public void addSimulatedHuman(SimulatedHuman h){
-    	System.out.println("\nhuman added\n");
     	human = h;
     	hasHuman = true;
     }

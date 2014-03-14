@@ -227,7 +227,7 @@ public abstract class AbstractVisualizer extends Observable implements ImageAggr
             currentlyStarting = true;
         }
         for (RenderObject thisRunner : theRenderObjects) {
-            Thread theThread = new Thread(thisRunner);
+            Thread theThread = new Thread(thisRunner, "Thread in AbstractVisualizer");
             theThreads.add(theThread);
             theThread.start();
         }
@@ -311,7 +311,9 @@ public abstract class AbstractVisualizer extends Observable implements ImageAggr
 
     //All of these should be between 0 and 1
     public void addVizComponentAtPositionWithSize(PollingVizComponent newComponent, double xPos, double yPos, double width, double height) {
-        theRenderObjects.add(new ThreadRenderObject(new Dimension(200, 200), newComponent, this));
+    	ThreadRenderObject thRender = new ThreadRenderObject(new Dimension(200, 200), newComponent, this);
+    	System.err.println("New thread made that is actually used in AbstractVisualizer: " + thRender.toString());
+        theRenderObjects.add(thRender);
         positions.add(new Point2D.Double(xPos, yPos));
         sizes.add(new Point2D.Double(width, height));
     }

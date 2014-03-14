@@ -93,7 +93,6 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void addInstance(Sample sample)
 	{
-		System.out.println("Sample added to neural net");
 		if (binary_labels && sample.label != 0)
 		{
 			sample.label = sample.label > 0 ? 1 : -1;
@@ -138,7 +137,6 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void addInstancesWReplacement(Sample[] samples)
 	{
-		System.out.println("addInstancesWreplacement LYDIA");
 		for (Sample s: samples)
 		{
 			addInstance(s);

@@ -144,7 +144,7 @@ public class RLVizFrame extends GenericVizFrame {
                 public void run() {
                     controlPanel.doLoad();
                 }
-            }).start();
+            }, "RLVizFrame thread").start();
         }
     }
 }
