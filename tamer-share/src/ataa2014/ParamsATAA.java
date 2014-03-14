@@ -37,10 +37,10 @@ public class ParamsATAA {
 	//CHANGE THIS PARAMETER IN YOUR OWN NAME
 	public static String personName = "Lydia";
 	
-	public static String[] modelOptions = {"NeuralNet"};
+	//public static String[] modelOptions = {"NeuralNet"};
 	
 	//For the experiment the lower Options versions should be used
-	//public static String[] modelOptions = {"WekaModelPerActionModel", "NeuralNet"};
+	public static String[] modelOptions = {"NeuralNet", "WekaModelPerActionModel"};
 	public static String[] featureGeneratorOptions = {"FeatGen_Mario", "StateRepresentation"};
 			
 }
