@@ -35,7 +35,7 @@ public class ParamsATAA {
 	public static String fileNameResults = "Results_ATAA_experiment.txt";
 	
 	//CHANGE THIS PARAMETER IN YOUR OWN NAME
-	public static String personName = "Lydia";
+	public static String personName = "Johan_r4";
 	
 	//public static String[] modelOptions = {"NeuralNet"};
 	
