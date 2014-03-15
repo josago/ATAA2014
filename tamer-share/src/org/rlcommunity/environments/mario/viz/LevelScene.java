@@ -360,7 +360,7 @@ public class LevelScene extends Scene implements SpriteContext
         
         if(coins_mario < mario.coins)
         {
-        	System.out.println("event: received coins");
+        	//System.out.println("event: received coins");
         	if(hasHuman)
         	{
         		human.receiveEvent(SimulatedHuman.Event.gotCoin);

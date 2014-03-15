@@ -71,7 +71,7 @@ public class SimulatedFast extends SimulatedHuman {
 				//If stuck at step					
 				if(stuckAtStep())
 				{
-					System.out.println("Getting stuck");
+					//System.out.println("Getting stuck");
 					feedback[1] = -1.0;
 					feedbackGiven=true;
 				}	
@@ -95,7 +95,7 @@ public class SimulatedFast extends SimulatedHuman {
 				//System.out.println("Distance to pit: " + pit[0] + " " + pit[1]);
 				if(pit[0] < 1 && pit[0] > -1)
 				{
-					System.out.println("Pit is close");
+					//System.out.println("Pit is close");
 				}
 				
 				int direction = getdir();
