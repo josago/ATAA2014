@@ -308,8 +308,8 @@ public class ExperimentsATAA {
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {		
 		ExperimentsATAA exp = new ExperimentsATAA();
 		//exp.testExperimentEnvironment();			
-		//exp.run_experiment();
-		exp.run_experiment_with_humans();
+		exp.run_experiment();
+		//exp.run_experiment_with_humans();
 		System.exit(0);				
 	}
 	
