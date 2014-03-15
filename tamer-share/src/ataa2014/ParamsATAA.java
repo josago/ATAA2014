@@ -41,7 +41,6 @@ public class ParamsATAA {
 	
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
 	public static String personName = "Lydia";
-
 	
 //	public static String[] modelOptions = {"NeuralNet"};
 	//public static String[] modelOptions = {"WekaModelPerActionModel"};
