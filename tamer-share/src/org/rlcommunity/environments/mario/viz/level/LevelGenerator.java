@@ -3,8 +3,10 @@ package org.rlcommunity.environments.mario.viz.level;
 import java.util.Random;
 
 import org.rlcommunity.environments.mario.viz.sprites.Enemy;
-
 import org.rlcommunity.environments.mario.GlueMario;
+
+import ataa2014.ExperimentsATAA;
+import ataa2014.ParamsATAA;
 
 
 public class LevelGenerator
@@ -164,6 +166,11 @@ public class LevelGenerator
         int length = js * 2 + jl;
 
         boolean hasStairs = random.nextInt(3) == 0;
+        
+        if(ParamsATAA.ATAA_Exp)
+        {
+        	if(!ParamsATAA.includeStairs) hasStairs = false;
+        }
 
         int floor = height - 1 - random.nextInt(4);
         for (int x = xo; x < xo + length; x++)

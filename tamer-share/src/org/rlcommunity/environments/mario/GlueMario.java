@@ -26,6 +26,7 @@ import org.rlcommunity.rlglue.codec.taskspec.ranges.DoubleRange;
 import org.rlcommunity.rlglue.codec.taskspec.ranges.IntRange;
 import org.rlcommunity.rlglue.codec.types.*;
 
+import ataa2014.ExperimentsATAA;
 import ataa2014.ParamsATAA;
 import ataa2014.SimulatedHuman;
 import rlVizLib.messaging.environmentShell.TaskSpecPayload;
@@ -477,6 +478,7 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
         	mario = new MarioComponent(640, 480);
         }
         if (!go_dark) {
+        	System.out.println("Frame created here");
 	        frame = new JFrame("RL-Glue Mario");
 	        frame.setContentPane(mario);
 	        frame.pack();
@@ -701,10 +703,19 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 		
 //		p.addIntegerParam("ticks per action", 5);
 		
-		p.addIntegerParam("level seed", 121);
+		//Level seed it initialized here!
+		//If we use the ATAA exp we manipulate the seed
+		if(ParamsATAA.ATAA_Exp){
+			p.addIntegerParam("level seed", ExperimentsATAA.seed);
+		}
+		else{
+			p.addIntegerParam("level seed", 121);
+		}
+			
 		p.addIntegerParam("level type", 0);
 		
 		// Parameter level difficulty that is actually used
+		//If we use the ATAA exp we manipulate the level difficulty
 		if(ParamsATAA.ATAA_Exp){
 			p.addIntegerParam("level difficulty", ParamsATAA.level_difficulty);
 		}

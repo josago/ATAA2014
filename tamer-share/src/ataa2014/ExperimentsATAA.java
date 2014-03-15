@@ -2,6 +2,7 @@ package ataa2014;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -32,6 +33,15 @@ public class ExperimentsATAA {
 	public static InputPanel ip;
 	private int rewardHuman;
 	private JFrame f;
+	private Timer tim;
+	private int [] seeds;
+	
+	public static boolean killFeedbackloop;
+	public static boolean feedbackLoopGotKilled;
+	public static int seed;
+	
+	public static int loopNr;
+
 	
 	
 	
@@ -61,10 +71,21 @@ public class ExperimentsATAA {
 	}
 	
 	private void cleanUp() {
-		
-		if(!ParamsATAA.useSimulatedHuman)
-			f.dispose();
+		tim.stop();
+		f.dispose();
 		GlueMario.frame.dispose();
+		feedbackLoopGotKilled = false;
+		killFeedbackloop = true;
+		System.out.println("Killing feedbackloop!");
+		while(!feedbackLoopGotKilled)
+		{
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	/**
@@ -75,6 +96,7 @@ public class ExperimentsATAA {
 		int[] initAction = {0, 0, 0};
 		currentAction = new Action(3, 0);
 		currentAction.intArray = initAction;
+		killFeedbackloop = false;
 		
 		ParamsATAA.ATAA_Exp = true;
 		if(ParamsATAA.useSimulatedHuman)
@@ -109,7 +131,7 @@ public class ExperimentsATAA {
         };
         
         int delay = 350;
-        Timer tim  = new Timer(delay, painter);
+        tim  = new Timer(delay, painter);
         tim.start();
 		
         //Initialize the glue 
@@ -125,7 +147,9 @@ public class ExperimentsATAA {
 	//Set parameters for the experiment in ParamsATAA
 	public void run_experiment()
 	{
+		loopNr = 0;
 		ResultContainer results = new ResultContainer();
+		initSeeds();
 		
 		//Each combination of features and models is an experimental setting
 		for(String mod: ParamsATAA.modelOptions)
@@ -140,7 +164,13 @@ public class ExperimentsATAA {
 				ParamsATAA.features = feat;	
 				for(int run = 0; run<ParamsATAA.nr_of_runs; run++)
 				{
-					System.out.println("Run number: " + run);
+					// Manipulate the level seed
+					seed = seeds[run];
+					System.err.println("SEED SET TO: " + seeds[run]);
+					
+					loopNr++;
+					System.out.println("\n\n====================\n====================\nRun number: " + run + "\n\n====================\n====================\n");
+										
 					init();
 					if(ParamsATAA.nr_steps_per_evaluation%ParamsATAA.nr_steps_for_episode != 0)
 					{
@@ -176,6 +206,15 @@ public class ExperimentsATAA {
 		}
 	}	
 	
+	private void initSeeds() {
+		Random r = new Random();
+		seeds = new int[ParamsATAA.nr_of_runs];
+		for(int i =0; i<ParamsATAA.nr_of_runs;i++)
+		{
+			seeds[i] = r.nextInt(200) + 100;
+		}		
+	}
+
 	public void setHumanReward(int i)
 	{
 		rewardHuman = i;
@@ -184,7 +223,7 @@ public class ExperimentsATAA {
 	
 	public static void main(String[] args) {		
 		ExperimentsATAA exp = new ExperimentsATAA();
-		//exp.testExperimentEnvironment();		
+		//exp.testExperimentEnvironment();			
 		exp.run_experiment();
 		System.exit(0);				
 	}
