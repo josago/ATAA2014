@@ -627,6 +627,8 @@ public class Mario extends Sprite
 
     public void die()
     {
+//    	System.out.println("Coordinates at death: " + x + " " + y);
+    	ResultContainer.distance_traveled += x;
     	ResultContainer.timesDied++;
         xDeathPos = (int) x;
         yDeathPos = (int) y;
