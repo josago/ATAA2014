@@ -21,12 +21,12 @@ public class ParamsATAA {
 	
 	//Number of steps that a single evaluation consists of
 	//For experiment: set to 3600 (20 minutes is more or less 1200 sec*3 steps/sec = 3600)  
-	public static int nr_steps_per_evaluation = 3600;
+	public static int nr_steps_per_evaluation = 200;
 	//Number of steps that are in one bin for collecting results
 	//For experiment: set to 200
-	public static int nr_steps_for_episode = 200; //
+	public static int nr_steps_for_episode = 25; //
 	//For experiment: set to 6
-	public static int nr_of_runs = 6;
+	public static int nr_of_runs = 4;
 	
 	//Parameters that can be set and changed when running experiments
 	// Options: 
@@ -40,7 +40,7 @@ public class ParamsATAA {
 	public static String fileNameResults = "Results_ATAA_experiment.txt";
 	
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
-	public static String personName = "Jorge";
+	public static String personName = "Lydia_MoreHiddenNodes";
 	
 //	public static String[] modelOptions = {"NeuralNet"};
 	//public static String[] modelOptions = {"WekaModelPerActionModel"};
