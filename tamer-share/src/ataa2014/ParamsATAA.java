@@ -20,12 +20,12 @@ public class ParamsATAA {
 	public static int level_difficulty = 2;
 	
 	//Number of steps that a single evaluation consists of
-	//For experiment: set to 3600 (20 minutes is more or less 1200 sec*3 steps/sec = 3600)  
+	//For experiment: set to 400 
 	public static int nr_steps_per_evaluation = 400;
 	//Number of steps that are in one bin for collecting results
-	//For experiment: set to 200
+	//For experiment: set to 50
 	public static int nr_steps_for_episode = 50; //
-	//For experiment: set to 6
+	//For experiment: set to 10
 	public static int nr_of_runs = 10;
 	
 	//Parameters that can be set and changed when running experiments
