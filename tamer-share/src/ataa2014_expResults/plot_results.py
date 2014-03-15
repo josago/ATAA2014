@@ -9,10 +9,11 @@ NUM_TIMES_DIED         = 1
 NUM_COINS_EARNED       = 2
 NUM_ENEMIES_KILLED     = 3
 NUM_POWER_UPS_RECEIVED = 4
+NUM_BLOCKS_TRAVELLED   = 5
 
-LABELS = ["Levels finished", "Times died", "Coins earned (x10)", "Enemies killed", "Power-ups received"]
+LABELS = ["Levels finished", "Times died", "Coins earned (x5)", "Enemies killed", "Power-ups received", "Blocks travelled (x1000)"]
 
-def plot_all():
+def plot_all(user = None):
     i = 1
     
     for type_model in ("WekaModelPerActionModel", "NeuralNet"):
@@ -21,12 +22,12 @@ def plot_all():
             
             i += 1
             
-            plot_results(type_model, type_features, show = False)
+            plot_results(type_model, type_features, user, show = False)
     
     plt.show()
 
-def plot_results(type_model, type_features, show = True):
-    results = load_experiment(type_model, type_features)
+def plot_results(type_model, type_features, user = None, show = True):
+    results = load_experiment(type_model, type_features, user)
 
     plt.title(type_model + ", " + type_features)
 
@@ -37,7 +38,9 @@ def plot_results(type_model, type_features, show = True):
         xdata = np.arange(len(results[var])) * NUM_STEPS_PER_SAMPLE
         
         if var is NUM_COINS_EARNED:
-            plt.plot(xdata, results[var] / 10, '-o', label = LABELS[var])
+            plt.plot(xdata, results[var] / 5, '-o', label = LABELS[var])
+        elif var is DISTANCE_TRAVELLED:
+            plt.plot(xdata, results[var] / (16 * 1000), '-o', label = LABELS[var])
         else:
             plt.plot(xdata, results[var], '-o', label = LABELS[var])
     
@@ -46,14 +49,14 @@ def plot_results(type_model, type_features, show = True):
     if show:
         plt.show()
 
-def load_experiment(type_model, type_features):
+def load_experiment(type_model, type_features, user = None):
     filenames = os.listdir('.')
     
     num_runs = 0
     results  = None
     
     for filename in filenames:
-        if re.search(type_model + "_" + type_features, filename) is not None:
+        if (user is None and re.search(type_model + "_" + type_features, filename) is not None) or (user is not None and re.search(type_model + "_" + type_features + "_" + user, filename) is not None):
             num_runs += 1
             
             if results is None:
@@ -77,5 +80,5 @@ def load_file(filename):
 
 # Code to be exectued:
 
-#plot_all()
-plot_results("NeuralNet", "FeatGen_Mario")
+plot_all(user = "Lydia_MoreHiddenNodes")
+#plot_results("WekaModelPerActionModel", "FeatGen_Mario")
