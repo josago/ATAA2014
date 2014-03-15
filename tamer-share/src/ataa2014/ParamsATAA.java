@@ -26,7 +26,7 @@ public class ParamsATAA {
 	//For experiment: set to 200
 	public static int nr_steps_for_episode = 50; //
 	//For experiment: set to 6
-	public static int nr_of_runs = 4;
+	public static int nr_of_runs = 10;
 	
 	//Parameters that can be set and changed when running experiments
 	// Options: 
@@ -40,7 +40,7 @@ public class ParamsATAA {
 	public static String fileNameResults = "Results_ATAA_experiment.txt";
 	
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
-	public static String personName = "Lydia_distanceAdded";
+	public static String personName = "Lydia";
 	
 //	public static String[] modelOptions = {"NeuralNet"};
 	//public static String[] modelOptions = {"WekaModelPerActionModel"};
