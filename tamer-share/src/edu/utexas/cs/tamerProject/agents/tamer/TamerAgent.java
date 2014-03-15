@@ -139,10 +139,10 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 			final TamerAgent balle = this;
 		    Thread t = new Thread("simHuman feedback thread")
 		    {		    	
-		        public void run()
+		        public void run()  
 		        {
 		        	System.out.println("Human feedbackloop started");
-		            while (true){		                
+		            while (!ExperimentsATAA.killFeedbackloop){		                
 		            	double reward = simHuman.getFeedback();
 		            	//System.out.println("Reward requested from simHuman = " + reward);
 		            	balle.addHRew(reward);
@@ -168,9 +168,9 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		                    e.printStackTrace();
 		                }
 		            }
-		        }
-		        
-		        
+		            System.out.println("Feedbackloop " + ExperimentsATAA.loopNr + " ended!!!");
+		            ExperimentsATAA.feedbackLoopGotKilled  = true;
+		        }  
 		    };
 		    t.start();
 		    System.out.println("Feedbackloop simulated human started!!!");
