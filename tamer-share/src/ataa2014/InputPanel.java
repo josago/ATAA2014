@@ -18,7 +18,7 @@ import javax.swing.Timer;
 
 public class InputPanel extends JPanel implements KeyListener {
     private char c = 'e';
-    ExperimentsATAA exp;
+    private ExperimentsATAA exp;
 
 
     public enum Feedback {positive, negative, nothing};
@@ -67,7 +67,7 @@ public class InputPanel extends JPanel implements KeyListener {
     public void keyReleased(KeyEvent e) { }
     
     public void keyTyped(KeyEvent e) {
-    	if(ParamsATAA.useSimulatedHuman)
+    	if(!ParamsATAA.useSimulatedHuman)
     	{
 	        c = e.getKeyChar();
 	        //System.out.println("Pressed key = " + c);

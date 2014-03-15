@@ -2,7 +2,12 @@ package ataa2014;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -74,18 +79,20 @@ public class ExperimentsATAA {
 		tim.stop();
 		f.dispose();
 		GlueMario.frame.dispose();
-		feedbackLoopGotKilled = false;
-		killFeedbackloop = true;
-		System.out.println("Killing feedbackloop!");
-		while(!feedbackLoopGotKilled)
+		if(ParamsATAA.useSimulatedHuman)
 		{
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			feedbackLoopGotKilled = false;		
+			killFeedbackloop = true;
+			System.out.println("Killing feedbackloop!");
+			while(!feedbackLoopGotKilled)
+			{
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		
 	}
 
 	/**
@@ -107,6 +114,7 @@ public class ExperimentsATAA {
 		}
 		else
 		{
+			System.out.println("No simulated human used");
 			rewardHuman = 0;
 			agent = new TamerAgent();
 			env = new GeneralMario();
@@ -127,7 +135,6 @@ public class ExperimentsATAA {
 				ip.f = InputPanel.Feedback.nothing;
 				ip.repaint();
 			}
-			
         };
         
         int delay = 350;
@@ -206,6 +213,83 @@ public class ExperimentsATAA {
 		}
 	}	
 	
+	//Different combinations of models and feature generators are tested and 
+		//the results are collected and written to file
+		//Set parameters for the experiment in ParamsATAA
+		public void run_experiment_with_humans() throws FileNotFoundException, UnsupportedEncodingException
+		{
+			Random r = new Random();
+			ParamsATAA.useSimulatedHuman = false;
+			loopNr = 0;	
+			Scanner reader = new Scanner(System.in);
+			int nr_settings = ParamsATAA.modelOptions.length*ParamsATAA.featureGeneratorOptions.length;
+			int[][] results = new int [nr_settings][nr_settings];
+			int[] modelNrs = new int [2];
+			int[] featureNrs = new int [2];
+			
+			for(int i = 0; i<ParamsATAA.nr_comparisons;i++)
+			{	
+				for(int j = 0; j<2;j++)
+				{
+					modelNrs[j] = r.nextInt(ParamsATAA.modelOptions.length);
+					featureNrs[j] = r.nextInt(ParamsATAA.featureGeneratorOptions.length);
+					while(modelNrs[j]==modelNrs[1-j] && featureNrs[j]==featureNrs[1-j])
+					{
+						modelNrs[j] = r.nextInt(ParamsATAA.modelOptions.length);
+						featureNrs[j] = r.nextInt(ParamsATAA.featureGeneratorOptions.length);
+					}
+					ParamsATAA.model = ParamsATAA.modelOptions[modelNrs[j]];
+					ParamsATAA.features = ParamsATAA.featureGeneratorOptions[featureNrs[j]];
+					seed = r.nextInt(500);
+					init();					
+					for(int step = 0; step<ParamsATAA.nr_steps_per_comparison;step++)
+					{
+						rew_obs = glue.RL_env_step(currentAction);
+						if(!ParamsATAA.useSimulatedHuman){
+							agent.addHRew(rewardHuman);
+							rewardHuman = 0;
+						}					
+						currentAction = glue.RL_agent_step(rew_obs.getReward(), rew_obs.getObservation());					
+					}
+					
+					cleanUp();
+				}
+				
+				System.out.println("\n\n\n\n\n\n\n\n\nIn which setting did Mario perform better? Press 1 or 2\n");
+				//get user input for a
+				String a=reader.next();
+				while( !(a.equals("1") || a.equals("2")) )
+				{
+					System.out.println("Wrong input\n In which setting did Mario perform better? Press 1 or 2\n");
+					//get user input for a
+					a=reader.next();
+				}
+				System.out.println("Thanks for comparing");
+				int model_0 = featureNrs[0] + (modelNrs[0]*ParamsATAA.featureGeneratorOptions.length);
+				int model_1 = featureNrs[1] + (modelNrs[1]*ParamsATAA.featureGeneratorOptions.length);
+				if(a.equals("1")){
+					results[model_0][model_1] ++;
+				}
+				else{
+					results[model_1][model_0]++;
+				}
+			}
+			
+			File f = new File("src/ataa2014_expResults/" + ParamsATAA.fileNameResultsHuman);
+			PrintWriter printer = new PrintWriter(f, "UTF-8");
+			//Print results
+			for(int i = 0; i<nr_settings;i++)
+			{
+				for(int j = 0; j<nr_settings;j++)
+				{
+					printer.write(results[i][j] + " ");
+				}
+				printer.write("\n");
+			}
+			printer.close();
+			reader.close();
+		}	
+	
 	private void initSeeds() {
 		Random r = new Random();
 		seeds = new int[ParamsATAA.nr_of_runs];
@@ -221,10 +305,11 @@ public class ExperimentsATAA {
 	}
 		
 	
-	public static void main(String[] args) {		
+	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {		
 		ExperimentsATAA exp = new ExperimentsATAA();
 		//exp.testExperimentEnvironment();			
-		exp.run_experiment();
+		//exp.run_experiment();
+		exp.run_experiment_with_humans();
 		System.exit(0);				
 	}
 	

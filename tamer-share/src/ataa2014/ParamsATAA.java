@@ -52,4 +52,12 @@ public class ParamsATAA {
 			
 	//If this is set to false the levels never contain pits with stairs
 	public static boolean includeStairs = false;
+	
+	//===========================
+	//Params only used when using a human trainer
+	//===========================
+	
+	public static int nr_comparisons = 3;
+	public static int nr_steps_per_comparison = 10;
+	public static String fileNameResultsHuman = "Provided models combinations.txt";
 }
