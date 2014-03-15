@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ResultContainer {
 	
-	private int nrVars = 5; 
+	private int nrVars = 6; 
 	private ArrayList<ArrayList<Integer>> vars;
 	private int[][] vars_total;
 	private PrintWriter printer;
@@ -21,6 +21,7 @@ public class ResultContainer {
 	public static int coins_received; //
 	public static int enemies_killed; //
 	public static int power_ups_received;//
+	public static int distance_traveled;//
 	
 	public ResultContainer(){
 		System.out.println("Current directory = " + System.getProperty("user.dir"));		
@@ -43,6 +44,7 @@ public class ResultContainer {
 		vars.get(2).add(coins_received);
 		vars.get(3).add(enemies_killed);
 		vars.get(4).add(power_ups_received);
+		vars.get(5).add(distance_traveled);
 		resetVars();
 	}
 	
@@ -120,6 +122,7 @@ public class ResultContainer {
 		coins_received = 0;
 		enemies_killed = 0;
 		power_ups_received = 0;
+		distance_traveled = 0;
 	}
 	
 	public void close_all()
