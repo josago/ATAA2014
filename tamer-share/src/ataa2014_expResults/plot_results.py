@@ -11,7 +11,7 @@ NUM_ENEMIES_KILLED     = 3
 NUM_POWER_UPS_RECEIVED = 4
 NUM_BLOCKS_TRAVELLED   = 5
 
-LABELS = ["Levels finished", "Times died", "Coins earned (x5)", "Enemies killed", "Power-ups received", "Blocks travelled (x1000)"]
+LABELS = ["Levels finished", "Times died", "Coins earned (x5)", "Enemies killed", "Power-ups received", "Blocks travelled (x100)"]
 
 def plot_all(user = None):
     i = 1
@@ -34,13 +34,15 @@ def plot_results(type_model, type_features, user = None, show = True):
     plt.xlabel("Game steps elapsed")
     plt.ylabel("Performance measures")
     
+    plt.ylim(0, 7)
+    
     for var in range(len(results)):
         xdata = np.arange(len(results[var])) * NUM_STEPS_PER_SAMPLE
         
         if var is NUM_COINS_EARNED:
             plt.plot(xdata, results[var] / 5, '-o', label = LABELS[var])
-        elif var is DISTANCE_TRAVELLED:
-            plt.plot(xdata, results[var] / (16 * 1000), '-o', label = LABELS[var])
+        elif var is NUM_BLOCKS_TRAVELLED:
+            plt.plot(xdata, results[var] / (16 * 100), '-o', label = LABELS[var])
         else:
             plt.plot(xdata, results[var], '-o', label = LABELS[var])
     
@@ -80,5 +82,5 @@ def load_file(filename):
 
 # Code to be exectued:
 
-plot_all(user = "Lydia_MoreHiddenNodes")
+plot_all(user = "Lydia_distanceAdded")
 #plot_results("WekaModelPerActionModel", "FeatGen_Mario")
