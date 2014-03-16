@@ -82,5 +82,5 @@ def load_file(filename):
 
 # Code to be exectued:
 
-plot_all(user = "Lydia_distanceAdded")
+plot_all(user = "Jorge")
 #plot_results("WekaModelPerActionModel", "FeatGen_Mario")
