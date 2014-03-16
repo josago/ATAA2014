@@ -46,7 +46,7 @@ def plot_results(type_model, type_features, user = None, show = True):
         else:
             plt.plot(xdata, results[var], '-o', label = LABELS[var])
     
-    plt.legend()
+    plt.legend(loc = 'upper center', bbox_to_anchor = (0.5, 1.00), ncol = 3, fancybox = True, shadow = True)
     
     if show:
         plt.show()
@@ -82,5 +82,5 @@ def load_file(filename):
 
 # Code to be exectued:
 
-plot_all(user = "Jorge")
+plot_all()
 #plot_results("WekaModelPerActionModel", "FeatGen_Mario")
