@@ -43,6 +43,7 @@ public class HLearner {
 	}
 	
 	public void reset(){
+		System.err.println("\n\nWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH \n reset all ownoooooooooo\n================\n");
 		this.model.clearSamplesAndReset();
 		this.clearHistory();
 	}
@@ -79,6 +80,7 @@ public class HLearner {
 	}
 	
 	public void clearHistory(){
+		System.err.println("\nHistory of credit assign is cleared\n");
 		this.credA.clearHistory();
 	}
 
@@ -92,7 +94,7 @@ public class HLearner {
 		}
 	}
 
-	// NOTE NOTE NOTE
+	// The model receives samples and processes them
 	private void addSamplesAndBuild(Sample[] samples) {
 		this.model.addInstancesWReplacement(samples);
 		this.model.buildModel();

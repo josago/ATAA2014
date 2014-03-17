@@ -127,7 +127,6 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void addInstances(Sample[] samples)
 	{
-		System.out.println("addInstances LYDIA");
 		for (Sample s: samples)
 		{
 			addInstance(s);
@@ -189,6 +188,7 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void clearSamplesAndReset()
 	{
+		System.err.println("\nClear samples and reset in Neural Network\n");
 		clearSamples();
 		resetNetwork();
 	}

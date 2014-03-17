@@ -55,7 +55,7 @@ public class CreditAssign{
 	public static final Random randGenerator = new Random();
 	
 	ArrayList<TimeStepForCred> timeStepsInWindow;
-	ArrayList<SampleWithObsAct> activeSamples;
+	private ArrayList<SampleWithObsAct> activeSamples;
 	int totalTimeSteps;
 	final int UNIQUE_START;
 	
@@ -105,10 +105,12 @@ public class CreditAssign{
 	}
 	
 	public void recordTimeStepStart(double[] feats, double btwnStepTime){
+		System.out.println("Record shizzle versie 1 used");
 		this.recordTimeStepStart(null, null, feats, btwnStepTime);
 	}
 	
 	public void recordTimeStepStart(Observation o, Action a, FeatGenerator featGen, double btwnStepTime){
+		System.out.println("Record shizzle versie 2 used");
 		this.recordTimeStepStart(o, a, featGen.getFeats(o, a), btwnStepTime);
 	}
 	
@@ -232,6 +234,13 @@ public class CreditAssign{
 		}
 		//System.out.println("num activeSamples: " + activeSamples.size());
 
+		System.out.println("\n\n\n******************\nActive samples:");
+		for(int i = 0; i<activeSamples.size();i++)
+			System.out.println(i + ": " + activeSamples.get(i).obs);
+		System.out.println("\n==============\nSamples for model: \n====================");
+		for(int i = 0; i<samples.size();i++)
+			System.out.println(" Sample nr: " + i + " reward: " + samples.get(i).unweightedRew + "\n" + samples.get(i).obs);
+		
 		SampleWithObsAct[] samplesArray = new SampleWithObsAct[samples.size()];
 		samples.toArray(samplesArray); // convert ArrayList to regular array
 		return samplesArray;
@@ -339,6 +348,13 @@ public class CreditAssign{
 				i--;
 			}
 		}
+		
+		System.out.println("================\nRemoved samples: ");
+		for(int i = 0; i<removedSamples.size();i++)
+		{
+			System.out.println(removedSamples.get(i).obs.doubleArray[0]);
+		}
+		System.out.println("================\n");
 		return removedSamples;
 	}
 
@@ -359,6 +375,8 @@ public class CreditAssign{
 				finishedBound = GeneralAgent.duringStepTransition ? 1 : 2;
 			//System.out.println("finishedBound: " + finishedBound);
 			//System.out.println("stepsBeforeCurrent: " + stepsBeforeCurrent);
+			
+			
 			if (stepsBeforeCurrent == finishedBound)
 				finished = true;
 		}
@@ -368,10 +386,7 @@ public class CreditAssign{
 					this.activeSamples.get(sampleI).usedCredit >= APPROX_ONE) {//(timeSinceEnd >= this.windowEnd) {
 				finished = true;
 			}
-			//System.out.println("sample finished: " + finished + "; usedCredit: " 
-			//				+ this.activeSamples.get(sampleI).usedCredit); 
 		}
-
 		return finished;
 	}
 
@@ -409,6 +424,7 @@ public class CreditAssign{
 
 	
 	public void clearHistory(){
+		System.err.println("The history of Credit Assign is called somewhere");
 		this.timeStepsInWindow = new ArrayList<TimeStepForCred>();
 		this.activeSamples = new ArrayList<SampleWithObsAct>();
 	}

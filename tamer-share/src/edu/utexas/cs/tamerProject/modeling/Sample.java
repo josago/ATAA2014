@@ -2,6 +2,8 @@ package edu.utexas.cs.tamerProject.modeling;
 	
 import java.util.Arrays;
 
+import org.rlcommunity.rlglue.codec.types.Observation;
+
 public class Sample implements Cloneable{
 //	protected boolean REGRESSION_SAMPLE = true; // TODO remove all refs to this variable
 	
@@ -11,10 +13,18 @@ public class Sample implements Cloneable{
 	public double weight = 1;
 	public double creditUsedLastStep = 0;
 	public double usedCredit = 0;
+	
+	public Observation obs;
 
 	
 	public int unique = -1;
 	////public boolean newSample = True;
+	
+	public Sample(double[] feats, double label, Observation o){
+		this.feats = feats;
+		this.label = label;
+		this.obs = o;
+	}
 	
 	public Sample(double[] feats, double weight){
 		this.feats = feats;

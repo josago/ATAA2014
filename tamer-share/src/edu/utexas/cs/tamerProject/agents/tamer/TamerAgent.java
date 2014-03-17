@@ -24,6 +24,7 @@ import org.rlcommunity.rlglue.codec.types.Observation;
 import org.rlcommunity.rlglue.codec.util.AgentLoader;
 
 import ataa2014.ExperimentsATAA;
+import ataa2014.GoodCreditAssign;
 import ataa2014.InputPanel;
 import ataa2014.ParamsATAA;
 import ataa2014.SimulatedHuman;
@@ -36,6 +37,7 @@ import edu.utexas.cs.tamerProject.agents.GeneralAgent;
 import edu.utexas.cs.tamerProject.agents.HLearner;
 import edu.utexas.cs.tamerProject.modeling.Sample;
 import edu.utexas.cs.tamerProject.modeling.SampleWithObsAct;
+import edu.utexas.cs.tamerProject.params.Params;
 import edu.utexas.cs.tamerProject.trainInterface.TrainerListener;
 import edu.utexas.cs.tamerProject.utils.Stopwatch;
 
@@ -70,7 +72,8 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	//Use a human simulator
 	SimulatedHuman simHuman;
 	StateRepresentation featureProcessorHuman;
-	
+	GoodCreditAssign assigner;
+		
 	public TamerAgent(SimulatedHuman h)
 	{
 		super();
@@ -108,7 +111,10 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 														this.params.noUpdateWhenNoRew);
 		
 		//// INITIALIZE TAMER
-		this.hLearner = new HLearner(this.model, credAssignParams);
+		if(ParamsATAA.ATAA_Exp)
+			this.assigner = new GoodCreditAssign(ParamsATAA.nr_steps_credit, this.model);
+		else
+			this.hLearner = new HLearner(this.model, credAssignParams);
 		
 		this.actSelector = new ActionSelect(this.model, this.params.selectionMethod, 
 											this.params.selectionParams, this.currObsAndAct.getAct().duplicate());
@@ -136,7 +142,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 			if(!this.inTrainSess)
 				this.inTrainSess = true;
 			
-			final TamerAgent balle = this;
+			final GoodCreditAssign balle = this.assigner;
 		    Thread t = new Thread("simHuman feedback thread")
 		    {		    	
 		        public void run()  
@@ -145,7 +151,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		            while (!ExperimentsATAA.killFeedbackloop){		                
 		            	double reward = simHuman.getFeedback();
 		            	//System.out.println("Reward requested from simHuman = " + reward);
-		            	balle.addHRew(reward);
+		            	balle.addHumanReward(reward);
 		            	//Make sure the human feedback from the simulated human is 
 		            	//visible in the feedback window
 		            	if(ParamsATAA.ATAA_Exp)
@@ -208,69 +214,41 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     }
     
     public Action agent_step(double r, Observation o, double startTime, Action predeterminedAct, Action tieBreakAction) {
-    	
-    	
-    	
-    	//System.out.println("\n-----------------Tamer step---------------\n");
-    	//System.out.println("Training? " + this.inTrainSess);
-    	//System.out.println("r:"+r);
-    	//System.out.println("Tamer obs intArray: " + Arrays.toString(o.intArray));
-    	//System.out.println("Tamer obs doubleArray: " + Arrays.toString(o.doubleArray));
-    	//System.out.println("Tamer obs charArray: " + Arrays.toString(o.charArray));
 
-    	//System.out.println("Agent step!");
     	if (verifyObsFitsEnvDesc)
     		this.checkObs(o);
-    	//System.out.println("rew list in TAMER: " + this.hRewList.toString());
     	this.stepStartTime = startTime;
 		this.stepStartHelper(r, o); // this.stepStartTime (set in stepStartHelper()) ends last step and starts new step
-		//System.out.println("TAMER this.stepStartTime: " + String.format("%f", this.stepStartTime));
-    	this.hLearner.recordTimeStepEnd(startTime);
-//    	if (this.stepsThisEp > 1)
-//    		System.out.println("Tamer feats for last obs-act: " + Arrays.toString(this.featGen.getFeats(o, this.lastObsAndAct.getAct())));
+		
+		if(!ParamsATAA.ATAA_Exp)
+    		this.hLearner.recordTimeStepEnd(startTime);
     	
     	/*
     	 * PROCESS PREVIOUS TIME STEP
     	 */
-//		if (this.stepsThisEp == 2)
-			//System.out.println("Predicted human reward for last step in TAMER: " + this.getVal(this.lastObsAndAct));
-		processPrevTimeStep(this.stepStartTime);
-		this.lastLearningSamples = this.hLearner.processSamples(startTime, inTrainSess);
-		
-		try{
-			for(SampleWithObsAct sample: this.lastLearningSamples){
-				;//System.out.println("Sample Value: " + sample.label);
-				 //System.out.println("Obs: " + Arrays.toString(sample.obs.intArray) + "Act: " + Arrays.toString(sample.act.intArray));
-			}
+			
+		if(!ParamsATAA.ATAA_Exp)	
+		{
+			processPrevTimeStep(this.stepStartTime);	
+			this.lastLearningSamples = this.hLearner.processSamples(startTime, inTrainSess);
 		}
-		catch(Exception e){}
 		
 		/*
 		 *  GET ACTION
 		 */
 		this.currObsAndAct.setAct(predeterminedAct);
-		//System.out.print("tamerAgent ");
 		if (this.currObsAndAct.actIsNull()) {
 			this.currObsAndAct.setAct(this.actSelector.selectAction(o, tieBreakAction));
 		}
     	
-//		if (this.stepsThisEp == 399)
-			//System.out.println("TAMER act vals: " + Arrays.toString(this.model.getStateActOutputs(o, this.model.getPossActions(o))));
-		
 		this.lastStepStartTime = this.stepStartTime;
-//		if (this.currObsAndAct.getAct().intArray.length > 0)
-//		{
-//			for(int i=0;i<this.currObsAndAct.getAct().intArray.length;i++)
-//			{
-//				System.out.println("TAMER action: "+i+":" + this.currObsAndAct.getAct().intArray[i]);
-//			    
-//			}
-//		}	
-//		if (this.lastAct != null)
-//			System.out.println("TAMER last action: " + this.lastAct.intArray[0]);
+
 		this.stepEndHelper(r, o);
 		if (this.isTopLevelAgent) // If not top level, TamerAgent's chosen action might not be the actual action. This must be called by the primary class.
-			this.hLearner.recordTimeStepStart(o, this.currObsAndAct.getAct(), this.featGen, startTime);
+			if(ParamsATAA.ATAA_Exp)
+				this.assigner.process(o, this.currObsAndAct.getAct(), this.featGen);
+			else
+				this.hLearner.recordTimeStepStart(o, this.currObsAndAct.getAct(), this.featGen, startTime);
 		
 		return this.currObsAndAct.getAct();
     }
@@ -293,14 +271,14 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
     
     
 	protected void processPrevTimeStep(double borderTime){
-		//inTrainSess=true;//guangliang add
-		//inTrainSess=!this.hRewThisStep.isEmpty();//added by guangliang, no training no updating model
-		//System.out.print("inTrainSess "+inTrainSess);
-		if (inTrainSess) //// UPDATE
-			this.hLearner.processHRew(this.hRewThisStep);
-
-		if (verbose)
-			System.out.println("hRewThisStep: " + this.hRewThisStep.toString());
+		if(!ParamsATAA.ATAA_Exp)
+		{
+			if (inTrainSess) //// UPDATE
+				this.hLearner.processHRew(this.hRewThisStep);
+	
+			if (verbose)
+				System.out.println("hRewThisStep: " + this.hRewThisStep.toString());
+		}
 	}
     
 
@@ -443,6 +421,7 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 	    
 		public void initRecords() {
 			super.initRecords();
+			System.err.println("initRecords calls hLearner.clearhistory()!!!!!");
 			if (this.hLearner != null)
 				this.hLearner.clearHistory();
 			this.lastStepStartTime = -10000000;

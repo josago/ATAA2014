@@ -59,12 +59,12 @@ public class ExperimentsATAA {
 		for(int i = 0; i<10; i++)
 		{
 			// Make sure here the right reward is propagated (from this window definitely not yet, from simHuman: check)
-			rew_obs = glue.RL_env_step(currentAction);
+			glue.RL_env_step(currentAction);
 			if(!ParamsATAA.useSimulatedHuman){
 				agent.addHRew(rewardHuman);
 				rewardHuman = 0;
-			}
-			currentAction = glue.RL_agent_step(rew_obs.getReward(), rew_obs.getObservation());
+			}					
+			currentAction = glue.RL_agent_step(0.0, rew_obs.getObservation().duplicate());	
 		}
 		
 		cleanUp();
@@ -192,9 +192,8 @@ public class ExperimentsATAA {
 						if(!ParamsATAA.useSimulatedHuman){
 							agent.addHRew(rewardHuman);
 							rewardHuman = 0;
-						}
-						
-						currentAction = glue.RL_agent_step(rew_obs.getReward(), rew_obs.getObservation());
+						}					
+						currentAction = glue.RL_agent_step(0.0, rew_obs.getObservation().duplicate());							
 						
 						//Process results if neccessary
 						if(i%ParamsATAA.nr_steps_for_episode == 0 && i>1)
@@ -253,11 +252,9 @@ public class ExperimentsATAA {
 							stats.processResults();
 						}
 						rew_obs = glue.RL_env_step(currentAction);
-						if(!ParamsATAA.useSimulatedHuman){
-							agent.addHRew(rewardHuman);
-							rewardHuman = 0;
-						}					
-						currentAction = glue.RL_agent_step(rew_obs.getReward(), rew_obs.getObservation());					
+						agent.addHRew(rewardHuman);
+						rewardHuman = 0;
+						currentAction = glue.RL_agent_step(0.0, rew_obs.getObservation().duplicate());					
 					}
 					
 					cleanUp();
@@ -335,9 +332,12 @@ public class ExperimentsATAA {
 		rewardHuman = i;
 	}
 	
+	
+	public static boolean marioDied = false;
+	private int stepsSinceDeath = 0;
 	public void demo()
 	{
-		ParamsATAA.useSimulatedHuman = false;
+		ParamsATAA.useSimulatedHuman = true;
 		init();
 		seed = 413;
 		for(int step = 1; step<250;step++)
@@ -347,7 +347,19 @@ public class ExperimentsATAA {
 				agent.addHRew(rewardHuman);
 				rewardHuman = 0;
 			}					
-			currentAction = glue.RL_agent_step(rew_obs.getReward(), rew_obs.getObservation());					
+			currentAction = glue.RL_agent_step(0.0, rew_obs.getObservation().duplicate());	
+			if(marioDied)				
+			{
+				if(stepsSinceDeath == 0)
+				{
+					System.out.println("Mario died!!!!");
+				}
+				
+				if(stepsSinceDeath==4)
+					break;
+				else
+					stepsSinceDeath++;
+			}			
 		}
 		cleanUp();
 	}

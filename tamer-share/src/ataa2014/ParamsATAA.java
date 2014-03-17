@@ -13,6 +13,7 @@ public class ParamsATAA {
 	
 	//Set to true when running an experiment
 	public static boolean ATAA_Exp = true; 
+	public static int nr_steps_credit = 4;
 	
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
 	//to generate the levels
@@ -21,12 +22,12 @@ public class ParamsATAA {
 	
 	//Number of steps that a single evaluation consists of
 	//For experiment: set to 400 
-	public static int nr_steps_per_evaluation = 400;
+	public static int nr_steps_per_evaluation = 30;
 	//Number of steps that are in one bin for collecting results
 	//For experiment: set to 50
-	public static int nr_steps_for_episode = 50; //
+	public static int nr_steps_for_episode = 10; //
 	//For experiment: set to 10
-	public static int nr_of_runs = 10;
+	public static int nr_of_runs = 1;
 	
 	//Parameters that can be set and changed when running experiments
 	// Options: 
@@ -40,15 +41,16 @@ public class ParamsATAA {
 	public static String fileNameResults = "Results_ATAA_experiment.txt";
 	
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
-	public static String personName = "Jorge6";
+	public static String personName = "Test";
 	
-//	public static String[] modelOptions = {"NeuralNet"};
+	public static String[] modelOptions = {"NeuralNet"};
+	public static String[] featureGeneratorOptions = {"StateRepresentation"};
 	//public static String[] modelOptions = {"WekaModelPerActionModel"};
 //	public static String[] featureGeneratorOptions = {"FeatGen_Mario"};
 	
 	//For the experiment the lower Options versions should be used
-	public static String[] modelOptions = {"NeuralNet", "WekaModelPerActionModel"};
-	public static String[] featureGeneratorOptions = {"FeatGen_Mario", "StateRepresentation"};
+	//public static String[] modelOptions = {"NeuralNet", "WekaModelPerActionModel"};
+	//public static String[] featureGeneratorOptions = {"FeatGen_Mario", "StateRepresentation"};
 			
 	//If this is set to false the levels never contain pits with stairs
 	public static boolean includeStairs = false;

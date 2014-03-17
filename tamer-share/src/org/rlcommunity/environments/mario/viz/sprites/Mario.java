@@ -10,6 +10,8 @@ import org.rlcommunity.environments.mario.viz.LevelScene;
 import org.rlcommunity.environments.mario.sonar.FixedSoundSource;
 import org.rlcommunity.environments.mario.GlueMario;
 
+import ataa2014.ExperimentsATAA;
+import ataa2014.GoodCreditAssign;
 import ataa2014.ResultContainer;
 import ataa2014.SimulatedHuman;
 
@@ -627,9 +629,9 @@ public class Mario extends Sprite
 
     public void die()
     {
-//    	System.out.println("Coordinates at death: " + x + " " + y);
     	ResultContainer.distance_traveled += x;
     	ResultContainer.timesDied++;
+    	ExperimentsATAA.marioDied = true;
         xDeathPos = (int) x;
         yDeathPos = (int) y;
         world.paused = true;
