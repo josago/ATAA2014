@@ -36,7 +36,7 @@ public class ParamsATAA {
 	//Options:
 	// "FeatGen_Mario"
 	// "StateRepresentation"
-	public static String features = "FeatGen_Mario"; 
+	public static String features = "StateRepresentation"; 
 	public static String fileNameResults = "Results_ATAA_experiment.txt";
 	
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME

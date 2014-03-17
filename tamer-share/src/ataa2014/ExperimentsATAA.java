@@ -334,13 +334,31 @@ public class ExperimentsATAA {
 	{
 		rewardHuman = i;
 	}
+	
+	public void demo()
+	{
+		ParamsATAA.useSimulatedHuman = false;
+		init();
+		seed = 413;
+		for(int step = 1; step<250;step++)
+		{		
+			rew_obs = glue.RL_env_step(currentAction);
+			if(!ParamsATAA.useSimulatedHuman){
+				agent.addHRew(rewardHuman);
+				rewardHuman = 0;
+			}					
+			currentAction = glue.RL_agent_step(rew_obs.getReward(), rew_obs.getObservation());					
+		}
+		cleanUp();
+	}
 		
 	
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {		
 		ExperimentsATAA exp = new ExperimentsATAA();
 		//exp.testExperimentEnvironment();			
 		//exp.run_experiment();
-		exp.run_experiment_with_humans();
+		//exp.run_experiment_with_humans();
+		exp.demo();
 		System.exit(0);				
 	}
 	
@@ -371,7 +389,7 @@ public class ExperimentsATAA {
 		System.out.println("\n\nList threads again:\n");
 		for(Thread t: tset)
 		{
-			System.out.println(t.getName());			
+			System.out.println(t.getName());		
 		}
 	}
 
