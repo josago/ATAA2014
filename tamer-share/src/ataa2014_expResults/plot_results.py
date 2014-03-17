@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os, re
 
-NUM_STEPS_PER_SAMPLE   = 200
+NUM_STEPS_PER_SAMPLE   = 400
 
 NUM_LEVELS_FINISHED    = 0
 NUM_TIMES_DIED         = 1
@@ -33,7 +33,8 @@ def plot_results(type_model, type_features, user = None, show = True):
 
     plt.xlabel("Game steps elapsed")
     plt.ylabel("Performance measures")
-    
+
+    plt.xticks(np.arange(0, 1 + (len(results[0]) - 1) * NUM_STEPS_PER_SAMPLE, NUM_STEPS_PER_SAMPLE))    
     plt.ylim(0, 7)
     
     for var in range(len(results)):
@@ -46,7 +47,7 @@ def plot_results(type_model, type_features, user = None, show = True):
         else:
             plt.plot(xdata, results[var], '-o', label = LABELS[var])
     
-    plt.legend()
+    plt.legend(loc = 'upper center', bbox_to_anchor = (0.5, 1.00), ncol = 3, fancybox = True, shadow = True)
     
     if show:
         plt.show()
@@ -82,5 +83,5 @@ def load_file(filename):
 
 # Code to be exectued:
 
-plot_all(user = "Lydia_distanceAdded")
+plot_all()
 #plot_results("WekaModelPerActionModel", "FeatGen_Mario")
