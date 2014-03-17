@@ -226,11 +226,15 @@ public class ExperimentsATAA {
 			int[][] results = new int [nr_settings][nr_settings];
 			int[] modelNrs = new int [2];
 			int[] featureNrs = new int [2];
+			boolean again = true;
+			ResultContainer stats = new ResultContainer();
 			
-			for(int i = 0; i<ParamsATAA.nr_comparisons;i++)
-			{	
+			int comparisonNr = 1;
+			
+			while(again)
+			{				
 				for(int j = 0; j<2;j++)
-				{
+				{					
 					modelNrs[j] = r.nextInt(ParamsATAA.modelOptions.length);
 					featureNrs[j] = r.nextInt(ParamsATAA.featureGeneratorOptions.length);
 					while(modelNrs[j]==modelNrs[1-j] && featureNrs[j]==featureNrs[1-j])
@@ -242,8 +246,12 @@ public class ExperimentsATAA {
 					ParamsATAA.features = ParamsATAA.featureGeneratorOptions[featureNrs[j]];
 					seed = r.nextInt(500);
 					init();					
-					for(int step = 0; step<ParamsATAA.nr_steps_per_comparison;step++)
+					for(int step = 1; step<ParamsATAA.nr_steps_per_comparison+1;step++)
 					{
+						if(step%ParamsATAA.nr_steps_stats == 0)
+						{
+							stats.processResults();
+						}
 						rew_obs = glue.RL_env_step(currentAction);
 						if(!ParamsATAA.useSimulatedHuman){
 							agent.addHRew(rewardHuman);
@@ -253,6 +261,12 @@ public class ExperimentsATAA {
 					}
 					
 					cleanUp();
+					
+					ParamsATAA.fileNameResults = ParamsATAA.personName + "_" + ParamsATAA.model + "_" + ParamsATAA.features + ParamsATAA.fileNameResultsHuman + "_" +comparisonNr;
+					comparisonNr++;
+					stats.run_finished();
+					stats.openFile();
+					stats.writeToFile();
 				}
 				
 				System.out.println("\n\n\n\n\n\n\n\n\nIn which setting did Mario perform better? Press 1 or 2\n");
@@ -273,9 +287,26 @@ public class ExperimentsATAA {
 				else{
 					results[model_1][model_0]++;
 				}
+				
+				
+				
+				System.out.println("\nDo want to do another comparison? Press y or n\n");
+				//get user input for a
+				a=reader.next();
+				while( !(a.equals("y") || a.equals("n")) )
+				{
+					System.out.println("Wrong input\n Do want to do another comparison? Press y or n\n");
+					//get user input for a
+					a=reader.next();
+				}			
+				
+				if(a.equals("n")){
+					again = false;
+				}	
 			}
 			
-			File f = new File("src/ataa2014_expResults/" + ParamsATAA.fileNameResultsHuman);
+			System.out.println("Thanks a lot mate!!!!");
+			File f = new File("src/ataa2014_expResults/" + ParamsATAA.personName + "_" + ParamsATAA.fileNameResultsHuman);
 			PrintWriter printer = new PrintWriter(f, "UTF-8");
 			//Print results
 			for(int i = 0; i<nr_settings;i++)
@@ -308,8 +339,8 @@ public class ExperimentsATAA {
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {		
 		ExperimentsATAA exp = new ExperimentsATAA();
 		//exp.testExperimentEnvironment();			
-		exp.run_experiment();
-		//exp.run_experiment_with_humans();
+		//exp.run_experiment();
+		exp.run_experiment_with_humans();
 		System.exit(0);				
 	}
 	
