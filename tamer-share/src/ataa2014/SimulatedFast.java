@@ -13,8 +13,7 @@ import java.util.Random;
  */
 public class SimulatedFast extends SimulatedHuman {
 	
-	private static final int x = 0;
-	private static final int y = 1;
+	int sinceDied = 0;
 	
 	public SimulatedFast(){
 		super();
@@ -22,13 +21,13 @@ public class SimulatedFast extends SimulatedHuman {
 	
 	@Override
 	protected void addFeedback(){
+		
 		boolean feedbackGiven = false;
 		// Actions represented as first three entries: 
 		// 1st entry: -1 for going left, 1 for going right and 0 for nothing
 		// 2nd entry: running or not. 3rd entry: jumping or not.
 		//second element of feedback should be the actual feedback: -1 or 1
-		double [] feedback = {1.0, 0.0};
-		
+		double [] feedback = {1.0, 0.0};		
 		/*// Check if our interpretation of the actions is correct
 		if(stateMemory.size()>0)
 		{
@@ -46,14 +45,22 @@ public class SimulatedFast extends SimulatedHuman {
 			}
 		}*/
 		
+		if(sinceDied > 0)
+		{
+			feedback[1] = -1.0;
+			sinceDied --;
+			feedbackGiven = true;
+			System.out.println("Extra feedback because of death");
+		}
 			
 		//If there are events you always respond to those
-		if(eventMemory.size() > 0)
+		if(eventMemory.size() > 0 && !feedbackGiven)
 		{
 			if(eventMemory.contains(Event.hurtByEnemy) || eventMemory.contains(Event.diedInPit)){
 				System.out.println("DIEEEEEEEEEEEEEEEEED");
 				feedback[1] = -1.0;
 				feedbackGiven=true;
+				sinceDied = 2;
 			}		
 			else if(eventMemory.contains(Event.killedEnemy) || eventMemory.contains(Event.gotPowerUp) )
 			{
@@ -68,15 +75,23 @@ public class SimulatedFast extends SimulatedHuman {
 						
 			if( (step[x] < 2 && step[x] > -2) && step[y] < 0 )
 			{
+				//System.out.println("Close to step");
 				//If stuck at step					
 				if(stuckAtStep())
 				{
-					//System.out.println("Getting stuck");
+					System.out.println("Getting stuck");
 					feedback[1] = -1.0;
 					feedbackGiven=true;
 				}	
 			}
+		}		
+		
+		if(!feedbackGiven && jumpedOverPit())
+		{
+			feedbackGiven = true;
+			feedback[1] = 1.0;
 		}
+		
 		
 		//If there has been no feedback given above
 		if(!feedbackGiven && r.nextDouble() < prob_feedback)
@@ -98,13 +113,13 @@ public class SimulatedFast extends SimulatedHuman {
 					//System.out.println("Pit is close");
 				}
 				
-				int direction = getdir();
-					
+				//int direction = getdir();
+									
 				// If Mario has been running to the right in the last x frames: positive
-				if(direction < 3){
+				if(dirLeft()){
 					feedback[1] = -1.0;
 				}
-				else if(direction >= 3){
+				else if(dirRight()){
 					feedback[1] = 1.0;
 				}
 				

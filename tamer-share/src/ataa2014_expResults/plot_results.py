@@ -13,6 +13,32 @@ NUM_BLOCKS_TRAVELLED   = 5
 
 LABELS = ["Levels finished", "Times died", "Coins earned (x5)", "Enemies killed", "Power-ups received", "Blocks travelled (x100)"]
 
+def plot_one():
+    filename = 'resultsATAA_NeuralNet_StateRepresentation_Lydia_longRun_learningrate0.1_simHuman2_lvl1.txt'
+    results  = load_file(filename)
+	
+    plt.title('Is mario now freaking learning?')
+
+    plt.xlabel("Game steps elapsed")
+    plt.ylabel("Performance measures")
+
+    plt.xticks(np.arange(0, 1 + (len(results[0]) - 1) * NUM_STEPS_PER_SAMPLE, NUM_STEPS_PER_SAMPLE))    
+    plt.ylim(0, 7)
+    
+    for var in range(len(results)):
+        xdata = np.arange(len(results[var])) * NUM_STEPS_PER_SAMPLE
+        
+        if var is NUM_COINS_EARNED:
+            plt.plot(xdata, results[var] / 5, '-o', label = LABELS[var])
+        elif var is NUM_BLOCKS_TRAVELLED:
+            plt.plot(xdata, results[var] / (16 * 100), '-o', label = LABELS[var])
+        else:
+            plt.plot(xdata, results[var], '-o', label = LABELS[var])
+    
+    plt.legend(loc = 'upper center', bbox_to_anchor = (0.5, 1.00), ncol = 3, fancybox = True, shadow = True)
+    
+    plt.show()
+
 def plot_all(user = None):
     i = 1
     
@@ -84,4 +110,5 @@ def load_file(filename):
 # Code to be exectued:
 
 plot_all()
+#plot_one()
 #plot_results("WekaModelPerActionModel", "FeatGen_Mario")

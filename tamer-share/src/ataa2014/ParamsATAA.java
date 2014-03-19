@@ -18,16 +18,16 @@ public class ParamsATAA {
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
 	//to generate the levels
 	//For the experiment set the level difficulty to 2
-	public static int level_difficulty = 2;
+	public static int level_difficulty = 1;
 	
 	//Number of steps that a single evaluation consists of
 	//For experiment: set to 400 
-	public static int nr_steps_per_evaluation = 30;
+	public static int nr_steps_per_evaluation = 1000;
 	//Number of steps that are in one bin for collecting results
 	//For experiment: set to 50
-	public static int nr_steps_for_episode = 10; //
+	public static int nr_steps_for_episode = 50; //
 	//For experiment: set to 10
-	public static int nr_of_runs = 1;
+	public static int nr_of_runs = 10;
 	
 	//Parameters that can be set and changed when running experiments
 	// Options: 
@@ -41,7 +41,7 @@ public class ParamsATAA {
 	public static String fileNameResults = "Results_ATAA_experiment.txt";
 	
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
-	public static String personName = "Test";
+	public static String personName = "Lydia";
 	
 	public static String[] modelOptions = {"NeuralNet"};
 	public static String[] featureGeneratorOptions = {"StateRepresentation"};

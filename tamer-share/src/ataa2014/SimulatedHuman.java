@@ -16,7 +16,9 @@ public class SimulatedHuman {
 	public Random r;
 	public ArrayList<double []> feedbackList; 
 	
-	protected double prob_feedback = 0.3;
+	protected double prob_feedback = 0.6;
+	protected final int x = 0;
+	protected final int y = 1;
 	
 	
 	public SimulatedHuman(){
@@ -38,6 +40,8 @@ public class SimulatedHuman {
 		double [] fb = feedbackList.get(0);
 		if(fb[0] == 0.0){
 			feedbackList.remove(0);
+			if(fb[1] != 1.0 && fb[1] != -1.0 && fb[1] != 0.0)
+				System.err.println("Wrong feedback value sim human");
 			//System.out.println("Feedback from human: " + fb[1]);
 			return fb[1];
 		}	
@@ -51,7 +55,6 @@ public class SimulatedHuman {
 
 		
 	public void addInformation(double[] feats) {
-		
 
 		stateMemory.add(feats);
 		if (stateMemory.size() > SimulatedHuman.sizeMemeory){			
@@ -77,6 +80,39 @@ public class SimulatedHuman {
 	    return dir;
 	    }
 	
+	protected boolean dirRight() {		
+		for (int i = stateMemory.size()-1; i>1; i--)
+			if(stateMemory.get(i)[0] == -1 || stateMemory.get(i)[0] == 0)				
+				return false;		
+	    return true;
+	}
+	
+	protected boolean dirLeft() {
+		for (int i = stateMemory.size()-1; i>1; i--)
+		{
+			if(stateMemory.get(i)[0] == 1)				
+				return false;
+		}
+	    return true;
+	}
+	
+	
+	protected boolean jumpedOverPit()
+	{		
+		if(stateMemory.size()>3)
+		{
+			double[] pit1 = getPit(stateMemory.size()-1);
+			double[] pit2 = getPit(stateMemory.size()-2);
+			double[] pit3 = getPit(stateMemory.size()-3);
+			if(pit1[x] < 0 && (pit2[x] > 0 || pit3[x] > 0) )
+			{
+				System.out.println("Jumped over pit!!!");
+				return true;				
+			}
+		}
+		return false;
+	}
+	
 	//return a sum of all jumps in memory
 	protected int getjumps() {
 		int jumps = 0;
@@ -99,7 +135,9 @@ public class SimulatedHuman {
 		{
 			double[] step_0 = getstep(stateMemory.size()-1);
 			double[] step_1 = getstep(stateMemory.size()-2);
-			return step_0[0] == step_1[0] && step_0[1] == step_1[1];
+			//System.out.println(step_0[0] + " " + step_1[0]);
+			if( Math.abs(step_0[0] - step_1[0]) < 0.1 && Math.abs(step_0[1] - step_1[1])<0.1)
+				return true;
 		}
 		return false;
 	}

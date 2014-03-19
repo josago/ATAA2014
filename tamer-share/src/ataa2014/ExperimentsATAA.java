@@ -348,7 +348,7 @@ public class ExperimentsATAA {
 				rewardHuman = 0;
 			}					
 			currentAction = glue.RL_agent_step(0.0, rew_obs.getObservation().duplicate());	
-			if(marioDied)				
+			/*if(marioDied)				
 			{
 				if(stepsSinceDeath == 0)
 				{
@@ -359,7 +359,7 @@ public class ExperimentsATAA {
 					break;
 				else
 					stepsSinceDeath++;
-			}			
+			}	*/		
 		}
 		cleanUp();
 	}
@@ -368,9 +368,9 @@ public class ExperimentsATAA {
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {		
 		ExperimentsATAA exp = new ExperimentsATAA();
 		//exp.testExperimentEnvironment();			
-		//exp.run_experiment();
+		exp.run_experiment();
 		//exp.run_experiment_with_humans();
-		exp.demo();
+		//exp.demo();
 		System.exit(0);				
 	}
 	

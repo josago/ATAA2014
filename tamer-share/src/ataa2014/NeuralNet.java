@@ -18,7 +18,7 @@ import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
  */
 public class NeuralNet extends RegressionModel
 {
-	public static final double LEARNING_RATE = 0.0001;
+	public static final double LEARNING_RATE = 0.01;
 	public static final double MOMENTUM_RATE = 0.01;
 	
 	public static final int MAX_ITERATIONS = 1000;
@@ -178,6 +178,7 @@ public class NeuralNet extends RegressionModel
 		}
 		
 		System.out.println();*/
+		//System.out.println("Neural net contains " + sampleList.size() +" samples");
 		
 		neuralNet.setInput(feats);
 		neuralNet.calculate();

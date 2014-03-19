@@ -292,7 +292,6 @@ public class LevelScene extends Scene implements SpriteContext
             {
             	SimulatedHuman.Event e = sprite.tick();
             	if (e != SimulatedHuman.Event.nothing && hasHuman){
-            		System.out.println("event send to human");
             		human.receiveEvent(e);
             	}            		
             }
