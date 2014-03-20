@@ -31,8 +31,6 @@ public class NeuralNet extends RegressionModel
 	private final int num_inputs;
 	private final int num_hidden;
 	
-	private final boolean binary_labels;
-	
 	private class Sigmoid extends TransferFunction
 	{
 		private static final long serialVersionUID = 1L;
@@ -78,14 +76,12 @@ public class NeuralNet extends RegressionModel
 		}
 	}
 	
-	public NeuralNet(int num_inputs, int num_hidden, boolean binary_labels)
+	public NeuralNet(int num_inputs, int num_hidden)
 	{
 		//System.out.println("Initializing neural network with " + num_inputs + " inputs, " + num_hidden + " hidden nodes and 1 output.");
 		
 		this.num_inputs = num_inputs;
 		this.num_hidden = num_hidden;
-		
-		this.binary_labels = binary_labels;
 		
 		clearSamplesAndReset();
 	}
@@ -93,11 +89,6 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void addInstance(Sample sample)
 	{
-		if (binary_labels && sample.label != 0)
-		{
-			sample.label = sample.label > 0 ? 1 : -1;
-		}
-		
 		//if (sample.label != 0.0)
 		//{
 			boolean found = false;
@@ -208,15 +199,8 @@ public class NeuralNet extends RegressionModel
 		{
 			neuralNet.getLayerAt(1).getNeuronAt(i).setTransferFunction(new Sigmoid(1));
 		}
-		
-		if (binary_labels)
-		{
-			neuralNet.getLayerAt(2).getNeuronAt(0).setTransferFunction(new Sigmoid(1));
-		}
-		else
-		{
-			neuralNet.getLayerAt(2).getNeuronAt(0).setTransferFunction(new Sigmoid(10));
-		}
+
+		neuralNet.getLayerAt(2).getNeuronAt(0).setTransferFunction(new Sigmoid(10));
 		
 		MomentumBackpropagation mbp = new MomentumBackpropagation();
 		

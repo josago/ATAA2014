@@ -14,7 +14,7 @@ import org.rlcommunity.rlglue.codec.types.Observation;
 public class StateRepresentation extends FeatGenerator
 {
 	public final static int FEATURES_ACTION = 3;  // Number of features generated from the Action objects.
-	public final static int FEATURES_STATE  = 36; // Number of features generated from the Observation objects.
+	public final static int FEATURES_STATE  = 37; // Number of features generated from the Observation objects.
 	
 	public final static int VIEW_WIDTH  = 21; // Expressed in game blocks.
 	public final static int VIEW_HEIGHT = 15; // Expressed in game blocks.
@@ -43,6 +43,7 @@ public class StateRepresentation extends FeatGenerator
 	
 	public static final int STATE_LARGE = 34; // Use this index directly.
 	public static final int STATE_FIRE  = 35; // Use this index directly.
+	public static final int STATE_SX    = 36; // Mario's horizontal speed. Use this index directly.
 	
 	public static final int VECTOR_DX = 0; // Horizontal distance to an entity.
 	public static final int VECTOR_DY = 1; // Vertical distance to an entity.
@@ -57,7 +58,7 @@ public class StateRepresentation extends FeatGenerator
 	private final static int VECTOR_WINGED = 1;
 	private final static int VECTOR_X      = 0;
 	private final static int VECTOR_Y      = 1;
-	// private final static int VECTOR_SX     = 2;
+	private final static int VECTOR_SX     = 2;
 	// private final static int VECTOR_SY     = 3;
 	
 	// Tile information within obs.charArray as used in the TAMER framework:
@@ -511,6 +512,11 @@ public class StateRepresentation extends FeatGenerator
 				break;
 				case SPRITE_SHELL:
 					pos = ENTITY_SHELL;
+				break;
+				case SPRITE_MARIO_SMALL:
+				case SPRITE_MARIO_BIG:
+				case SPRITE_MARIO_FIRE:
+					v[STATE_SX] = doubleArray[4 * (i + 1) + VECTOR_SX];
 				break;
 			}
 			
