@@ -83,5 +83,5 @@ def load_file(filename):
 
 # Code to be exectued:
 
-plot_results("NeuralNet", "StateRepresentation", "day19")
+plot_results("NeuralNet", "StateRepresentation", "day20")
 #plot_all()
