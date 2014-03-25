@@ -21,8 +21,9 @@ public class NeuralNetWorldModel extends RegressionModel
 	public static final double LEARNING_RATE = 0.01;
 	public static final double MOMENTUM_RATE = 0.01;
 	
-	public static final int MAX_LOOKAHEAD         = 1;   // Maximum number of levels to lookahead into the future when planning an action.
-	public static final int MIN_SAMPLES_LOOKAHEAD = 100; // Minimum number of samples needed before the world model is queried and effectively used.
+	public static final int LOOKAHEAD_NEURONS     = 20;  // Number of hidden neurons to use for the world model.
+	public static final int LOOKAHEAD_MAX_LEVELS  = 1;   // Maximum number of levels to lookahead into the future when planning an action.
+	public static final int LOOKAHEAD_MIN_SAMPLES = 100; // Minimum number of samples needed before the world model is queried and effectively used.
 	
 	public static final int MAX_ITERATIONS = 1000;
 	
@@ -88,6 +89,18 @@ public class NeuralNetWorldModel extends RegressionModel
 		this.num_inputs  = num_inputs;
 		this.num_actions = num_actions;
 		this.num_hidden  = num_hidden;
+		
+		neuralNetWorld  = new MultiLayerPerceptron(num_inputs, LOOKAHEAD_NEURONS, num_inputs - num_actions);
+		
+		for (int i = 0; i < LOOKAHEAD_NEURONS; i++)
+		{
+			neuralNetWorld.getLayerAt(1).getNeuronAt(i).setTransferFunction(new Sigmoid(1));
+		}
+
+		for (int i = 0; i < num_inputs - num_actions; i++)
+		{
+			neuralNetWorld.getLayerAt(2).getNeuronAt(i).setTransferFunction(new Sigmoid(30));
+		}
 		
 		clearSamplesAndReset();
 	}
@@ -160,7 +173,7 @@ public class NeuralNetWorldModel extends RegressionModel
 		
 		neuralNetReward.learnInNewThread(trainingSetReward);
 		
-		if (sampleList.size() >= MIN_SAMPLES_LOOKAHEAD)
+		if (sampleList.size() >= LOOKAHEAD_MIN_SAMPLES)
 		{
 			neuralNetWorld.learnInNewThread(trainingSetWorld);
 		}
@@ -176,7 +189,7 @@ public class NeuralNetWorldModel extends RegressionModel
 	    
 	    neuralNetReward.stopLearning();
 	    
-		if (sampleList.size() >= MIN_SAMPLES_LOOKAHEAD)
+		if (sampleList.size() >= LOOKAHEAD_MIN_SAMPLES)
 		{
 			neuralNetWorld.stopLearning();
 		}
@@ -185,14 +198,14 @@ public class NeuralNetWorldModel extends RegressionModel
 	@Override
 	public double predictLabel(double[] feats)
 	{
-		if (sampleList.size() >= MIN_SAMPLES_LOOKAHEAD)
+		if (sampleList.size() >= LOOKAHEAD_MIN_SAMPLES)
 		{
-			if (sampleList.size() == MIN_SAMPLES_LOOKAHEAD)
+			if (sampleList.size() == LOOKAHEAD_MIN_SAMPLES)
 			{
 				System.out.println("Querying look-ahead model from now on...");
 			}
 			
-			return recursivePlan(feats, MAX_LOOKAHEAD);
+			return recursivePlan(feats, LOOKAHEAD_MAX_LEVELS);
 		}
 		else
 		{
@@ -252,7 +265,7 @@ public class NeuralNetWorldModel extends RegressionModel
 	private void resetNetworks()
 	{
 		neuralNetReward = new MultiLayerPerceptron(num_inputs, num_hidden, 1);
-		neuralNetWorld  = new MultiLayerPerceptron(num_inputs, num_inputs / 2, num_inputs - num_actions); // TODO: Decide on the number of hidden units for this network.
+		// neuralNetWorld  = new MultiLayerPerceptron(num_inputs, num_inputs - num_actions, num_inputs - num_actions); // TODO: Decide on the number of hidden units for this network.
 		
 		for (int i = 0; i < num_hidden; i++)
 		{
