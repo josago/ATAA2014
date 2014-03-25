@@ -41,6 +41,7 @@ import org.rlcommunity.rlglue.codec.types.Action;
 import org.rlcommunity.rlglue.codec.types.Observation;
 
 import ataa2014.NeuralNet;
+import ataa2014.NeuralNetWorldModel;
 import ataa2014.StateRepresentation;
 import rlVizLib.general.ParameterHolder;
 import rlVizLib.general.hasVersionDetails;
@@ -583,7 +584,15 @@ public abstract class GeneralAgent implements AgentInterface{
     	else if (this.params.modelClass.equals("NeuralNet"))
     	{
     		System.out.println("Neural net used as model");
-    		this.model = new NeuralNet(this.featGen.getNumFeatures(), this.featGen.getNumFeatures() / 5, false); // TODO: Decide on the number of hidden units.
+    		
+    		this.model = new NeuralNet(this.featGen.getNumFeatures(), this.featGen.getNumFeatures() / 5); // TODO: Decide on the number of hidden units.
+    		this.model.setFeatGen(this.featGen);
+    	}
+    	else if (this.params.modelClass.equals("NeuralNetWorldModel"))
+    	{
+    		System.out.println("Neural net with world model used as model");
+    		
+    		this.model = new NeuralNetWorldModel(this.featGen.getNumFeatures(), this.featGen.getActionFeatIndices().length, this.featGen.getNumFeatures() / 5);
     		this.model.setFeatGen(this.featGen);
     	}
     	else {

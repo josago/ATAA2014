@@ -7,7 +7,7 @@ import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.neuroph.core.transfer.TransferFunction;
 import org.neuroph.nnet.MultiLayerPerceptron;
-import org.neuroph.nnet.learning.*;
+import org.neuroph.nnet.learning.MomentumBackpropagation;
 
 import edu.utexas.cs.tamerProject.modeling.Sample;
 import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
@@ -16,19 +16,24 @@ import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
  * This class implements a neural network to be used as a regression model to learn the H function within the TAMER framework.
  * @author josago
  */
-public class NeuralNet extends RegressionModel
+public class NeuralNetWorldModel extends RegressionModel
 {
 	public static final double LEARNING_RATE = 0.01;
 	public static final double MOMENTUM_RATE = 0.01;
+	
+	public static final int MAX_LOOKAHEAD         = 1;   // Maximum number of levels to lookahead into the future when planning an action.
+	public static final int MIN_SAMPLES_LOOKAHEAD = 100; // Minimum number of samples needed before the world model is queried and effectively used.
 	
 	public static final int MAX_ITERATIONS = 1000;
 	
 	private ArrayList<Double>   outputList;
 	private ArrayList<double[]> sampleList;
 
-	private MultiLayerPerceptron neuralNet;
+	private MultiLayerPerceptron neuralNetReward;
+	private MultiLayerPerceptron neuralNetWorld;
 	
 	private final int num_inputs;
+	private final int num_actions;
 	private final int num_hidden;
 	
 	private class Sigmoid extends TransferFunction
@@ -76,12 +81,13 @@ public class NeuralNet extends RegressionModel
 		}
 	}
 	
-	public NeuralNet(int num_inputs, int num_hidden)
+	public NeuralNetWorldModel(int num_inputs, int num_actions, int num_hidden)
 	{
 		//System.out.println("Initializing neural network with " + num_inputs + " inputs, " + num_hidden + " hidden nodes and 1 output.");
 		
-		this.num_inputs = num_inputs;
-		this.num_hidden = num_hidden;
+		this.num_inputs  = num_inputs;
+		this.num_actions = num_actions;
+		this.num_hidden  = num_hidden;
 		
 		clearSamplesAndReset();
 	}
@@ -137,15 +143,27 @@ public class NeuralNet extends RegressionModel
 	@Override
 	public void buildModel()
 	{
-		DataSet trainingSet = new DataSet(num_inputs, 1);
+		DataSet trainingSetReward = new DataSet(num_inputs, 1);
+		DataSet trainingSetWorld  = new DataSet(num_inputs, num_inputs - num_actions);
 		
 		for (int i = 0; i < sampleList.size(); i++)
 		{
-			trainingSet.addRow(new DataSetRow(sampleList.get(i), new double[]{outputList.get(i)}));
+			trainingSetReward.addRow(new DataSetRow(sampleList.get(i), new double[]{outputList.get(i)}));
+			
+			if (i < sampleList.size() - 1)
+			{
+				trainingSetWorld.addRow(new DataSetRow(sampleList.get(i), Arrays.copyOfRange(sampleList.get(i + 1), num_actions, num_inputs)));
+			}
 		}
 
-		resetNetwork();
-	    neuralNet.learnInNewThread(trainingSet);
+		resetNetworks();
+		
+		neuralNetReward.learnInNewThread(trainingSetReward);
+		
+		if (sampleList.size() >= MIN_SAMPLES_LOOKAHEAD)
+		{
+			neuralNetWorld.learnInNewThread(trainingSetWorld);
+		}
 	    
 	    try
 	    {
@@ -156,25 +174,65 @@ public class NeuralNet extends RegressionModel
 	    	
 		}
 	    
-	    neuralNet.stopLearning();
+	    neuralNetReward.stopLearning();
+	    
+		if (sampleList.size() >= MIN_SAMPLES_LOOKAHEAD)
+		{
+			neuralNetWorld.stopLearning();
+		}
 	}
 
 	@Override
 	public double predictLabel(double[] feats)
 	{
-		/*for (int i = 0; i < neuralNet.getWeights().length; i++)
+		if (sampleList.size() >= MIN_SAMPLES_LOOKAHEAD)
 		{
-			System.out.print(feats[i] + ", ");
-			System.out.print(neuralNet.getWeights()[i] + ", ");
+			if (sampleList.size() == MIN_SAMPLES_LOOKAHEAD)
+			{
+				System.out.println("Querying look-ahead model from now on...");
+			}
+			
+			return recursivePlan(feats, MAX_LOOKAHEAD);
 		}
-		
-		System.out.println();*/
-		//System.out.println("Neural net contains " + sampleList.size() +" samples");
-		
-		neuralNet.setInput(feats);
-		neuralNet.calculate();
-		//System.out.println("Neural network output for the action (" + feats[0] + ", " + feats[1] + ", " + feats[2] + "): " + neuralNet.getOutput()[0]);
-		return neuralNet.getOutput()[0];
+		else
+		{
+			neuralNetReward.setInput(feats);
+			neuralNetReward.calculate();
+	
+			return neuralNetReward.getOutput()[0];
+		}
+	}
+	
+	private double recursivePlan(double[] feats, int h)
+	{
+		if (h == 0)
+		{
+			neuralNetReward.setInput(feats);
+			neuralNetReward.calculate();
+
+			return neuralNetReward.getOutput()[0];
+		}
+		else
+		{
+			neuralNetWorld.setInput(feats);
+			neuralNetWorld.calculate();
+
+			double[] feats_new = new double[num_inputs]; // Will include the new state + an action.
+			System.arraycopy(neuralNetWorld.getOutput(), 0, feats_new, num_actions, num_inputs - num_actions);
+			
+			double Rmax = Double.NEGATIVE_INFINITY;
+			
+			// TODO: This is a very bad way of trying every possible action, but it is the easiest one for the time being:
+				
+			for (double[] action: new double[][]{{0, 0, 0}, {0, 0, 1}, {0, 1, 0}, {0, 1, 1}, {1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}, {-1, 0, 0}, {-1, 0, 1}, {-1, 1, 0}, {-1, 1, 1}})
+			{
+				System.arraycopy(action, 0, feats_new, 0, num_actions);
+				
+				Rmax = Math.max(Rmax, recursivePlan(feats_new, h - 1));
+			}
+
+			return Rmax;
+		}
 	}
 
 	@Override
@@ -182,7 +240,7 @@ public class NeuralNet extends RegressionModel
 	{
 		System.err.println("\nClear samples and reset in Neural Network\n");
 		clearSamples();
-		resetNetwork();
+		resetNetworks();
 	}
 	
 	private void clearSamples()
@@ -191,16 +249,17 @@ public class NeuralNet extends RegressionModel
 		sampleList = new ArrayList<double[]>();
 	}
 	
-	private void resetNetwork()
+	private void resetNetworks()
 	{
-		neuralNet = new MultiLayerPerceptron(num_inputs, num_hidden, 1);
+		neuralNetReward = new MultiLayerPerceptron(num_inputs, num_hidden, 1);
+		neuralNetWorld  = new MultiLayerPerceptron(num_inputs, num_inputs / 2, num_inputs - num_actions); // TODO: Decide on the number of hidden units for this network.
 		
 		for (int i = 0; i < num_hidden; i++)
 		{
-			neuralNet.getLayerAt(1).getNeuronAt(i).setTransferFunction(new Sigmoid(1));
+			neuralNetReward.getLayerAt(1).getNeuronAt(i).setTransferFunction(new Sigmoid(1));
 		}
 
-		neuralNet.getLayerAt(2).getNeuronAt(0).setTransferFunction(new Sigmoid(10));
+		neuralNetReward.getLayerAt(2).getNeuronAt(0).setTransferFunction(new Sigmoid(10));
 		
 		MomentumBackpropagation mbp = new MomentumBackpropagation();
 		
@@ -209,7 +268,16 @@ public class NeuralNet extends RegressionModel
 		mbp.setMomentum(MOMENTUM_RATE);
 		mbp.setMaxIterations(MAX_ITERATIONS);
 		
-		neuralNet.setLearningRule(mbp);
+		neuralNetReward.setLearningRule(mbp);
+		
+		mbp = new MomentumBackpropagation();
+		
+		mbp.setMaxError(0.01);
+		mbp.setLearningRate(LEARNING_RATE);
+		mbp.setMomentum(MOMENTUM_RATE);
+		mbp.setMaxIterations(MAX_ITERATIONS);
+		
+		neuralNetWorld.setLearningRule(mbp);
 	}
 	
 	public void reset()

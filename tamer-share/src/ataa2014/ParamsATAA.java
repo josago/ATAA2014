@@ -42,8 +42,9 @@ public class ParamsATAA {
 	
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
 	public static String personName = "Lydia2";
+
 	
-	public static String[] modelOptions = {"NeuralNet"};
+	public static String[] modelOptions = {"NeuralNetWorldModel"};
 	public static String[] featureGeneratorOptions = {"StateRepresentation"};
 	//public static String[] modelOptions = {"WekaModelPerActionModel"};
 //	public static String[] featureGeneratorOptions = {"FeatGen_Mario"};
