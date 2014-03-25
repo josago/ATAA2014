@@ -18,8 +18,8 @@ import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
  */
 public class NeuralNetWorldModel extends RegressionModel
 {
-	public static final double LEARNING_RATE = 0.01;
-	public static final double MOMENTUM_RATE = 0.01;
+	public static final double LEARNING_RATE = 0.1;
+	public static final double MOMENTUM_RATE = 0.1;
 	
 	public static final int LOOKAHEAD_NEURONS     = 20;  // Number of hidden neurons to use for the world model.
 	public static final int LOOKAHEAD_MAX_LEVELS  = 1;   // Maximum number of levels to lookahead into the future when planning an action.

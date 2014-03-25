@@ -55,7 +55,7 @@ public class SimulatedHuman {
 
 		
 	public void addInformation(double[] feats) {
-//		System.out.println("------------");
+		System.out.println("------------");
 		stateMemory.add(feats);
 		if (stateMemory.size() > SimulatedHuman.sizeMemeory){			
 			stateMemory.remove(0);

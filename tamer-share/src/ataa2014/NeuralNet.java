@@ -18,8 +18,8 @@ import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
  */
 public class NeuralNet extends RegressionModel
 {
-	public static final double LEARNING_RATE = 0.01;
-	public static final double MOMENTUM_RATE = 0.01;
+	public static final double LEARNING_RATE = 0.1;
+	public static final double MOMENTUM_RATE = 0.1;
 	
 	public static final int MAX_ITERATIONS = 1000;
 	
