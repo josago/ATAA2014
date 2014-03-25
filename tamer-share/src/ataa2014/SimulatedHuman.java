@@ -55,7 +55,7 @@ public class SimulatedHuman {
 
 		
 	public void addInformation(double[] feats) {
-
+//		System.out.println("------------");
 		stateMemory.add(feats);
 		if (stateMemory.size() > SimulatedHuman.sizeMemeory){			
 			stateMemory.remove(0);
@@ -94,6 +94,30 @@ public class SimulatedHuman {
 				return false;
 		}
 	    return true;
+	}
+	
+	protected double[] getPowerUp()
+	{
+		double [] loc = new double[2];
+		int i = stateMemory.size()-1;
+		loc[0] = stateMemory.get(i)[StateRepresentation.FEATURES_ACTION + 2 * StateRepresentation.ENTITY_FIREFLOWER + StateRepresentation.VECTOR_DX];
+		loc[1] = stateMemory.get(i)[StateRepresentation.FEATURES_ACTION + 2 * StateRepresentation.ENTITY_FIREFLOWER + StateRepresentation.VECTOR_DX];
+		if(loc[0] == StateRepresentation.DISTANCE_FAR_AWAY)
+		{
+			loc[0] = stateMemory.get(i)[StateRepresentation.FEATURES_ACTION + 2 * StateRepresentation.ENTITY_MUSHROOM + StateRepresentation.VECTOR_DX];
+			loc[1] = stateMemory.get(i)[StateRepresentation.FEATURES_ACTION + 2 * StateRepresentation.ENTITY_MUSHROOM + StateRepresentation.VECTOR_DX];			
+		}
+		return loc;
+	}
+	
+	protected double[] getAction()
+	{
+		double [] ac = new double[3];
+		int i = stateMemory.size()-1;
+		ac[0] = stateMemory.get(i)[0];
+		ac[1] = stateMemory.get(i)[1];
+		ac[2]= stateMemory.get(i)[2];
+		return ac;
 	}
 	
 	

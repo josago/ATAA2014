@@ -69,13 +69,31 @@ public class SimulatedFast extends SimulatedHuman {
 				feedbackGiven=true;
 			}			
 		}
-		//If there are no events check if mario is stuck at a step
-		else if(stateMemory.size()>0){
-			double[] step = getstep(stateMemory.size()-1); 
-						
-			if( (step[x] < 2 && step[x] > -2) && step[y] < 0 )
+		//Power up
+		if(stateMemory.size()>0 && !feedbackGiven){
+			
+			double[] loc = getPowerUp();
+			double[] act = getAction();
+			if(loc[0] != StateRepresentation.DISTANCE_FAR_AWAY)
 			{
-				//System.out.println("Close to step");
+				if((loc[0] < 0 && act[0] > 0) || (loc[0] > 0 && act[0] < 0) )
+				{
+					System.out.println("Not responding well to power up");
+					feedback[1] = -1.0;
+					feedbackGiven = true;
+				}
+			}
+			
+		}
+		//If there are no events check if mario is stuck at a step
+		if(stateMemory.size()>0 && !feedbackGiven){
+			double[] step = getstep(stateMemory.size()-1); 
+			
+			
+			//&& step[y] < 0
+			if( (step[x] < 1 && step[x] > -1)  )
+			{
+				System.out.println("Close to step: " + step[x] + " " +step[y] );
 				//If stuck at step					
 				if(stuckAtStep())
 				{

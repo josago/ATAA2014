@@ -339,9 +339,11 @@ public class ExperimentsATAA {
 	{
 		ParamsATAA.useSimulatedHuman = true;
 		init();
-		seed = 413;
-		for(int step = 1; step<250;step++)
+		seed = 418;
+		for(int step = 1; step<500;step++)
 		{		
+			if(step%10 == 0)
+				System.out.println("step "+step);
 			rew_obs = glue.RL_env_step(currentAction);
 			if(!ParamsATAA.useSimulatedHuman){
 				agent.addHRew(rewardHuman);
@@ -355,7 +357,7 @@ public class ExperimentsATAA {
 					System.out.println("Mario died!!!!");
 				}
 				
-				if(stepsSinceDeath==4)
+				if(stepsSinceDeath==6)
 					break;
 				else
 					stepsSinceDeath++;
@@ -368,9 +370,9 @@ public class ExperimentsATAA {
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {		
 		ExperimentsATAA exp = new ExperimentsATAA();
 		//exp.testExperimentEnvironment();			
-		exp.run_experiment();
+		//exp.run_experiment();
 		//exp.run_experiment_with_humans();
-		//exp.demo();
+		exp.demo();
 		System.exit(0);				
 	}
 	
