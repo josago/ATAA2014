@@ -18,14 +18,15 @@ import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
  */
 public class NeuralNetWorldModel extends RegressionModel
 {
-	public static final double LEARNING_RATE = 0.01;
-	public static final double MOMENTUM_RATE = 0.01;
+	public static final double LEARNING_RATE = 0.001;
+	public static final double MOMENTUM_RATE = 0;
+	
+	public static final double MIN_ERROR      = 0.001;
+	public static final int    MAX_ITERATIONS = Integer.MAX_VALUE;
 	
 	public static final int LOOKAHEAD_NEURONS     = 20;  // Number of hidden neurons to use for the world model.
 	public static final int LOOKAHEAD_MAX_LEVELS  = 1;   // Maximum number of levels to lookahead into the future when planning an action.
 	public static final int LOOKAHEAD_MIN_SAMPLES = 100; // Minimum number of samples needed before the world model is queried and effectively used.
-	
-	public static final int MAX_ITERATIONS = 1000;
 	
 	private ArrayList<Double>   outputList;
 	private ArrayList<double[]> sampleList;
@@ -36,6 +37,23 @@ public class NeuralNetWorldModel extends RegressionModel
 	private final int num_inputs;
 	private final int num_actions;
 	private final int num_hidden;
+	
+	private class Linear extends TransferFunction
+	{
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public double getOutput(double net)
+		{
+			return net;
+		}
+		
+		@Override
+		public double getDerivative(double net)
+		{
+			return 1;
+		}
+	}
 	
 	private class Sigmoid extends TransferFunction
 	{
@@ -89,19 +107,7 @@ public class NeuralNetWorldModel extends RegressionModel
 		this.num_inputs  = num_inputs;
 		this.num_actions = num_actions;
 		this.num_hidden  = num_hidden;
-		
-		neuralNetWorld  = new MultiLayerPerceptron(num_inputs, LOOKAHEAD_NEURONS, num_inputs - num_actions);
-		
-		for (int i = 0; i < LOOKAHEAD_NEURONS; i++)
-		{
-			neuralNetWorld.getLayerAt(1).getNeuronAt(i).setTransferFunction(new Sigmoid(1));
-		}
 
-		for (int i = 0; i < num_inputs - num_actions; i++)
-		{
-			neuralNetWorld.getLayerAt(2).getNeuronAt(i).setTransferFunction(new Sigmoid(30));
-		}
-		
 		clearSamplesAndReset();
 	}
 	
@@ -169,18 +175,18 @@ public class NeuralNetWorldModel extends RegressionModel
 			}
 		}
 
-		resetNetworks();
+		//resetNetworks();
 		
 		neuralNetReward.learnInNewThread(trainingSetReward);
 		
-		if (sampleList.size() >= LOOKAHEAD_MIN_SAMPLES)
-		{
-			neuralNetWorld.learnInNewThread(trainingSetWorld);
-		}
+		//long start = System.nanoTime();
+		neuralNetWorld.learnInNewThread(trainingSetWorld);
+		//neuralNetWorld.learn(trainingSetWorld);
+		//System.out.println("N = " + sampleList.size() + ", t = " + (System.nanoTime() - start) / 1000000L);
 	    
 	    try
 	    {
-			Thread.sleep(1000 / 8);
+			Thread.sleep(1000 / 4);
 		}
 	    catch (InterruptedException e)
 		{
@@ -188,11 +194,15 @@ public class NeuralNetWorldModel extends RegressionModel
 		}
 	    
 	    neuralNetReward.stopLearning();
-	    
-		if (sampleList.size() >= LOOKAHEAD_MIN_SAMPLES)
+		neuralNetWorld.stopLearning();
+		
+		// Printing the weights:
+		
+		for (int i = 0; i < neuralNetWorld.getWeights().length; i++)
 		{
-			neuralNetWorld.stopLearning();
+			System.out.print(neuralNetWorld.getWeights()[i] + " ");
 		}
+		System.out.println();
 	}
 
 	@Override
@@ -233,6 +243,14 @@ public class NeuralNetWorldModel extends RegressionModel
 			double[] feats_new = new double[num_inputs]; // Will include the new state + an action.
 			System.arraycopy(neuralNetWorld.getOutput(), 0, feats_new, num_actions, num_inputs - num_actions);
 			
+			// Printing the output:
+			
+			for (int i = 0; i < feats_new.length; i++)
+			{
+				System.out.print(feats_new[i] + " ");
+			}
+			System.out.println();
+
 			double Rmax = Double.NEGATIVE_INFINITY;
 			
 			// TODO: This is a very bad way of trying every possible action, but it is the easiest one for the time being:
@@ -265,7 +283,7 @@ public class NeuralNetWorldModel extends RegressionModel
 	private void resetNetworks()
 	{
 		neuralNetReward = new MultiLayerPerceptron(num_inputs, num_hidden, 1);
-		// neuralNetWorld  = new MultiLayerPerceptron(num_inputs, num_inputs - num_actions, num_inputs - num_actions); // TODO: Decide on the number of hidden units for this network.
+		neuralNetWorld  = new MultiLayerPerceptron(num_inputs, num_inputs - num_actions); // TODO: Decide on the number of hidden units for this network.
 		
 		for (int i = 0; i < num_hidden; i++)
 		{
@@ -274,9 +292,19 @@ public class NeuralNetWorldModel extends RegressionModel
 
 		neuralNetReward.getLayerAt(2).getNeuronAt(0).setTransferFunction(new Sigmoid(10));
 		
+		/*for (int i = 0; i < LOOKAHEAD_NEURONS; i++)
+		{
+			neuralNetWorld.getLayerAt(1).getNeuronAt(i).setTransferFunction(new Sigmoid(1));
+		}*/
+
+		for (int i = 0; i < num_inputs - num_actions; i++)
+		{
+			neuralNetWorld.getLayerAt(1).getNeuronAt(i).setTransferFunction(new Linear());
+		}
+		
 		MomentumBackpropagation mbp = new MomentumBackpropagation();
 		
-		mbp.setMaxError(0.01);
+		mbp.setMaxError(MIN_ERROR);
 		mbp.setLearningRate(LEARNING_RATE);
 		mbp.setMomentum(MOMENTUM_RATE);
 		mbp.setMaxIterations(MAX_ITERATIONS);
@@ -285,9 +313,9 @@ public class NeuralNetWorldModel extends RegressionModel
 		
 		mbp = new MomentumBackpropagation();
 		
-		mbp.setMaxError(0.01);
-		mbp.setLearningRate(LEARNING_RATE);
-		mbp.setMomentum(MOMENTUM_RATE);
+		mbp.setMaxError(Integer.MAX_VALUE);
+		mbp.setLearningRate(0.1);
+		mbp.setMomentum(0.001);
 		mbp.setMaxIterations(MAX_ITERATIONS);
 		
 		neuralNetWorld.setLearningRule(mbp);
