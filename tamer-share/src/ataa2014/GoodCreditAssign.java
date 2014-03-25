@@ -28,12 +28,13 @@ public class GoodCreditAssign {
 	
 	public synchronized void process(Observation o, Action action, FeatGenerator featGen)
 	{
-		//System.out.println("=============NEW STEP PROCESSING==========");
+//		System.out.println("=============NEW STEP PROCESSING==========");
 		if(activeSamples.size() == nrSteps)
 		{
 			Sample s = activeSamples.get(0);
 			activeSamples.remove(0);
-			//System.out.println("=============\nSample to model:\n=============\n" + s.obs.toString() + "\nreward = " + s.label);
+//			System.out.println("=============\nSample to model:\n=============\n" + s.obs.toString() );
+//			System.out.println("Action: " + s.feats[0] + " "+ s.feats[1] + " " + s.feats[2] + "\nSpeed: " + s.feats[StateRepresentation.STATE_SX] + "\nreward = " + s.label);
 			model.addInstance(s);
 			model.buildModel();			
 		}
@@ -75,7 +76,7 @@ public class GoodCreditAssign {
 		//Apply function
 		
 		
-		double[] credit = {0.1, 0.1, 0.3, 0.5};
+		double[] credit = {0.1, 0.15, 0.3, 0.45};
 		
 		return credit;		
 	}

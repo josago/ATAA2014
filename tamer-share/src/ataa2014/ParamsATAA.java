@@ -4,7 +4,7 @@ public class ParamsATAA {
 
 	//For the simulated human
 	public static boolean useSimulatedHuman = true;	//Set to true when running an experiment
-	public static int in_between_time_feedback_request_human_simulator = 100; //1000 = 1 sec. set to 300 when running an experiment
+	public static int in_between_time_feedback_request_human_simulator = 200; //1000 = 1 sec. set to 100 when running an experiment
 	
 	//=============================================
 	//All parameters for when running an experiment
@@ -18,7 +18,7 @@ public class ParamsATAA {
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
 	//to generate the levels
 	//For the experiment set the level difficulty to 2
-	public static int level_difficulty = 1;
+	public static int level_difficulty = 0;
 	
 	//Number of steps that a single evaluation consists of
 	//For experiment: set to 400 
@@ -33,7 +33,9 @@ public class ParamsATAA {
 	// Options: 
 	//"NeuralNet" 
 	//"WekaModelPerActionModel"
+	// NeuralNetWorldModel
 	public static String model = "NeuralNet";
+	
 	//Options:
 	// "FeatGen_Mario"
 	// "StateRepresentation"
@@ -44,7 +46,8 @@ public class ParamsATAA {
 	public static String personName = "Lydia2";
 
 	
-	public static String[] modelOptions = {"NeuralNetWorldModel"};
+	//public static String[] modelOptions = {"NeuralNetWorldModel"};
+	public static String[] modelOptions = {"NeuralNet"};
 	public static String[] featureGeneratorOptions = {"StateRepresentation"};
 	//public static String[] modelOptions = {"WekaModelPerActionModel"};
 //	public static String[] featureGeneratorOptions = {"FeatGen_Mario"};
