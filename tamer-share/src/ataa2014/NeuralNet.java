@@ -18,10 +18,11 @@ import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
  */
 public class NeuralNet extends RegressionModel
 {
-	public static final double LEARNING_RATE = 0.1;
-	public static final double MOMENTUM_RATE = 0.1;
+	public static final double LEARNING_RATE = 0.001;
+	public static final double MOMENTUM_RATE = 0;
 	
-	public static final int MAX_ITERATIONS = 1000;
+	public static final double MIN_ERROR      = 0.001;
+	public static final int    MAX_ITERATIONS = Integer.MAX_VALUE;
 	
 	private ArrayList<Double>   outputList;
 	private ArrayList<double[]> sampleList;
@@ -144,12 +145,12 @@ public class NeuralNet extends RegressionModel
 			trainingSet.addRow(new DataSetRow(sampleList.get(i), new double[]{outputList.get(i)}));
 		}
 
-		resetNetwork();
+		//resetNetwork();
 	    neuralNet.learnInNewThread(trainingSet);
 	    
 	    try
 	    {
-			Thread.sleep(1000 / 8);
+			Thread.sleep(1000 / 4);
 		}
 	    catch (InterruptedException e)
 		{
@@ -204,7 +205,7 @@ public class NeuralNet extends RegressionModel
 		
 		MomentumBackpropagation mbp = new MomentumBackpropagation();
 		
-		mbp.setMaxError(0.01);
+		mbp.setMaxError(MIN_ERROR);
 		mbp.setLearningRate(LEARNING_RATE);
 		mbp.setMomentum(MOMENTUM_RATE);
 		mbp.setMaxIterations(MAX_ITERATIONS);
