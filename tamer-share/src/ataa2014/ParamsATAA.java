@@ -34,7 +34,7 @@ public class ParamsATAA {
 	//"NeuralNet" 
 	//"WekaModelPerActionModel"
 	// NeuralNetWorldModel
-	public static String model = "NeuralNetWorldModel";
+	public static String model = "NeuralNet";
 	
 	//Options:
 	// "FeatGen_Mario"
