@@ -24,7 +24,6 @@ public class NeuralNetWorldModel extends RegressionModel
 	public static final double MOMENTUM_RATE_WORLD  = 0;
 	public static final int    MAX_ITERATIONS = Integer.MAX_VALUE;
 	
-	public static final int LOOKAHEAD_NEURONS      = 20;  // Number of hidden neurons to use for the world model.
 	public static final int LOOKAHEAD_SKIP_SAMPLES = 5;
 	public static final int LOOKAHEAD_MAX_LEVELS   = 2;   // Maximum number of levels to lookahead into the future when planning an action.
 	public static final int LOOKAHEAD_MIN_SAMPLES  = 100; // Minimum number of samples needed before the world model is queried and effectively used.
@@ -182,7 +181,7 @@ public class NeuralNetWorldModel extends RegressionModel
 	    
 	    try
 	    {
-			Thread.sleep(1000 / 4);
+			Thread.sleep(1000 / 6);
 		}
 	    catch (InterruptedException e)
 		{

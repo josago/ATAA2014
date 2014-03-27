@@ -29,7 +29,7 @@ public class NeuralNet extends RegressionModel
 	public static int    MAX_ITERATIONS = Integer.MAX_VALUE;
 	
 	public static boolean LIMIT_TRAIN = true;
-	public static int 	TRAIN_TIME = 1000 / 4;
+	public static int 	TRAIN_TIME = 1000 / 6;
 	public static boolean RESET_MODEL = false;
 	
 	private ArrayList<Double>   outputList;

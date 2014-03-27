@@ -405,7 +405,12 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
         mapScene.startMusic();
         if (org.rlcommunity.environments.mario.GlueMario.glue_running) {
 	        org.rlcommunity.environments.mario.GlueMario.reportWin();
-	        org.rlcommunity.environments.mario.GlueMario.param.level_difficulty++; //guangliang added, increase difficulty to continue to next level
+	        
+	        if (!ParamsATAA.ATAA_Exp)
+	        {
+	        	org.rlcommunity.environments.mario.GlueMario.param.level_difficulty++; //guangliang added, increase difficulty to continue to next level
+	        }
+	        
 	        org.rlcommunity.environments.mario.GlueMario.restartLevel();
         }
         else
