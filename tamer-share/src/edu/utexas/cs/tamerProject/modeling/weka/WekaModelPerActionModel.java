@@ -215,4 +215,10 @@ public class WekaModelPerActionModel extends RegressionModel{
 		
 	}
 	
+	public double[] getStats ()
+	{
+		double[] d = {0, 0, 0};
+		return d;
+	}
+	
 }

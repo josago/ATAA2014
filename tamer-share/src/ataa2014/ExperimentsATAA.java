@@ -202,6 +202,8 @@ public class ExperimentsATAA {
 		ResultContainer results = new ResultContainer();
 		initSeeds();
 		seedsToFile();
+		ArrayList<ArrayList<double[]>> param_results = new ArrayList<ArrayList<double[]>>();
+		int settingNr = 0;
 		
 		//Each combination of features and models is an experimental setting
 		for(String mod: ParamsATAA.modelOptions)
@@ -214,6 +216,9 @@ public class ExperimentsATAA {
 				results.openFile();
 				ParamsATAA.model = mod;
 				ParamsATAA.features = feat;	
+				
+				param_results.add(new ArrayList<double[]>() );
+				
 				for(int run = 0; run<ParamsATAA.nr_of_runs; run++)
 				{
 					// Manipulate the level seed
@@ -245,15 +250,19 @@ public class ExperimentsATAA {
 							results.processResults();
 						}
 					}
+					
 					results.run_finished();
 					cleanUp();
 					System.out.println("Run finished and cleaned up");
 				}				
 				//Write results to file
 				results.writeToFile();
-				
+				param_results.get(settingNr).add(agent.model.getStats());
+				settingNr++;
 			}
 		}
+		String modelParamsFilename = "ModelParamsResults_models_lvl_" + ParamsATAA.level_difficulty + "_"+ ParamsATAA.personName;
+		modelParamsToFile(param_results, modelParamsFilename);
 	}	
 
 	public void run_experiments_modelParams()

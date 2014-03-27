@@ -79,4 +79,10 @@ public class WekaModelWrap extends RegressionModel{
 		return newModel;
 	}
 	
+	public double[] getStats ()
+	{
+		double[] d = {0, 0, 0};
+		return d;
+	}
+	
 }

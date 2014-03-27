@@ -26,7 +26,7 @@ public class ParamsATAA {
 	public static int nr_steps_credit = 4;
 	
 	//Number of steps that a single evaluation consists of
-	//For experiment: set to 400 
+	//For experiment: set to 1500 
 	public static int nr_steps_per_evaluation = 1500;
 	//Number of steps that are in one bin for collecting results
 	//For experiment: set to 50
