@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.Timer;
@@ -48,31 +49,35 @@ public class ExperimentsATAA {
 	public static int loopNr;
 
 	
-	
-	
-	public void testExperimentEnvironment()
-	{
-		init();	
-		System.out.println("========================\nINITIALIZED EVERYTHING FOR EXPERIMENT\n========================\n\n");
-		ResultContainer results = new ResultContainer();		
-		results.openFile();
-		for(int i = 0; i<10; i++)
-		{
-			// Make sure here the right reward is propagated (from this window definitely not yet, from simHuman: check)
-			glue.RL_env_step(currentAction);
-			if(!ParamsATAA.useSimulatedHuman){
-				agent.addHRew(rewardHuman);
-				rewardHuman = 0;
-			}					
-			currentAction = glue.RL_agent_step(0.0, rew_obs.getObservation().duplicate());	
+	private void modelParamsToFile(ArrayList<ArrayList<double[]>> param_results) {
+		File f = new File("src/ataa2014_expResults/" + "ModelParamResults_" + ParamsATAA.personName);
+		PrintWriter printer = null;
+		try {
+			printer = new PrintWriter(f, "UTF-8");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
 		
-		cleanUp();
-		
-		results.processResults();
-		results.writeToFile();		
-		System.out.println("END OF TEST ROUND\n\n\n\n\n\n\n");
-		
+		int nrSettings = param_results.size();
+		int nrRuns = param_results.get(0).size();
+		int nrStats = param_results.get(0).get(0).length;
+		for(int i = 0; i<nrSettings;i++){			
+			double[] sum = new double[nrStats];
+			for(int j =0; j<nrRuns;j++){
+				for(int k = 0; k<nrStats; k++)
+				{
+					sum[k] += param_results.get(i).get(j)[k];
+				}
+			}
+			for(int k = 0; k<nrStats;k++)
+			{				
+				printer.print(sum[k]/nrRuns + " ");				
+			}	
+			printer.print("\n");
+		}		
+		printer.close();			
 	}
 	
 	private void cleanUp() {
@@ -94,7 +99,7 @@ public class ExperimentsATAA {
 			}
 		}
 	}
-
+	
 	/**
 	 * Initialize the agent, feedback (real or simulated human), 
 	 */
@@ -212,7 +217,87 @@ public class ExperimentsATAA {
 		}
 	}	
 	
-	//Different combinations of models and feature generators are tested and 
+	public void run_experiments_modelParams()
+	{
+		boolean keepMarioResults = false;
+		
+		ResultContainer results = new ResultContainer();
+		int settingNr = 0;
+		double[] learningRates = {0.01, 0.001, 0.0001};
+		int[] trainingTimes = {4, 6, 8};
+		boolean[] resetModel = {true, false};
+		
+		ParamsATAA.model = "NeuralNet";
+		
+		ArrayList<ArrayList<double[]>> param_results = new ArrayList<ArrayList<double[]>>();
+		
+		//Each combination of features and models is an experimental setting
+		for(double lr : learningRates)
+		{
+			for(int tr: trainingTimes)
+			{
+				for(boolean res : resetModel)
+				{			
+					loopNr = 0;					
+					NeuralNet.LEARNING_RATE = lr;
+					NeuralNet.TRAIN_TIME = 1000/tr;
+					NeuralNet.RESET_MODEL = res;
+					param_results.add(new ArrayList<double[]>() );
+					initSeeds();
+					
+					for(int run = 0; run<ParamsATAA.nr_of_runs; run++)
+					{
+						// Manipulate the level seed
+						seed = seeds[run];
+						System.err.println("SEED SET TO: " + seeds[run]);
+						
+						loopNr++;
+						System.out.println("\n\n====================\n====================\nRun number: " + run + "\n\n====================\n====================\n");
+											
+						init();
+						if(ParamsATAA.nr_steps_per_evaluation%ParamsATAA.nr_steps_for_episode != 0)
+						{
+							System.err.println("Not all steps will be recorded!");
+						}				
+						
+						//Run the number of steps for a evaluation
+						for(int i = 1; i<ParamsATAA.nr_steps_per_evaluation+1; i++)
+						{					
+							//Make the agent and environment take a step
+							rew_obs = glue.RL_env_step(currentAction);
+							if(!ParamsATAA.useSimulatedHuman){
+								agent.addHRew(rewardHuman);
+								rewardHuman = 0;
+							}					
+							currentAction = glue.RL_agent_step(0.0, rew_obs.getObservation().duplicate());							
+							
+							//Process results if neccessary
+							if(i%ParamsATAA.nr_steps_for_episode == 0 && i>1)
+							{
+								results.processResults();
+							}
+						}
+						results.run_finished();
+						cleanUp();
+						System.out.println("Run finished and cleaned up");
+					}	
+					//Adding param results
+					param_results.get(settingNr).add(agent.model.getStats());
+					//Write results to file
+					ParamsATAA.fileNameResults = "resultsMarioParams_" + lr + "_" + tr + "_" + res + "_" + ParamsATAA.personName + ".txt";
+					if(keepMarioResults)
+					{
+						results.openFile();
+						results.writeToFile();
+					}
+					settingNr++;
+				}
+			}
+		}
+		modelParamsToFile(param_results);
+	}
+	
+		//Different combinations of models and feature generators are tested and 
 		//the results are collected and written to file
 		//Set parameters for the experiment in ParamsATAA
 		public void run_experiment_with_humans() throws FileNotFoundException, UnsupportedEncodingException
@@ -335,12 +420,14 @@ public class ExperimentsATAA {
 	
 	public static boolean marioDied = false;
 	private int stepsSinceDeath = 0;
+	private boolean showSamples = true;
+	
 	public void demo()
 	{
 		ParamsATAA.useSimulatedHuman = true;
 		init();
-		seed = 418;
-		for(int step = 1; step<500;step++)
+		seed = 428;
+		for(int step = 1; step<50;step++)
 		{		
 			if(step%10 == 0)
 				System.out.println("step "+step);
@@ -363,6 +450,8 @@ public class ExperimentsATAA {
 					stepsSinceDeath++;
 			}	*/		
 		}
+		if(showSamples)
+			agent.model.printSamples();
 		cleanUp();
 	}
 		
@@ -372,7 +461,8 @@ public class ExperimentsATAA {
 		//exp.testExperimentEnvironment();			
 		//exp.run_experiment();
 		//exp.run_experiment_with_humans();
-		exp.demo();
+//		exp.demo();
+		exp.run_experiments_modelParams();
 		System.exit(0);				
 	}
 	

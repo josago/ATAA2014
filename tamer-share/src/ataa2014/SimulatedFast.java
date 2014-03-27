@@ -91,9 +91,9 @@ public class SimulatedFast extends SimulatedHuman {
 			
 			
 			//&& step[y] < 0
-			if( (step[x] < 1 && step[x] > -1)  )
+			if( (step[x] < 1.5 && step[x] > -1.5)  )
 			{
-				System.out.println("Close to step: " + step[x] + " " +step[y] );
+//				System.out.println("Close to step: " + step[x] + " " +step[y] );
 				//If stuck at step					
 				if(stuckAtStep())
 				{

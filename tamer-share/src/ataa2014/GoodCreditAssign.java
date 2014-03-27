@@ -39,7 +39,7 @@ public class GoodCreditAssign {
 			model.buildModel();			
 		}
 		
-		//Add sample		
+		//Add sample			
 		activeSamples.add(new Sample(featGen.getFeats(o, action), 0.0, o));
 		
 		/*System.out.println("=============\nActive samples:\n=============\n");

@@ -116,7 +116,11 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		else
 			this.hLearner = new HLearner(this.model, credAssignParams);
 		
-		this.actSelector = new ActionSelect(this.model, this.params.selectionMethod, 
+		if(ParamsATAA.ATAA_Exp)
+			this.actSelector = new ActionSelect(this.model, ParamsATAA.selectionMethod, 
+					this.params.selectionParams, this.currObsAndAct.getAct().duplicate());
+		else
+			this.actSelector = new ActionSelect(this.model, this.params.selectionMethod, 
 											this.params.selectionParams, this.currObsAndAct.getAct().duplicate());
 
 

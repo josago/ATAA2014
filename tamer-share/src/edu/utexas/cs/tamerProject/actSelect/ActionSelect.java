@@ -8,6 +8,7 @@ import java.util.Random;
 import org.rlcommunity.rlglue.codec.types.Action;
 import org.rlcommunity.rlglue.codec.types.Observation;
 
+import ataa2014.ParamsATAA;
 import edu.utexas.cs.tamerProject.agents.tamerrl.HInfluence;
 import edu.utexas.cs.tamerProject.envModels.EnvTransModel;
 import edu.utexas.cs.tamerProject.featGen.FeatGenerator;
@@ -140,6 +141,8 @@ public class ActionSelect{
 		}
 		else if (this.selectionMethod.equals("e-greedy")) {
 			double epsilon = Double.valueOf(selectionParams.get("epsilon"));
+			if(ParamsATAA.ATAA_Exp)
+				epsilon = ParamsATAA.epsilon;
 			Action chosenAction = ActionSelect.eGreedyActSelect(epsilon, 
 					this.valFcnModel, obs, lastAct);
 			return chosenAction;
@@ -242,11 +245,18 @@ public class ActionSelect{
 				} 
 			}
 		}
+		
+		if(ParamsATAA.ATAA_Exp)
+			lastActIsGreedy = false;
+		
 		if (lastActIsGreedy)
 			return lastAct.duplicate();
 		else {
+			
 			int actIndex = FeatGenerator.staticRandGenerator.nextInt(maxActs.size());
-			return maxActs.get(actIndex);
+			Action a = maxActs.get(actIndex);
+//			System.out.println("Action with max value: " + a.getInt(0) + " " + a.getInt(1) + " " + a.getInt(2));
+			return a;
 		}
 	}
 		

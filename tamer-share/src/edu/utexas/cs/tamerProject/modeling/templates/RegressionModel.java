@@ -144,4 +144,13 @@ public abstract class RegressionModel implements ObsActModel{
 	{
 		
 	}
+	
+	public void printSamples() {
+		System.out.println("Only implemented for StateRepresentation");		
+	}
+	
+	public double[] getStats(){
+		System.out.println("Only implemented for StateRepresentation");	
+		return null;
+	}
 }

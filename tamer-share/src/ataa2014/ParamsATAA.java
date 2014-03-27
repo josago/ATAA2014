@@ -4,12 +4,15 @@ public class ParamsATAA {
 
 	//For the simulated human
 	public static boolean useSimulatedHuman = true;	//Set to true when running an experiment
-	public static int in_between_time_feedback_request_human_simulator = 200; //1000 = 1 sec. set to 100 when running an experiment
+	public static int in_between_time_feedback_request_human_simulator = 200; //1000 = 1 sec. set to 200 when running an experiment
 	
 	//=============================================
 	//All parameters for when running an experiment
 	//=============================================
 	// Run the class ExperimentsATAA after setting all parameters
+	
+	//CHANGE THIS PARAMETER TO YOUR OWN NAME
+	public static String personName = "LYDIA2";
 	
 	//Set to true when running an experiment
 	public static boolean ATAA_Exp = true; 
@@ -22,12 +25,12 @@ public class ParamsATAA {
 	
 	//Number of steps that a single evaluation consists of
 	//For experiment: set to 400 
-	public static int nr_steps_per_evaluation = 1000;
+	public static int nr_steps_per_evaluation = 400;
 	//Number of steps that are in one bin for collecting results
 	//For experiment: set to 50
 	public static int nr_steps_for_episode = 50; //
 	//For experiment: set to 10
-	public static int nr_of_runs = 10;
+	public static int nr_of_runs = 3;
 	
 	//Parameters that can be set and changed when running experiments
 	// Options: 
@@ -42,10 +45,6 @@ public class ParamsATAA {
 	public static String features = "StateRepresentation"; 
 	public static String fileNameResults = "Results_ATAA_experiment.txt";
 	
-	//CHANGE THIS PARAMETER TO YOUR OWN NAME
-	public static String personName = "Lydia2";
-
-	
 	//public static String[] modelOptions = {"NeuralNetWorldModel"};
 	public static String[] modelOptions = {"NeuralNet"};
 	public static String[] featureGeneratorOptions = {"StateRepresentation"};
@@ -58,6 +57,11 @@ public class ParamsATAA {
 			
 	//If this is set to false the levels never contain pits with stairs
 	public static boolean includeStairs = false;
+	
+	//Options: e-greedy - greedy
+	public static String selectionMethod = "e-greedy";
+	public static double epsilon = 0.1;
+	
 	
 	//===========================
 	//Params only used when using a human trainer

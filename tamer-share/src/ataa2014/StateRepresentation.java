@@ -145,6 +145,7 @@ public class StateRepresentation extends FeatGenerator
 	@Override
 	public double[] getSAFeats(Observation obs, Action act)
 	{
+//		System.out.println("..................\nObservation for features: \n" + obs.toString());
 		double[] AFeats = getAFeats(act);
 		double[] SFeats = getSFeats(obs);
 		
@@ -388,6 +389,8 @@ public class StateRepresentation extends FeatGenerator
      */
 	private void addClosestStep(double[] v, char[] charArray, double[] coords_mario)
 	{
+		boolean pipeFoundDirty = false;		
+		
 		for (int y = 0; y < VIEW_HEIGHT - 1; y++)
 		{
 	    	for (int x = 0; x < VIEW_WIDTH - 1; x++)
@@ -405,6 +408,44 @@ public class StateRepresentation extends FeatGenerator
 				int step_x = - 1;
 				int step_y = - 1;
 				
+				
+				//Very ugly break in!!!! but it does find the pipes now
+				if(charArray[c] == TILE_MARIO && charArray[d] == TILE_PIPE)
+				{
+//					System.out.println("Mario next to pipe!!");
+					step_x = x+1;
+					if(charArray[b] != TILE_PIPE)
+					{
+						step_y = y+1;
+//						System.out.println("pipe found the dirty way: -1");
+					}
+					else
+					{
+						int height = 0;
+						boolean stepFound = false;
+						while(!stepFound)
+						{
+							b-= (VIEW_WIDTH + 1);							
+							if(b<0){
+//								System.out.println("Weird pipe shit going on");
+								break;
+							}
+							System.out.println("char: " + charArray[b]);	
+							if(charArray[b]!= TILE_PIPE)
+							{
+								step_y = y-height;
+								stepFound = true;
+							}
+							height++;
+						}
+//						System.out.println("pipe found the dirty way: " + height);
+					}		
+//					System.out.println("current dist values: " + v[2 * ENTITY_STEP + VECTOR_DX] + " " + v[2 * ENTITY_STEP + VECTOR_DY]);
+//					System.out.println("Steps are: x=" + step_x + " y=" + step_y + " normal y = " + (VIEW_HEIGHT - 1 - step_y));
+//					System.out.println("Mario position: " + (coords_mario[VECTOR_X]-xCam) + " " + coords_mario[VECTOR_Y]);
+					pipeFoundDirty = true;
+				}
+				
 				// Step template matching:
 				
 				// Outer corners:
@@ -414,7 +455,7 @@ public class StateRepresentation extends FeatGenerator
 				// 
 				//  X
 				
-				if ((charArray[a] == TILE_EMPTY || charArray[a] == TILE_MARIO) && (charArray[b] == TILE_EMPTY || charArray[b] == TILE_MARIO))
+				else if ((charArray[a] == TILE_EMPTY || charArray[a] == TILE_MARIO) && (charArray[b] == TILE_EMPTY || charArray[b] == TILE_MARIO))
 				{
 					if ((charArray[c] == TILE_BLOCK_ALL || charArray[c] == TILE_PIPE) && (charArray[d] == TILE_EMPTY || charArray[d] == TILE_MARIO))
 					{
@@ -450,17 +491,26 @@ public class StateRepresentation extends FeatGenerator
 				{
 					// Distance check (TODO: not sure if the first check within the "if" is correct):
 					
+//					if(pipeFoundDirty)
+//						System.out.println("Checking if shortest distance");
+					
 					double dist_x = step_x - (coords_mario[VECTOR_X] - xCam);
 					double dist_y = (VIEW_HEIGHT - 1 - step_y) - coords_mario[VECTOR_Y];
 					
-					if (Math.abs(dist_y) >= 1.07 && Math.sqrt(Math.pow(dist_x, 2) + Math.pow(dist_y, 2)) < Math.sqrt(Math.pow(v[2 * ENTITY_STEP + VECTOR_DX], 2) + Math.pow(v[2 * ENTITY_STEP + VECTOR_DY], 2)))
-					{
+					//Why check on dist_ >= 1.07
+					// I removed this temporarily from the boolean: Math.abs(dist_y) >= 1.07 &&
+					double dist = Math.sqrt(Math.pow(dist_x, 2) + Math.pow(dist_y, 2));
+					double currentDist = Math.sqrt(Math.pow(v[2 * ENTITY_STEP + VECTOR_DX], 2) + Math.pow(v[2 * ENTITY_STEP + VECTOR_DY], 2));
+					if (dist  < currentDist)
+					{						
 						v[2 * ENTITY_STEP + VECTOR_DX] = dist_x;
-						v[2 * ENTITY_STEP + VECTOR_DY] = dist_y; 
-					}
+						v[2 * ENTITY_STEP + VECTOR_DY] = dist_y; 						
+					}					
 				}
 			}
 		}
+		
+		
 
 	}
 	
@@ -478,7 +528,7 @@ public class StateRepresentation extends FeatGenerator
 		for (int i = 0; i < v.length / 2 - 1; i++) // - 1 to avoid overwriting Mario's state.
 		{
 			v[2 * i + VECTOR_DX] = DISTANCE_FAR_AWAY;
-			v[2 * i + VECTOR_DY] = 0;
+			v[2 * i + VECTOR_DY] = DISTANCE_FAR_AWAY;
 		}
 		
 		// Sprite distance update:

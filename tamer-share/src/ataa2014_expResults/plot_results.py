@@ -69,6 +69,37 @@ def load_experiment(type_model, type_features, user = None):
             
     return results / num_runs
 
+def load_experiment_modelParams(user = None):
+    filenames = os.listdir('.')
+    
+    num_runs = 0
+    results  = None
+    
+    for filename in filenames:
+        if (user is None and re.search('ModelParamResults_', filename) is not None) or (user is not None and re.search('ModelParamResults_' + user, filename) is not None):
+            print filename
+            num_runs += 1
+            
+            if results is None:
+                results  = load_file(filename)
+            else:
+                results += load_file(filename)
+            
+    return results / num_runs    
+    
+def results_model_param(user = None):
+    data = load_experiment_modelParams(user)
+    if user == None:
+        user = 'noUser'
+    filename = 'accumulated_modelParamResults_' + user + '.txt'
+    f = open(filename, 'w')
+    for row in data:
+        for value in row:
+            f.write(str(value))
+            f.write(' ')
+        f.write('\n')
+    f.close()   
+    
 def load_file(filename):
     f = open(filename, 'r')
     
@@ -83,5 +114,6 @@ def load_file(filename):
 
 # Code to be exectued:
 
-plot_results("NeuralNet", "StateRepresentation", "day20")
+#plot_results("NeuralNet", "StateRepresentation", "day20")
 #plot_all()
+results_model_param('LYDIA')

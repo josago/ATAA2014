@@ -100,8 +100,8 @@ public abstract class FeatGenerator{
 	
 	public ArrayList<Action> getMaxActs(RegressionModel model, Observation obs, ArrayList<Action> possActions){
 		ArrayList<Action> bestActions = new ArrayList<Action>();
-		if (model.noRealValFeats()){
-			double bestActionVal = Double.NEGATIVE_INFINITY;
+		double bestActionVal = Double.NEGATIVE_INFINITY;
+		if (model.noRealValFeats()){			
 			if (possActions == null) {
 				possActions = this.getPossActions(obs);
 				if (possActions.size() == 0)
@@ -124,6 +124,7 @@ public abstract class FeatGenerator{
 			System.exit(1);
 		}
 		//System.out.println("num max acts in FeatGen: " + bestActions.size());
+//		System.out.println("Best action value: " + bestActionVal);
 		return bestActions;
 	}
 

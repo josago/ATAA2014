@@ -114,11 +114,12 @@ public class NeuralNetWorldModel extends RegressionModel
 	@Override
 	public void addInstance(Sample sample)
 	{
+		System.out.println("Try to add new sample");
 		//if (sample.label != 0.0)
 		//{
 			boolean found = false;
 			
-			for (int i = 0; i < sampleList.size(); i++)
+			/*for (int i = 0; i < sampleList.size(); i++)
 			{
 				if (Arrays.equals(sample.feats, sampleList.get(i)))
 				{
@@ -128,10 +129,11 @@ public class NeuralNetWorldModel extends RegressionModel
 					found = true;
 					break;
 				}
-			}
+			}*/
 			
 			if (!found)
 			{
+				System.out.println("New sample");
 				sampleList.add(sample.feats);
 				outputList.add(new Double(sample.label));
 			}
@@ -179,10 +181,14 @@ public class NeuralNetWorldModel extends RegressionModel
 		
 		neuralNetReward.learnInNewThread(trainingSetReward);
 		
-		//long start = System.nanoTime();
-		neuralNetWorld.learnInNewThread(trainingSetWorld);
-		//neuralNetWorld.learn(trainingSetWorld);
-		//System.out.println("N = " + sampleList.size() + ", t = " + (System.nanoTime() - start) / 1000000L);
+		if(sampleList.size()>1)
+		{
+			long start = System.nanoTime();
+	//		neuralNetWorld.learnInNewThread(trainingSetWorld);
+			System.out.println("Learn net");
+			neuralNetWorld.learn(trainingSetWorld);
+			System.out.println("N = " + sampleList.size() + ", t = " + (System.nanoTime() - start) / 1000000L);
+		}
 	    
 	    try
 	    {
@@ -313,9 +319,9 @@ public class NeuralNetWorldModel extends RegressionModel
 		
 		mbp = new MomentumBackpropagation();
 		
-		mbp.setMaxError(Integer.MAX_VALUE);
-		mbp.setLearningRate(0.1);
-		mbp.setMomentum(0.001);
+		mbp.setMaxError(100);
+		mbp.setLearningRate(0.00001);
+		mbp.setMomentum(0.0);
 		mbp.setMaxIterations(MAX_ITERATIONS);
 		
 		neuralNetWorld.setLearningRule(mbp);
