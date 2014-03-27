@@ -28,7 +28,6 @@ public class NeuralNet extends RegressionModel
 	public static double MIN_ERROR      = 0.1;
 	public static int    MAX_ITERATIONS = Integer.MAX_VALUE;
 	
-	public static boolean LIMIT_TRAIN = true;
 	public static int 	TRAIN_TIME = 1000 / 6;
 	public static boolean RESET_MODEL = false;
 	
@@ -176,22 +175,17 @@ public class NeuralNet extends RegressionModel
 		{
 			resetNetwork();
 		}
-		
-		if(!LIMIT_TRAIN)
-			neuralNet.learn(trainingSet);		
-		else
-		{
-		    neuralNet.learnInNewThread(trainingSet);		    
-		    try
-		    {
-				Thread.sleep(TRAIN_TIME);
-			}
-		    catch (InterruptedException e)
-			{
-		    	
-			}		    
-		    neuralNet.stopLearning();
+				
+	    neuralNet.learnInNewThread(trainingSet);		    
+	    try
+	    {
+			Thread.sleep(TRAIN_TIME);
 		}
+	    catch (InterruptedException e)
+		{
+	    	
+		}		    
+	    neuralNet.stopLearning();
 	}
 
 	@Override

@@ -14,23 +14,25 @@ public class ParamsATAA {
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
 	public static String personName = "LYDIA2";
 	
-	//Set to true when running an experiment
-	public static boolean ATAA_Exp = true; 
-	public static int nr_steps_credit = 4;
-	
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
 	//to generate the levels
-	//For the experiment set the level difficulty to 2
-	public static int level_difficulty = 0;
+	//For the experiment set the level difficulty to 0 or 2
+	public static int level_difficulty = 2;
+	
+	//Set to true when running an experiment
+	public static boolean ATAA_Exp = true;
+	
+	//Parameter for credit assignment
+	public static int nr_steps_credit = 4;
 	
 	//Number of steps that a single evaluation consists of
 	//For experiment: set to 400 
-	public static int nr_steps_per_evaluation = 400;
+	public static int nr_steps_per_evaluation = 1500;
 	//Number of steps that are in one bin for collecting results
 	//For experiment: set to 50
-	public static int nr_steps_for_episode = 50; //
+	public static int nr_steps_for_episode = 100; //
 	//For experiment: set to 10
-	public static int nr_of_runs = 3;
+	public static int nr_of_runs = 5;
 	
 	//Parameters that can be set and changed when running experiments
 	// Options: 
@@ -46,17 +48,21 @@ public class ParamsATAA {
 	public static String fileNameResults = "Results_ATAA_experiment.txt";
 	
 	//public static String[] modelOptions = {"NeuralNetWorldModel"};
-	public static String[] modelOptions = {"NeuralNet"};
-	public static String[] featureGeneratorOptions = {"StateRepresentation"};
+//	public static String[] modelOptions = {"NeuralNet"};
+//	public static String[] featureGeneratorOptions = {"StateRepresentation"};
 	//public static String[] modelOptions = {"WekaModelPerActionModel"};
 //	public static String[] featureGeneratorOptions = {"FeatGen_Mario"};
 	
 	//For the experiment the lower Options versions should be used
-	//public static String[] modelOptions = {"NeuralNet", "WekaModelPerActionModel"};
-	//public static String[] featureGeneratorOptions = {"FeatGen_Mario", "StateRepresentation"};
+	public static String[] modelOptions = {"NeuralNet", "WekaModelPerActionModel", "NeuralNetWorldModel"};
+	public static String[] featureGeneratorOptions = {"FeatGen_Mario", "StateRepresentation"};
 			
 	//If this is set to false the levels never contain pits with stairs
 	public static boolean includeStairs = false;
+	
+	//Set the number of hidden nodes in the neural net that learns the reinforcement function
+	//Resulting value is: nr of features / this parameter. So a higher value results in fewer hidden nodes.
+	public static int hiddenNodesNeuralNet = 2;
 	
 	//Options: e-greedy - greedy
 	public static String selectionMethod = "e-greedy";

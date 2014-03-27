@@ -178,7 +178,6 @@ public class TamerAgent extends GeneralAgent implements AgentInterface {
 		                    e.printStackTrace();
 		                }
 		            }
-		            System.out.println("Feedbackloop " + ExperimentsATAA.loopNr + " ended!!!");
 		            ExperimentsATAA.feedbackLoopGotKilled  = true;
 		        }  
 		    };

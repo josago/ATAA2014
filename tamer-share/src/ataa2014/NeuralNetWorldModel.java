@@ -25,7 +25,7 @@ public class NeuralNetWorldModel extends RegressionModel
 	public static final int    MAX_ITERATIONS = Integer.MAX_VALUE;
 	
 	public static final int LOOKAHEAD_SKIP_SAMPLES = 5;
-	public static final int LOOKAHEAD_MAX_LEVELS   = 2;   // Maximum number of levels to lookahead into the future when planning an action.
+	public static int LOOKAHEAD_MAX_LEVELS   = 2;   // Maximum number of levels to lookahead into the future when planning an action.
 	public static final int LOOKAHEAD_MIN_SAMPLES  = 100; // Minimum number of samples needed before the world model is queried and effectively used.
 	
 	private ArrayList<Double>   outputList;
@@ -37,6 +37,9 @@ public class NeuralNetWorldModel extends RegressionModel
 	private final int num_inputs;
 	private final int num_actions;
 	private final int num_hidden;
+	
+	public static int 	TRAIN_TIME = 1000 / 6;
+	public static boolean RESET_MODEL = false;
 	
 	private class Linear extends TransferFunction
 	{
@@ -170,7 +173,8 @@ public class NeuralNetWorldModel extends RegressionModel
 			}
 		}
 
-		//resetNetworks();
+		if(RESET_MODEL)
+			resetNetworks();
 		
 		neuralNetReward.learnInNewThread(trainingSetReward);
 		
@@ -181,7 +185,7 @@ public class NeuralNetWorldModel extends RegressionModel
 	    
 	    try
 	    {
-			Thread.sleep(1000 / 6);
+			Thread.sleep(TRAIN_TIME);
 		}
 	    catch (InterruptedException e)
 		{
@@ -191,26 +195,6 @@ public class NeuralNetWorldModel extends RegressionModel
 	    neuralNetReward.stopLearning();
 		neuralNetWorld.stopLearning();
 		
-		// Calculating the average error per sample for the neuralNetWorld:
-		
-		/*double error = 0;
-		
-		for (DataSetRow sample: trainingSetWorld.getRows())
-		{
-			neuralNetWorld.setInput(sample.getInput());
-			neuralNetWorld.calculate();
-
-			double[] output = neuralNetWorld.getOutput();
-			
-			for (int i = 0; i < output.length; i++)
-			{
-				error += Math.abs(output[i] - sample.getDesiredOutput()[i]) / output.length;
-			}
-		}
-		
-		error /= trainingSetWorld.size();
-		
-		System.out.println("Error: " + error);*/
 	}
 
 	@Override
@@ -315,8 +299,60 @@ public class NeuralNetWorldModel extends RegressionModel
 		neuralNetWorld.setLearningRule(mbp);
 	}
 	
-	public void reset()
+	public double[] getStats ()
 	{
-		System.out.println("Reset neural network");
+		/*
+		 * Definition statistics
+		 * 0 = nr of samples
+		 * 1 = average error of model per sample
+		 * 2 = average standerd deviation over actions (how discriminative is the model)		 * 
+		 */
+		double [] stats = new double[3];	
+		int nrSamples = sampleList.size();
+		
+		double diffTotal = 0.0;
+		double sdAvg = 0.0;
+				
+		for(int i = 0; i<nrSamples;i++)
+		{			
+			//Update total error
+			diffTotal+= Math.abs(outputList.get(i) - predictLabel(sampleList.get(i)));
+			
+			//Calculate standard deviation on actions	
+			double sum = 0.0;
+			for(int d = -1; d<2;d++)
+			{
+				for(int j = 0; j<2; j++)
+				{
+					for(int s = 0; s<2; s++)
+					{
+						sampleList.get(i)[2] = s;
+						sampleList.get(i)[0] = d;
+						sampleList.get(i)[1] = j;	
+						sum += predictLabel(sampleList.get(i));
+					}
+				}
+			}
+			sum = sum/12;
+			double sd = 0.0;
+			for(int d = -1; d<2;d++)
+			{
+				for(int j = 0; j<2; j++)
+				{
+					for(int s = 0; s<2; s++)
+					{
+						sampleList.get(i)[2] = s;
+						sampleList.get(i)[0] = d;
+						sampleList.get(i)[1] = j;	
+						sd += Math.pow(predictLabel(sampleList.get(i)) - sum, 2);
+					}
+				}
+			}
+			sdAvg += Math.sqrt(sd / 12);
+		}
+		stats[0] = nrSamples;
+		stats[1] = diffTotal / nrSamples;
+		stats[2] = sdAvg / nrSamples;
+		return stats;
 	}
 }

@@ -2,8 +2,10 @@ package ataa2014;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
@@ -40,17 +42,18 @@ public class ExperimentsATAA {
 	private int rewardHuman;
 	private JFrame f;
 	private Timer tim;
-	private int [] seeds;
+	public int [] seeds;
 	
 	public static boolean killFeedbackloop;
 	public static boolean feedbackLoopGotKilled;
 	public static int seed;
 	
-	public static int loopNr;
+	
+	private String seedFile = "Seeds.txt";
 
 	
-	private void modelParamsToFile(ArrayList<ArrayList<double[]>> param_results) {
-		File f = new File("src/ataa2014_expResults/" + "ModelParamResults_" + ParamsATAA.personName);
+	private void modelParamsToFile(ArrayList<ArrayList<double[]>> param_results, String fileName) {
+		File f = new File("src/ataa2014_expResults/" + fileName + ".txt");
 		PrintWriter printer = null;
 		try {
 			printer = new PrintWriter(f, "UTF-8");
@@ -78,6 +81,43 @@ public class ExperimentsATAA {
 			printer.print("\n");
 		}		
 		printer.close();			
+	}
+	
+	public void seedsToFile() {
+		// TODO Auto-generated method stub
+		File f = new File("src/ataa2014_expResults/"+ ParamsATAA.personName + seedFile);
+		PrintWriter printer = null;
+		try {
+			printer = new PrintWriter(f, "UTF-8");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		for(int s : seeds){
+			printer.write(s + " ");
+		}
+		printer.close();
+	}
+	
+	public void seedsFromFile(){
+		try {
+			Scanner scanner = new Scanner(new FileReader("src/ataa2014_expResults/"+ ParamsATAA.personName + seedFile));
+			
+			if(scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] b = line.split(" ");
+                for(int i = 0; i<b.length;i++)
+                {
+                	seeds[i] = Integer.parseInt(b[i]);
+                }
+            }
+            scanner.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	private void cleanUp() {
@@ -159,9 +199,9 @@ public class ExperimentsATAA {
 	//Set parameters for the experiment in ParamsATAA
 	public void run_experiment()
 	{
-		loopNr = 0;
 		ResultContainer results = new ResultContainer();
 		initSeeds();
+		seedsToFile();
 		
 		//Each combination of features and models is an experimental setting
 		for(String mod: ParamsATAA.modelOptions)
@@ -170,7 +210,7 @@ public class ExperimentsATAA {
 			{
 				System.out.println("============\nCurrent experiment:\nmodel: " + mod + "\nfeature generator: " + feat+"\n==================");
 				//Set parameters for this experimental setting
-				ParamsATAA.fileNameResults = "resultsATAA_" + mod + "_" + feat + "_" + ParamsATAA.personName + ".txt";
+				ParamsATAA.fileNameResults = "resultsATAA_" + mod + "_" + feat + "_"+ "_lvl_" + ParamsATAA.level_difficulty +"_" + ParamsATAA.personName + ".txt";
 				results.openFile();
 				ParamsATAA.model = mod;
 				ParamsATAA.features = feat;	
@@ -180,7 +220,6 @@ public class ExperimentsATAA {
 					seed = seeds[run];
 					System.err.println("SEED SET TO: " + seeds[run]);
 					
-					loopNr++;
 					System.out.println("\n\n====================\n====================\nRun number: " + run + "\n\n====================\n====================\n");
 										
 					init();
@@ -216,85 +255,104 @@ public class ExperimentsATAA {
 			}
 		}
 	}	
-	
+
 	public void run_experiments_modelParams()
 	{
-		boolean keepMarioResults = false;
-		
+		ParamsATAA.level_difficulty = 0;
+		seedsFromFile();
 		ResultContainer results = new ResultContainer();
 		int settingNr = 0;
-		double[] learningRates = {0.01, 0.001, 0.0001};
-		int[] trainingTimes = {4, 6, 8};
-		boolean[] resetModel = {true, false};
 		
-		ParamsATAA.model = "NeuralNet";
+		ParamsATAA.model = "NeuralNetWorldModel";
 		
 		ArrayList<ArrayList<double[]>> param_results = new ArrayList<ArrayList<double[]>>();
 		
-		//Each combination of features and models is an experimental setting
-		for(double lr : learningRates)
+		int[] hiddenNodesArray = {1, 4, 8};
+		int[] nrStepsLookaheadArray = {1,3};
+		
+		//Different numbers of hidden nodes
+		String modelParamsFilename = "Hidden_Nodes_" + ParamsATAA.personName;
+		for(int hn : hiddenNodesArray)
 		{
-			for(int tr: trainingTimes)
+			ParamsATAA.hiddenNodesNeuralNet = hn;
+			params_run(param_results, settingNr, results, hn + "_" + modelParamsFilename);						
+			settingNr++;
+			
+		}		
+		modelParamsToFile(param_results, modelParamsFilename);
+		ParamsATAA.hiddenNodesNeuralNet = 2;
+		param_results = new ArrayList<ArrayList<double[]>>();
+		settingNr = 0;
+		
+		//Different nr of lookahead steps
+		modelParamsFilename = "Nr_Steps_Lookahead_" + ParamsATAA.personName;
+		for(int sl: nrStepsLookaheadArray)
+		{
+			NeuralNetWorldModel.LOOKAHEAD_MAX_LEVELS = sl;
+			params_run(param_results, settingNr, results, sl  + "_" +  modelParamsFilename);			
+			settingNr++;
+		}
+		modelParamsToFile(param_results, modelParamsFilename);
+		NeuralNetWorldModel.LOOKAHEAD_MAX_LEVELS = 2;
+		param_results = new ArrayList<ArrayList<double[]>>();
+		settingNr = 0;
+		
+		//Action selection method
+		modelParamsFilename = "actionSelection_" + ParamsATAA.personName;
+		ParamsATAA.nr_steps_per_evaluation = 250;
+		ParamsATAA.nr_steps_for_episode = 50;
+		params_run(param_results, settingNr, results,  "e_greedy_" +  modelParamsFilename);	
+		ParamsATAA.selectionMethod = "greedy";
+		settingNr ++;
+		params_run(param_results, settingNr, results, "greedy" + modelParamsFilename);
+		modelParamsToFile(param_results, modelParamsFilename);		
+	}
+	
+	private void params_run(ArrayList<ArrayList<double[]>> param_results, int settingNr, ResultContainer results, String settingDefinition)
+	{
+		param_results.add(new ArrayList<double[]>() );		
+		
+		for(int run = 0; run<ParamsATAA.nr_of_runs; run++)
+		{
+			// Manipulate the level seed
+			seed = seeds[run];
+			System.err.println("SEED SET TO: " + seeds[run]);
+			
+			System.out.println("\n\n====================\n====================\nRun number: " + run + "\n\n====================\n====================\n");
+								
+			init();
+			if(ParamsATAA.nr_steps_per_evaluation%ParamsATAA.nr_steps_for_episode != 0)
 			{
-				for(boolean res : resetModel)
-				{			
-					loopNr = 0;					
-					NeuralNet.LEARNING_RATE = lr;
-					NeuralNet.TRAIN_TIME = 1000/tr;
-					NeuralNet.RESET_MODEL = res;
-					param_results.add(new ArrayList<double[]>() );
-					initSeeds();
-					
-					for(int run = 0; run<ParamsATAA.nr_of_runs; run++)
-					{
-						// Manipulate the level seed
-						seed = seeds[run];
-						System.err.println("SEED SET TO: " + seeds[run]);
-						
-						loopNr++;
-						System.out.println("\n\n====================\n====================\nRun number: " + run + "\n\n====================\n====================\n");
-											
-						init();
-						if(ParamsATAA.nr_steps_per_evaluation%ParamsATAA.nr_steps_for_episode != 0)
-						{
-							System.err.println("Not all steps will be recorded!");
-						}				
-						
-						//Run the number of steps for a evaluation
-						for(int i = 1; i<ParamsATAA.nr_steps_per_evaluation+1; i++)
-						{					
-							//Make the agent and environment take a step
-							rew_obs = glue.RL_env_step(currentAction);
-							if(!ParamsATAA.useSimulatedHuman){
-								agent.addHRew(rewardHuman);
-								rewardHuman = 0;
-							}					
-							currentAction = glue.RL_agent_step(0.0, rew_obs.getObservation().duplicate());							
-							
-							//Process results if neccessary
-							if(i%ParamsATAA.nr_steps_for_episode == 0 && i>1)
-							{
-								results.processResults();
-							}
-						}
-						results.run_finished();
-						cleanUp();
-						System.out.println("Run finished and cleaned up");
-					}	
-					//Adding param results
-					param_results.get(settingNr).add(agent.model.getStats());
-					//Write results to file
-					ParamsATAA.fileNameResults = "resultsMarioParams_" + lr + "_" + tr + "_" + res + "_" + ParamsATAA.personName + ".txt";
-					if(keepMarioResults)
-					{
-						results.openFile();
-						results.writeToFile();
-					}
-					settingNr++;
+				System.err.println("Not all steps will be recorded!");
+			}				
+			
+			//Run the number of steps for a evaluation
+			for(int i = 1; i<ParamsATAA.nr_steps_per_evaluation+1; i++)
+			{					
+				//Make the agent and environment take a step
+				rew_obs = glue.RL_env_step(currentAction);
+				if(!ParamsATAA.useSimulatedHuman){
+					agent.addHRew(rewardHuman);
+					rewardHuman = 0;
+				}					
+				currentAction = glue.RL_agent_step(0.0, rew_obs.getObservation().duplicate());							
+				
+				//Process results if neccessary
+				if(i%ParamsATAA.nr_steps_for_episode == 0 && i>1)
+				{
+					results.processResults();
 				}
 			}
-		}
-		modelParamsToFile(param_results);
+			results.run_finished();
+			cleanUp();
+			System.out.println("Run finished and cleaned up");
+		}	
+		//Adding param results
+		param_results.get(settingNr).add(agent.model.getStats());
+		//Write results to file
+		ParamsATAA.fileNameResults = "resultsMarioParams_" + settingDefinition + ".txt";
+		results.openFile();
+		results.writeToFile();		
 	}
 	
 		//Different combinations of models and feature generators are tested and 
@@ -304,7 +362,6 @@ public class ExperimentsATAA {
 		{
 			Random r = new Random();
 			ParamsATAA.useSimulatedHuman = false;
-			loopNr = 0;	
 			Scanner reader = new Scanner(System.in);
 			int nr_settings = ParamsATAA.modelOptions.length*ParamsATAA.featureGeneratorOptions.length;
 			int[][] results = new int [nr_settings][nr_settings];
@@ -458,43 +515,13 @@ public class ExperimentsATAA {
 	
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {		
 		ExperimentsATAA exp = new ExperimentsATAA();
-		//exp.testExperimentEnvironment();			
-		//exp.run_experiment();
-		//exp.run_experiment_with_humans();
-		exp.demo();
-		//exp.run_experiments_modelParams();
-		System.exit(0);				
+		exp.run_experiment();
+//		exp.run_experiment_with_humans();
+//		exp.demo();
+//		exp.run_experiments_modelParams();
+		System.exit(0);	
+		
 	}
 	
-	private void checkoutThreads()
-	{
-		Set<Thread> tset = Thread.getAllStackTraces().keySet();
-		System.out.println("\n============\nAll running threads:\n=============");
-		for(Thread t: tset)
-		{
-			System.out.println(t.getName());
-			if(t.getName().equals("Game Thread"))
-			{
-				GlueMario.comp.stop();
-				System.out.println("Game Thread stopped");
-			}
-			else if(t.getName().equals("simHuman feedback thread"))
-			{
-				t.interrupt();
-			}
-		}
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			
-			e.printStackTrace();
-		}
-		tset = Thread.getAllStackTraces().keySet();
-		System.out.println("\n\nList threads again:\n");
-		for(Thread t: tset)
-		{
-			System.out.println(t.getName());		
-		}
-	}
 
 }
