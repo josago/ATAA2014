@@ -430,7 +430,7 @@ public class StateRepresentation extends FeatGenerator
 //								System.out.println("Weird pipe shit going on");
 								break;
 							}
-							System.out.println("char: " + charArray[b]);	
+
 							if(charArray[b]!= TILE_PIPE)
 							{
 								step_y = y-height;

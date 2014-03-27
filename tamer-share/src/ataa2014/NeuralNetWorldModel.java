@@ -18,15 +18,16 @@ import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
  */
 public class NeuralNetWorldModel extends RegressionModel
 {
-	public static final double LEARNING_RATE = 0.001;
-	public static final double MOMENTUM_RATE = 0;
-	
-	public static final double MIN_ERROR      = 0.001;
+	public static final double LEARNING_RATE_REWARD = 0.001;
+	public static final double MOMENTUM_RATE_REWARD = 0;
+	public static final double LEARNING_RATE_WORLD  = 0.0000001;
+	public static final double MOMENTUM_RATE_WORLD  = 0;
 	public static final int    MAX_ITERATIONS = Integer.MAX_VALUE;
 	
-	public static final int LOOKAHEAD_NEURONS     = 20;  // Number of hidden neurons to use for the world model.
-	public static final int LOOKAHEAD_MAX_LEVELS  = 1;   // Maximum number of levels to lookahead into the future when planning an action.
-	public static final int LOOKAHEAD_MIN_SAMPLES = 100; // Minimum number of samples needed before the world model is queried and effectively used.
+	public static final int LOOKAHEAD_NEURONS      = 20;  // Number of hidden neurons to use for the world model.
+	public static final int LOOKAHEAD_SKIP_SAMPLES = 5;
+	public static final int LOOKAHEAD_MAX_LEVELS   = 2;   // Maximum number of levels to lookahead into the future when planning an action.
+	public static final int LOOKAHEAD_MIN_SAMPLES  = 100; // Minimum number of samples needed before the world model is queried and effectively used.
 	
 	private ArrayList<Double>   outputList;
 	private ArrayList<double[]> sampleList;
@@ -82,7 +83,7 @@ public class NeuralNetWorldModel extends RegressionModel
 					return -1;
 				}
 			}
-			//System.out.println("Output: " + o);
+			
 			return o;
 		}
 		
@@ -95,15 +96,13 @@ public class NeuralNetWorldModel extends RegressionModel
 			{
 				return 0;
 			}
-			//System.out.println("Derivative: " + d);
+			
 			return d;
 		}
 	}
 	
 	public NeuralNetWorldModel(int num_inputs, int num_actions, int num_hidden)
 	{
-		//System.out.println("Initializing neural network with " + num_inputs + " inputs, " + num_hidden + " hidden nodes and 1 output.");
-		
 		this.num_inputs  = num_inputs;
 		this.num_actions = num_actions;
 		this.num_hidden  = num_hidden;
@@ -114,32 +113,27 @@ public class NeuralNetWorldModel extends RegressionModel
 	@Override
 	public void addInstance(Sample sample)
 	{
-		System.out.println("Try to add new sample");
-		//if (sample.label != 0.0)
-		//{
-			boolean found = false;
+		boolean found = false;
 			
-			/*for (int i = 0; i < sampleList.size(); i++)
+		for (int i = 0; i < sampleList.size(); i++)
+		{
+			if (Arrays.equals(sample.feats, sampleList.get(i)))
 			{
-				if (Arrays.equals(sample.feats, sampleList.get(i)))
-				{
-					outputList.set(i, (outputList.get(i) + sample.label) / 2); // Weighted average.
-					//outputList.set(i, new Double(sample.label)); // Latest value.
+				//outputList.set(i, (outputList.get(i) + sample.label) / 2); // Weighted average.
+				outputList.set(i, new Double(sample.label)); // Latest value.
 					
-					found = true;
-					break;
-				}
-			}*/
-			
-			if (!found)
-			{
-				System.out.println("New sample");
-				sampleList.add(sample.feats);
-				outputList.add(new Double(sample.label));
+				found = true;
+				break;
 			}
+		}
 			
-			//System.err.println("Neural network added instance with label = " + sample.label + " to a list of size " + sampleList.size());
-		//}
+		if (!found)
+		{
+			ParamsATAA.epsilon *= 0.95;
+			
+			sampleList.add(sample.feats);
+			outputList.add(new Double(sample.label));
+		}
 	}
 
 	@Override
@@ -171,7 +165,7 @@ public class NeuralNetWorldModel extends RegressionModel
 		{
 			trainingSetReward.addRow(new DataSetRow(sampleList.get(i), new double[]{outputList.get(i)}));
 			
-			if (i < sampleList.size() - 1)
+			if (i < sampleList.size() - 1 && i % LOOKAHEAD_SKIP_SAMPLES == 0)
 			{
 				trainingSetWorld.addRow(new DataSetRow(sampleList.get(i), Arrays.copyOfRange(sampleList.get(i + 1), num_actions, num_inputs)));
 			}
@@ -181,13 +175,9 @@ public class NeuralNetWorldModel extends RegressionModel
 		
 		neuralNetReward.learnInNewThread(trainingSetReward);
 		
-		if(sampleList.size()>1)
+		if (sampleList.size() > 1)
 		{
-			long start = System.nanoTime();
-	//		neuralNetWorld.learnInNewThread(trainingSetWorld);
-			System.out.println("Learn net");
-			neuralNetWorld.learn(trainingSetWorld);
-			System.out.println("N = " + sampleList.size() + ", t = " + (System.nanoTime() - start) / 1000000L);
+			neuralNetWorld.learnInNewThread(trainingSetWorld);
 		}
 	    
 	    try
@@ -202,13 +192,26 @@ public class NeuralNetWorldModel extends RegressionModel
 	    neuralNetReward.stopLearning();
 		neuralNetWorld.stopLearning();
 		
-		// Printing the weights:
+		// Calculating the average error per sample for the neuralNetWorld:
 		
-		for (int i = 0; i < neuralNetWorld.getWeights().length; i++)
+		/*double error = 0;
+		
+		for (DataSetRow sample: trainingSetWorld.getRows())
 		{
-			System.out.print(neuralNetWorld.getWeights()[i] + " ");
+			neuralNetWorld.setInput(sample.getInput());
+			neuralNetWorld.calculate();
+
+			double[] output = neuralNetWorld.getOutput();
+			
+			for (int i = 0; i < output.length; i++)
+			{
+				error += Math.abs(output[i] - sample.getDesiredOutput()[i]) / output.length;
+			}
 		}
-		System.out.println();
+		
+		error /= trainingSetWorld.size();
+		
+		System.out.println("Error: " + error);*/
 	}
 
 	@Override
@@ -234,14 +237,12 @@ public class NeuralNetWorldModel extends RegressionModel
 	
 	private double recursivePlan(double[] feats, int h)
 	{
-		if (h == 0)
-		{
-			neuralNetReward.setInput(feats);
-			neuralNetReward.calculate();
+		neuralNetReward.setInput(feats);
+		neuralNetReward.calculate();
 
-			return neuralNetReward.getOutput()[0];
-		}
-		else
+		double Sreturn = neuralNetReward.getOutput()[0];
+
+		if (h > 0)
 		{
 			neuralNetWorld.setInput(feats);
 			neuralNetWorld.calculate();
@@ -249,16 +250,8 @@ public class NeuralNetWorldModel extends RegressionModel
 			double[] feats_new = new double[num_inputs]; // Will include the new state + an action.
 			System.arraycopy(neuralNetWorld.getOutput(), 0, feats_new, num_actions, num_inputs - num_actions);
 			
-			// Printing the output:
-			
-			for (int i = 0; i < feats_new.length; i++)
-			{
-				System.out.print(feats_new[i] + " ");
-			}
-			System.out.println();
-
 			double Rmax = Double.NEGATIVE_INFINITY;
-			
+
 			// TODO: This is a very bad way of trying every possible action, but it is the easiest one for the time being:
 				
 			for (double[] action: new double[][]{{0, 0, 0}, {0, 0, 1}, {0, 1, 0}, {0, 1, 1}, {1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}, {-1, 0, 0}, {-1, 0, 1}, {-1, 1, 0}, {-1, 1, 1}})
@@ -268,14 +261,17 @@ public class NeuralNetWorldModel extends RegressionModel
 				Rmax = Math.max(Rmax, recursivePlan(feats_new, h - 1));
 			}
 
-			return Rmax;
+			Sreturn += Rmax;
 		}
+		
+		return Sreturn;
 	}
 
 	@Override
 	public void clearSamplesAndReset()
 	{
 		System.err.println("\nClear samples and reset in Neural Network\n");
+		
 		clearSamples();
 		resetNetworks();
 	}
@@ -289,7 +285,7 @@ public class NeuralNetWorldModel extends RegressionModel
 	private void resetNetworks()
 	{
 		neuralNetReward = new MultiLayerPerceptron(num_inputs, num_hidden, 1);
-		neuralNetWorld  = new MultiLayerPerceptron(num_inputs, num_inputs - num_actions); // TODO: Decide on the number of hidden units for this network.
+		neuralNetWorld  = new MultiLayerPerceptron(num_inputs, num_inputs - num_actions);
 		
 		for (int i = 0; i < num_hidden; i++)
 		{
@@ -297,11 +293,6 @@ public class NeuralNetWorldModel extends RegressionModel
 		}
 
 		neuralNetReward.getLayerAt(2).getNeuronAt(0).setTransferFunction(new Sigmoid(10));
-		
-		/*for (int i = 0; i < LOOKAHEAD_NEURONS; i++)
-		{
-			neuralNetWorld.getLayerAt(1).getNeuronAt(i).setTransferFunction(new Sigmoid(1));
-		}*/
 
 		for (int i = 0; i < num_inputs - num_actions; i++)
 		{
@@ -310,18 +301,16 @@ public class NeuralNetWorldModel extends RegressionModel
 		
 		MomentumBackpropagation mbp = new MomentumBackpropagation();
 		
-		mbp.setMaxError(MIN_ERROR);
-		mbp.setLearningRate(LEARNING_RATE);
-		mbp.setMomentum(MOMENTUM_RATE);
+		mbp.setLearningRate(LEARNING_RATE_REWARD);
+		mbp.setMomentum(MOMENTUM_RATE_REWARD);
 		mbp.setMaxIterations(MAX_ITERATIONS);
 		
 		neuralNetReward.setLearningRule(mbp);
 		
 		mbp = new MomentumBackpropagation();
 		
-		mbp.setMaxError(100);
-		mbp.setLearningRate(0.00001);
-		mbp.setMomentum(0.0);
+		mbp.setLearningRate(LEARNING_RATE_WORLD);
+		mbp.setMomentum(MOMENTUM_RATE_WORLD);
 		mbp.setMaxIterations(MAX_ITERATIONS);
 		
 		neuralNetWorld.setLearningRule(mbp);

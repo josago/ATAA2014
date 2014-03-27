@@ -133,6 +133,8 @@ public class NeuralNet extends RegressionModel
 			
 			if (!found)
 			{
+				ParamsATAA.epsilon *= 0.95;
+				
 				sampleList.add(sample.feats);
 				outputList.add(new Double(sample.label));
 				countList.add(1.0);				

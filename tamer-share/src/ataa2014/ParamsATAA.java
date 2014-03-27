@@ -37,7 +37,7 @@ public class ParamsATAA {
 	//"NeuralNet" 
 	//"WekaModelPerActionModel"
 	// NeuralNetWorldModel
-	public static String model = "NeuralNet";
+	public static String model = "NeuralNetWorldModel";
 	
 	//Options:
 	// "FeatGen_Mario"
@@ -60,7 +60,7 @@ public class ParamsATAA {
 	
 	//Options: e-greedy - greedy
 	public static String selectionMethod = "e-greedy";
-	public static double epsilon = 0.1;
+	public static double epsilon = 0.9;
 	
 	
 	//===========================

@@ -427,7 +427,7 @@ public class ExperimentsATAA {
 		ParamsATAA.useSimulatedHuman = true;
 		init();
 		seed = 428;
-		for(int step = 1; step<50;step++)
+		for(int step = 1; step < ParamsATAA.nr_steps_per_evaluation; step++)
 		{		
 			if(step%10 == 0)
 				System.out.println("step "+step);
@@ -461,8 +461,8 @@ public class ExperimentsATAA {
 		//exp.testExperimentEnvironment();			
 		//exp.run_experiment();
 		//exp.run_experiment_with_humans();
-//		exp.demo();
-		exp.run_experiments_modelParams();
+		exp.demo();
+		//exp.run_experiments_modelParams();
 		System.exit(0);				
 	}
 	
