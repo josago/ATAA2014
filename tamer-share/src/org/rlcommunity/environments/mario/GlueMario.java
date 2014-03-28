@@ -152,7 +152,10 @@ public abstract class GlueMario implements EnvironmentInterface, ProvidesEpisode
 		System.out.println("StartLevel called with level difficulty = " + param.level_difficulty);
 		
 		if (!glue_running) return;
-		comp.startLevel(param.level_seed, param.level_difficulty, param.level_type);
+		if(ParamsATAA.ATAA_Exp)
+			comp.startLevel(ExperimentsATAA.seed, param.level_difficulty, param.level_type);
+		else
+			comp.startLevel(param.level_seed, param.level_difficulty, param.level_type);
 		ticks_since_last_action = 0;
 		trial_steps = 0;
 		Mario.kills = 0;

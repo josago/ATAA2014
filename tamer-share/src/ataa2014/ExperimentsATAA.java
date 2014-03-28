@@ -513,10 +513,12 @@ public class ExperimentsATAA {
 	
 	public void demo()
 	{
+		Random r = new Random();
 		ParamsATAA.useSimulatedHuman = true;
-		init();
-		seed = 674;
-		for(int step = 1; step < ParamsATAA.nr_steps_per_evaluation; step++)
+		ParamsATAA.level_difficulty = 1;
+		seed = r.nextInt(2000);
+		init();		
+		for(int step = 1; step < 250; step++)
 		{		
 			if(step%10 == 0)
 				System.out.println("step "+step);
@@ -526,18 +528,7 @@ public class ExperimentsATAA {
 				rewardHuman = 0;
 			}					
 			currentAction = glue.RL_agent_step(0.0, rew_obs.getObservation().duplicate());	
-			/*if(marioDied)				
-			{
-				if(stepsSinceDeath == 0)
-				{
-					System.out.println("Mario died!!!!");
-				}
-				
-				if(stepsSinceDeath==6)
-					break;
-				else
-					stepsSinceDeath++;
-			}	*/		
+					
 		}
 		if(showSamples)
 			agent.model.printSamples();
@@ -549,8 +540,8 @@ public class ExperimentsATAA {
 		
 		ExperimentsATAA exp = new ExperimentsATAA();
 //		exp.run_experiment();
-		exp.run_experiment_with_humans();
-//		exp.demo();
+//		exp.run_experiment_with_humans();
+		exp.demo();
 //		exp.run_experiments_modelParams();
 		System.exit(0);	
 		

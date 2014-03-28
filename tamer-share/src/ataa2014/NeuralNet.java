@@ -22,7 +22,7 @@ import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
  */
 public class NeuralNet extends RegressionModel
 {
-	public static double LEARNING_RATE = 0.001;
+	public static double LEARNING_RATE = 0.01;
 	public static double MOMENTUM_RATE = 0;
 	
 	public static double MIN_ERROR      = 0.1;
