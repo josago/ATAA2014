@@ -212,9 +212,7 @@ public class ExperimentsATAA {
 			for(String feat: ParamsATAA.featureGeneratorOptions)
 			{
 				System.out.println("============\nCurrent experiment:\nmodel: " + mod + "\nfeature generator: " + feat+"\n==================");
-				//Set parameters for this experimental setting
-				ParamsATAA.fileNameResults = "resultsATAA_" + mod + "_" + feat + "_"+ "_lvl_" + ParamsATAA.level_difficulty +"_" + ParamsATAA.personName + ".txt";
-				results.openFile();
+				//Set parameters for this experimental setting				
 				ParamsATAA.model = mod;
 				ParamsATAA.features = feat;	
 				
@@ -257,6 +255,8 @@ public class ExperimentsATAA {
 					System.out.println("Run finished and cleaned up");
 				}				
 				//Write results to file
+				ParamsATAA.fileNameResults = "resultsATAA_" + mod + "_" + feat + "_"+ "_lvl_" + ParamsATAA.level_difficulty +"_" + ParamsATAA.personName + ".txt";
+				results.openFile();
 				results.writeToFile();
 				param_results.get(settingNr).add(agent.model.getStats());
 				settingNr++;
