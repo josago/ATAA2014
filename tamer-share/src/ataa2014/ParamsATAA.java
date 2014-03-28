@@ -14,7 +14,7 @@ public class ParamsATAA {
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
 
 	public static String personNameA = "josago";
-	public static String personName  = ParamsATAA.personNameA + System.nanoTime();
+	public static String personName  = ParamsATAA.personNameA + "FINAL" + System.nanoTime();
 	
 	
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
@@ -30,12 +30,12 @@ public class ParamsATAA {
 	
 	//Number of steps that a single evaluation consists of
 	//For experiment: set to 1500 
-	public static int nr_steps_per_evaluation = 500;
+	public static int nr_steps_per_evaluation = 600;
 	//Number of steps that are in one bin for collecting results
 	//For experiment: set to 50
 	public static int nr_steps_for_episode = 50; //
 	//For experiment: set to 10
-	public static int nr_of_runs = 1;
+	public static int nr_of_runs = 5;
 	
 	//Parameters that can be set and changed when running experiments
 	// Options: 
@@ -57,8 +57,10 @@ public class ParamsATAA {
 //	public static String[] featureGeneratorOptions = {"FeatGen_Mario"};
 	
 	//For the experiment the lower Options versions should be used
-	public static String[] modelOptions = {"NeuralNet", "WekaModelPerActionModel", "NeuralNetWorldModel"};
-	public static String[] featureGeneratorOptions = {"FeatGen_Mario", "StateRepresentation"};
+//	public static String[] modelOptions = {"NeuralNet", "WekaModelPerActionModel", "NeuralNetWorldModel"};
+//	public static String[] featureGeneratorOptions = {"FeatGen_Mario", "StateRepresentation"};
+	public static String[] modelOptions = {"NeuralNet", "NeuralNetWorldModel"};
+	public static String[] featureGeneratorOptions = {"StateRepresentation"};
 			
 	//If this is set to false the levels never contain pits with stairs
 	public static boolean includeStairs = false;

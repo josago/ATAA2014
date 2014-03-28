@@ -28,7 +28,7 @@ public class NeuralNetWorldModel extends RegressionModel
 	
 	public static final int LOOKAHEAD_SKIP_SAMPLES = 5;
 	public static int LOOKAHEAD_MAX_LEVELS   = 2;   // Maximum number of levels to lookahead into the future when planning an action.
-	public static final int LOOKAHEAD_MIN_SAMPLES  = 100; // Minimum number of samples needed before the world model is queried and effectively used.
+	public static final int LOOKAHEAD_MIN_SAMPLES  = 200; // Minimum number of samples needed before the world model is queried and effectively used.
 	
 	private ArrayList<Double>   outputList;
 	private ArrayList<double[]> sampleList;

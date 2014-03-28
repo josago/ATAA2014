@@ -492,7 +492,7 @@ public class ExperimentsATAA {
 	{
 		ParamsATAA.useSimulatedHuman = true;
 		init();
-		seed = 486;
+		seed = 674;
 		for(int step = 1; step < ParamsATAA.nr_steps_per_evaluation; step++)
 		{		
 			if(step%10 == 0)
