@@ -22,7 +22,7 @@ public class ParamsATAA {
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
 	//to generate the levels
 	//For the experiment set the level difficulty to 0 or 2
-	public static int level_difficulty = 2;
+	public static int level_difficulty = 1;
 	
 	//Set to true when running an experiment
 	public static boolean ATAA_Exp = true;
