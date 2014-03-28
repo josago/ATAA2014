@@ -140,7 +140,7 @@ public class NeuralNetWorldModel extends RegressionModel
 			
 		if (!found)
 		{
-			ParamsATAA.epsilon *= 0.95;
+			ParamsATAA.epsilon *= 0.99;
 			countList.add(1.0);
 			sampleList.add(sample.feats);
 			outputList.add(new Double(sample.label));
@@ -289,6 +289,7 @@ public class NeuralNetWorldModel extends RegressionModel
 	
 	private void resetNetworks()
 	{
+		ParamsATAA.epsilon = ParamsATAA.epsilonStartValue;
 		neuralNetReward = new MultiLayerPerceptron(num_inputs, num_hidden, 1);
 		neuralNetWorld  = new MultiLayerPerceptron(num_inputs, num_inputs - num_actions);
 		
