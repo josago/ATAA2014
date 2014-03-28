@@ -14,7 +14,7 @@ public class ParamsATAA {
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
 
 
-	public static String personNameA = "Nicolo";
+	public static String personNameA = "Lydia";
 	public static String personName  = ParamsATAA.personNameA + "FINAL2_" + System.nanoTime();
 	
 	public static int[] seeds = {7137, 6866, 3300, 8489, 5551};
@@ -83,7 +83,7 @@ public class ParamsATAA {
 	//Params only used when using a human trainer
 	//===========================
 	
-	public static int nr_steps_per_comparison = 600;
+	public static int nr_steps_per_comparison = 300;
 	public static int nr_steps_stats = 5;
 	public static String fileNameResultsHuman = "Provided models combinations.txt";
 }
