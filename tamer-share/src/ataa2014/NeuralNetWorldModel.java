@@ -264,7 +264,7 @@ public class NeuralNetWorldModel extends RegressionModel
 		int direction = rand.nextInt(3) - 1;
 		int speed = rand.nextInt(2);
 		int jump = rand.nextInt(2);
-//		System.out.println("Random action selected direction: " + direction + " speed: "+speed+" jump: " + jump);
+		System.out.println("Random action selected direction: " + direction + " speed: "+speed+" jump: " + jump);
 		int[] initAction = {direction, jump, speed};
 		Action action = new Action(3, 0);
 		action.intArray = initAction;

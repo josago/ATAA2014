@@ -13,12 +13,13 @@ public class ParamsATAA {
 	
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
 
-	public static String personName = "josago2";
+	public static String personName = ParamsATAA.personNameA + System.nanoTime();
+	public static String personNameA = "josago2";
 	
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
 	//to generate the levels
 	//For the experiment set the level difficulty to 0 or 2
-	public static int level_difficulty = 0;
+	public static int level_difficulty = 2;
 	
 	//Set to true when running an experiment
 	public static boolean ATAA_Exp = true;
@@ -28,12 +29,12 @@ public class ParamsATAA {
 	
 	//Number of steps that a single evaluation consists of
 	//For experiment: set to 1500 
-	public static int nr_steps_per_evaluation = 1500;
+	public static int nr_steps_per_evaluation = 500;
 	//Number of steps that are in one bin for collecting results
 	//For experiment: set to 50
-	public static int nr_steps_for_episode = 100; //
+	public static int nr_steps_for_episode = 50; //
 	//For experiment: set to 10
-	public static int nr_of_runs = 5;
+	public static int nr_of_runs = 1;
 	
 	//Parameters that can be set and changed when running experiments
 	// Options: 
@@ -48,7 +49,7 @@ public class ParamsATAA {
 	public static String features = "StateRepresentation"; 
 	public static String fileNameResults = "Results_ATAA_experiment.txt";
 	
-	//public static String[] modelOptions = {"NeuralNetWorldModel"};
+//	public static String[] modelOptions = {"NeuralNetWorldModel"};
 //	public static String[] modelOptions = {"NeuralNet"};
 //	public static String[] featureGeneratorOptions = {"StateRepresentation"};
 	//public static String[] modelOptions = {"WekaModelPerActionModel"};
