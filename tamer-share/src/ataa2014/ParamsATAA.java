@@ -17,12 +17,12 @@ public class ParamsATAA {
 	public static String personNameA = "josago_";
 	public static String personName  = ParamsATAA.personNameA + "FINAL2_" + System.nanoTime();
 	
-	public static int[] seeds = {7137, 6866, 3300, 8489, 5551};
+	public static int[] seeds = {7812, 82, 7020, 2273, 1689};
 	
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
 	//to generate the levels
 	//For the experiment set the level difficulty to 0 or 2
-	public static int level_difficulty = 1;
+	public static int level_difficulty = 2;
 	
 	//Set to true when running an experiment
 	public static boolean ATAA_Exp = true;

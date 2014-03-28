@@ -4,7 +4,7 @@ import os, re
 
 PLOT_REL_SPEED        = True
 NUM_STEPS_PER_SAMPLE  = 100
-MAX_Y                 = 4.5
+MAX_Y                 = 5.0
 SPEED_MULT            = 50
 
 NUM_LEVELS_FINISHED    = 0
@@ -124,5 +124,5 @@ def load_file(filename):
 # Code to be exectued:
 
 #plot_results("NeuralNet", "StateRepresentation", "day20")
-plot_all("lvl_1")
+plot_all("lvl_2_.*FINAL2_")
 #results_model_param('LYDIA')
