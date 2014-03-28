@@ -200,8 +200,9 @@ public class ExperimentsATAA {
 	public void run_experiment()
 	{
 		ResultContainer results = new ResultContainer();
-		initSeeds();
-		seedsToFile();
+//		initSeeds();
+		seeds = ParamsATAA.seeds;
+//		seedsToFile();
 		ArrayList<ArrayList<double[]>> param_results = new ArrayList<ArrayList<double[]>>();
 		int settingNr = 0;
 		
@@ -523,10 +524,10 @@ public class ExperimentsATAA {
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {		
 		
 		ExperimentsATAA exp = new ExperimentsATAA();
-//		exp.run_experiment();
+		exp.run_experiment();
 //		exp.run_experiment_with_humans();
 //		exp.demo();
-		exp.run_experiments_modelParams();
+//		exp.run_experiments_modelParams();
 		System.exit(0);	
 		
 	}

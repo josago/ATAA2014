@@ -15,8 +15,9 @@ public class ParamsATAA {
 
 
 	public static String personNameA = "lydia_";
-	public static String personName  = ParamsATAA.personNameA + "FINAL" + System.nanoTime();
+	public static String personName  = ParamsATAA.personNameA + "FINAL2_" + System.nanoTime();
 	
+	public static int[] seeds = {2842, 5833, 3795, 2947};
 	
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
 	//to generate the levels
@@ -31,10 +32,10 @@ public class ParamsATAA {
 	
 	//Number of steps that a single evaluation consists of
 	//For experiment: set to 600 
-	public static int nr_steps_per_evaluation = 600;
+	public static int nr_steps_per_evaluation = 6;
 	//Number of steps that are in one bin for collecting results
 	//For experiment: set to 100
-	public static int nr_steps_for_episode = 100; //
+	public static int nr_steps_for_episode = 2; //
 	//For experiment: set to 5
 	public static int nr_of_runs = 5;
 	
@@ -51,8 +52,7 @@ public class ParamsATAA {
 	public static String features = "StateRepresentation"; 
 	public static String fileNameResults = "Results_ATAA_experiment.txt";
 	
-//	public static String[] modelOptions = {"NeuralNetWorldModel"};
-//	public static String[] modelOptions = {"NeuralNet"};
+//	
 //	public static String[] featureGeneratorOptions = {"StateRepresentation"};
 	//public static String[] modelOptions = {"WekaModelPerActionModel"};
 //	public static String[] featureGeneratorOptions = {"FeatGen_Mario"};
@@ -60,7 +60,10 @@ public class ParamsATAA {
 	//For the experiment the lower Options versions should be used
 //	public static String[] modelOptions = {"NeuralNet", "WekaModelPerActionModel", "NeuralNetWorldModel"};
 //	public static String[] featureGeneratorOptions = {"FeatGen_Mario", "StateRepresentation"};
-	public static String[] modelOptions = {"NeuralNet", "NeuralNetWorldModel"};
+//	public static String[] modelOptions = {"NeuralNet", "NeuralNetWorldModel"};
+	
+	public static String[] modelOptions = {"NeuralNetWorldModel"};
+//	public static String[] modelOptions = {"NeuralNet"};	
 	public static String[] featureGeneratorOptions = {"StateRepresentation"};
 			
 	//If this is set to false the levels never contain pits with stairs
