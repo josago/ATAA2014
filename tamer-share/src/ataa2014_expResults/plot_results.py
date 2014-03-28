@@ -2,9 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os, re
 
-PLOT_REL_SPEED        = False
+PLOT_REL_SPEED        = True
 NUM_STEPS_PER_SAMPLE  = 50
-MAX_Y                 = 4.5
+MAX_Y                 = 3.0
 SPEED_MULT            = 50
 
 NUM_LEVELS_FINISHED    = 0
@@ -67,7 +67,6 @@ def load_experiment(type_model, type_features, user = None):
     results  = None
     
     for filename in filenames:
-        print filename
         if (user is None and re.search(type_model + "_" + type_features, filename) is not None) or (user is not None and re.search(type_model + "_" + type_features + "_.*" + user, filename) is not None):
             num_runs += 1
             
@@ -86,7 +85,6 @@ def load_experiment_modelParams(user = None):
     
     for filename in filenames:
         if (user is None and re.search('ModelParamResults_', filename) is not None) or (user is not None and re.search('ModelParamResults_' + user, filename) is not None):
-            print filename
             num_runs += 1
             
             if results is None:
