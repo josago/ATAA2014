@@ -12,8 +12,9 @@ public class ParamsATAA {
 	// Run the class ExperimentsATAA after setting all parameters
 	
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
+
 	public static String personNameA = "josago";
-	public static String personName = ParamsATAA.personNameA + System.nanoTime();
+	public static String personName  = ParamsATAA.personNameA + System.nanoTime();
 	
 	
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
