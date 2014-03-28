@@ -86,7 +86,7 @@ public class SimulatedFast extends SimulatedHuman {
 			
 		}
 		//If there are no events check if mario is stuck at a step
-		if(stateMemory.size()>0 && !feedbackGiven){
+		if(stateMemory.size()>1 && !feedbackGiven){
 			double[] step = getstep(stateMemory.size()-1); 
 			
 			

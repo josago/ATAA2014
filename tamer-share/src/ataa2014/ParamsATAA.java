@@ -17,7 +17,7 @@ public class ParamsATAA {
 	public static String personNameA = "lydia_";
 	public static String personName  = ParamsATAA.personNameA + "FINAL2_" + System.nanoTime();
 	
-	public static int[] seeds = {2842, 5833, 3795, 2947};
+	public static int[] seeds = {2842, 5833, 3795, 2947, 3948};
 	
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
 	//to generate the levels

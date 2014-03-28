@@ -31,11 +31,12 @@ public class SimulatedHuman {
 	}
 
 	public double getFeedback() {
+		addFeedback();		
 		for(double[] elem: feedbackList){
 			elem[0] -= 1.0;
 		}
 		
-		addFeedback();
+		
 		
 		double [] fb = feedbackList.get(0);
 		if(fb[0] == 0.0){
