@@ -4,7 +4,7 @@ import os, re
 
 PLOT_REL_SPEED        = False
 NUM_STEPS_PER_SAMPLE  = 50
-MAX_Y                 = 10
+MAX_Y                 = 4.5
 SPEED_MULT            = 50
 
 NUM_LEVELS_FINISHED    = 0
@@ -19,13 +19,15 @@ LABELS = ["Levels finished", "Times died", "Coins earned", "Enemies killed", "Po
 def plot_all(user = None):
     i = 1
     
-    for type_model in ("WekaModelPerActionModel", "NeuralNet", "NeuralNetWorldModel"):
-        for type_features in ("FeatGen_Mario", "StateRepresentation"):
-            plt.subplot(3, 2, i)
+    #for type_model in ("WekaModelPerActionModel", "NeuralNet", "NeuralNetWorldModel"):
+        #for type_features in ("FeatGen_Mario", "StateRepresentation"):
+        #plt.subplot(3, 2, i)
+    for type_model in ("NeuralNet", "NeuralNetWorldModel"):
+            plt.subplot(2, 1, i)
             
             i += 1
             
-            plot_results(type_model, type_features, user, show = False)
+            plot_results(type_model, "StateRepresentation", user, show = False)
     
     plt.show()
 
@@ -65,6 +67,7 @@ def load_experiment(type_model, type_features, user = None):
     results  = None
     
     for filename in filenames:
+        print filename
         if (user is None and re.search(type_model + "_" + type_features, filename) is not None) or (user is not None and re.search(type_model + "_" + type_features + "_.*" + user, filename) is not None):
             num_runs += 1
             
@@ -121,5 +124,5 @@ def load_file(filename):
 # Code to be exectued:
 
 #plot_results("NeuralNet", "StateRepresentation", "day20")
-plot_all("lvl_2")
+plot_all("FINAL")
 #results_model_param('LYDIA')
