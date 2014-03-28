@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os, re
 
-NUM_STEPS_PER_SAMPLE   = 100
-
-MAX_Y      = 8
-SPEED_MULT = 50
+PLOT_REL_SPEED        = False
+NUM_STEPS_PER_SAMPLE  = 50
+MAX_Y                 = 10
+SPEED_MULT            = 50
 
 NUM_LEVELS_FINISHED    = 0
 NUM_TIMES_DIED         = 1
@@ -14,7 +14,7 @@ NUM_ENEMIES_KILLED     = 3
 NUM_POWER_UPS_RECEIVED = 4
 NUM_BLOCKS_TRAVELLED   = 5
 
-LABELS = ["Levels finished", "Times died", "Coins earned (x5)", "Enemies killed", "Power-ups received", "Blocks travelled (x" + str(SPEED_MULT) + ")"]
+LABELS = ["Levels finished", "Times died", "Coins earned", "Enemies killed", "Power-ups received", "Blocks travelled (x" + str(SPEED_MULT) + ")"]
 
 def plot_all(user = None):
     i = 1
@@ -37,19 +37,21 @@ def plot_results(type_model, type_features, user = None, show = True):
     plt.xlabel("Game steps elapsed")
     plt.ylabel("Performance measures")
 
-    plt.xticks(np.arange(0, 1 + (len(results[0]) - 1) * NUM_STEPS_PER_SAMPLE, NUM_STEPS_PER_SAMPLE))    
+    plt.xticks(np.arange(0, 1 + len(results[0]) * NUM_STEPS_PER_SAMPLE, NUM_STEPS_PER_SAMPLE))  
+    plt.xlim(NUM_STEPS_PER_SAMPLE, 1 + len(results[0]) * NUM_STEPS_PER_SAMPLE)
     plt.ylim(0, MAX_Y)
     
     for var in range(len(results)):
-        xdata = np.arange(len(results[var])) * NUM_STEPS_PER_SAMPLE
+        xdata = np.arange(len(results[var])) * NUM_STEPS_PER_SAMPLE + NUM_STEPS_PER_SAMPLE
         
-        if var is NUM_COINS_EARNED:
-	    pass
-            #plt.plot(xdata, results[var] / 5, '-o', label = LABELS[var])
-        elif var is NUM_BLOCKS_TRAVELLED:
-            plt.plot(xdata, results[var] / (16 * SPEED_MULT), '-o', label = LABELS[var])
+        if not PLOT_REL_SPEED:
+            if var is NUM_BLOCKS_TRAVELLED:
+                plt.plot(xdata, results[var] / (16 * SPEED_MULT), '-o', label = LABELS[var])
+            elif var is not NUM_COINS_EARNED:
+                plt.plot(xdata, results[var], '-o', label = LABELS[var])
         else:
-            plt.plot(xdata, results[var], '-o', label = LABELS[var])
+            if var not in (NUM_COINS_EARNED, NUM_BLOCKS_TRAVELLED):
+                plt.plot(xdata, (results[var] * 16 * SPEED_MULT) / results[NUM_BLOCKS_TRAVELLED], '-o', label = LABELS[var])
     
     plt.legend(loc = 'upper center', bbox_to_anchor = (0.5, 1.00), ncol = 3, fancybox = True, shadow = True)
     
@@ -119,5 +121,5 @@ def load_file(filename):
 # Code to be exectued:
 
 #plot_results("NeuralNet", "StateRepresentation", "day20")
-plot_all("lvl_0")
+plot_all("lvl_2")
 #results_model_param('LYDIA')
