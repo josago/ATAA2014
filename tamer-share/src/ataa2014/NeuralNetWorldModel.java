@@ -2,12 +2,14 @@ package ataa2014;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
 import org.neuroph.core.transfer.TransferFunction;
 import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.nnet.learning.MomentumBackpropagation;
+import org.rlcommunity.rlglue.codec.types.Action;
 
 import edu.utexas.cs.tamerProject.modeling.Sample;
 import edu.utexas.cs.tamerProject.modeling.templates.RegressionModel;
@@ -30,6 +32,7 @@ public class NeuralNetWorldModel extends RegressionModel
 	
 	private ArrayList<Double>   outputList;
 	private ArrayList<double[]> sampleList;
+	private ArrayList<Double>   countList;
 
 	private MultiLayerPerceptron neuralNetReward;
 	private MultiLayerPerceptron neuralNetWorld;
@@ -40,6 +43,8 @@ public class NeuralNetWorldModel extends RegressionModel
 	
 	public static int 	TRAIN_TIME = 1000 / 6;
 	public static boolean RESET_MODEL = false;
+	
+	private Random rand;
 	
 	private class Linear extends TransferFunction
 	{
@@ -108,6 +113,7 @@ public class NeuralNetWorldModel extends RegressionModel
 		this.num_inputs  = num_inputs;
 		this.num_actions = num_actions;
 		this.num_hidden  = num_hidden;
+		rand = new Random();
 
 		clearSamplesAndReset();
 	}
@@ -122,7 +128,10 @@ public class NeuralNetWorldModel extends RegressionModel
 			if (Arrays.equals(sample.feats, sampleList.get(i)))
 			{
 				//outputList.set(i, (outputList.get(i) + sample.label) / 2); // Weighted average.
-				outputList.set(i, new Double(sample.label)); // Latest value.
+//				outputList.set(i, new Double(sample.label)); // Latest value.
+				countList.set(i, countList.get(i)+1.0);
+				double count = countList.get(i);
+				outputList.set(i, ( ((count-1)/count) * outputList.get(i) + (1/count) * sample.label) );
 					
 				found = true;
 				break;
@@ -132,7 +141,7 @@ public class NeuralNetWorldModel extends RegressionModel
 		if (!found)
 		{
 			ParamsATAA.epsilon *= 0.95;
-			
+			countList.add(1.0);
 			sampleList.add(sample.feats);
 			outputList.add(new Double(sample.label));
 		}
@@ -249,6 +258,18 @@ public class NeuralNetWorldModel extends RegressionModel
 		
 		return Sreturn;
 	}
+	
+	public Action getRandomAction()
+	{
+		int direction = rand.nextInt(3) - 1;
+		int speed = rand.nextInt(2);
+		int jump = rand.nextInt(2);
+//		System.out.println("Random action selected direction: " + direction + " speed: "+speed+" jump: " + jump);
+		int[] initAction = {direction, jump, speed};
+		Action action = new Action(3, 0);
+		action.intArray = initAction;
+		return action;
+	}
 
 	@Override
 	public void clearSamplesAndReset()
@@ -263,6 +284,7 @@ public class NeuralNetWorldModel extends RegressionModel
 	{
 		outputList = new ArrayList<Double>();
 		sampleList = new ArrayList<double[]>();
+		countList = new ArrayList<Double>();
 	}
 	
 	private void resetNetworks()
