@@ -14,7 +14,7 @@ public class ParamsATAA {
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
 
 
-	public static String personNameA = "josago_";
+	public static String personNameA = "Lydia";
 	public static String personName  = ParamsATAA.personNameA + "FINAL2_" + System.nanoTime();
 	
 	public static int[] seeds = {7812, 82, 7020, 2273, 1689};
@@ -60,10 +60,10 @@ public class ParamsATAA {
 	//For the experiment the lower Options versions should be used
 //	public static String[] modelOptions = {"NeuralNet", "WekaModelPerActionModel", "NeuralNetWorldModel"};
 //	public static String[] featureGeneratorOptions = {"FeatGen_Mario", "StateRepresentation"};
-//	public static String[] modelOptions = {"NeuralNet", "NeuralNetWorldModel"};
+	public static String[] modelOptions = {"NeuralNet", "NeuralNetWorldModel", "WekaModelPerActionModel"};
 	
 //	public static String[] modelOptions = {"NeuralNetWorldModel"};
-	public static String[] modelOptions = {"NeuralNet"};	
+//	public static String[] modelOptions = {"NeuralNet"};	
 	public static String[] featureGeneratorOptions = {"StateRepresentation"};
 			
 	//If this is set to false the levels never contain pits with stairs
@@ -83,7 +83,7 @@ public class ParamsATAA {
 	//Params only used when using a human trainer
 	//===========================
 	
-	public static int nr_steps_per_comparison = 10;
+	public static int nr_steps_per_comparison = 300;
 	public static int nr_steps_stats = 5;
 	public static String fileNameResultsHuman = "Provided models combinations.txt";
 }

@@ -425,8 +425,7 @@ public class ExperimentsATAA {
 						{
 							stats.processResults();
 						}
-						rew_obs = glue.RL_env_step(currentAction);
-						agent.addHRew(rewardHuman);
+						rew_obs = glue.RL_env_step(currentAction);						
 						rewardHuman = 0;
 						currentAction = glue.RL_agent_step(0.0, rew_obs.getObservation().duplicate());					
 					}
@@ -504,6 +503,7 @@ public class ExperimentsATAA {
 	public void setHumanReward(int i)
 	{
 		rewardHuman = i;
+		agent.addHRew(rewardHuman);
 	}
 	
 	
@@ -548,8 +548,8 @@ public class ExperimentsATAA {
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {		
 		
 		ExperimentsATAA exp = new ExperimentsATAA();
-		exp.run_experiment();
-//		exp.run_experiment_with_humans();
+//		exp.run_experiment();
+		exp.run_experiment_with_humans();
 //		exp.demo();
 //		exp.run_experiments_modelParams();
 		System.exit(0);	
