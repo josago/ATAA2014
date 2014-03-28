@@ -32,10 +32,10 @@ public class ParamsATAA {
 	
 	//Number of steps that a single evaluation consists of
 	//For experiment: set to 600 
-	public static int nr_steps_per_evaluation = 6;
+	public static int nr_steps_per_evaluation = 600;
 	//Number of steps that are in one bin for collecting results
 	//For experiment: set to 100
-	public static int nr_steps_for_episode = 2; //
+	public static int nr_steps_for_episode = 100; //
 	//For experiment: set to 5
 	public static int nr_of_runs = 5;
 	
