@@ -94,7 +94,7 @@ public class NeuralNet extends RegressionModel
 		int direction = rand.nextInt(3) - 1;
 		int speed = rand.nextInt(2);
 		int jump = rand.nextInt(2);
-//		System.out.println("Random action selected direction: " + direction + " speed: "+speed+" jump: " + jump);
+		System.out.println("Random action selected direction: " + direction + " speed: "+speed+" jump: " + jump);
 		int[] initAction = {direction, jump, speed};
 		Action action = new Action(3, 0);
 		action.intArray = initAction;
@@ -132,8 +132,8 @@ public class NeuralNet extends RegressionModel
 			
 			if (!found)
 			{
-				ParamsATAA.epsilon *= 0.95;
-				
+				ParamsATAA.epsilon *= 0.99;
+				System.out.println("epsilon value: " + ParamsATAA.epsilon);
 				sampleList.add(sample.feats);
 				outputList.add(new Double(sample.label));
 				countList.add(1.0);				
@@ -219,7 +219,7 @@ public class NeuralNet extends RegressionModel
 		outputList = new ArrayList<Double>();
 		sampleList = new ArrayList<double[]>();
 		countList = new ArrayList<Double>();
-		obsList = new ArrayList<Observation>();
+		obsList = new ArrayList<Observation>();		
 	}
 	
 	private void resetNetwork()
@@ -241,6 +241,8 @@ public class NeuralNet extends RegressionModel
 		mbp.setMaxIterations(MAX_ITERATIONS);
 		
 		neuralNet.setLearningRule(mbp);
+		
+		ParamsATAA.epsilon = ParamsATAA.epsilonStartValue;
 	}
 	
 	public void reset()

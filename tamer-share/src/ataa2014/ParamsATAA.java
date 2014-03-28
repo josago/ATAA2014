@@ -69,7 +69,8 @@ public class ParamsATAA {
 	
 	//Options: e-greedy - greedy
 	public static String selectionMethod = "e-greedy";
-	public static double epsilon = 0.9;
+	public static double epsilon = 0.3;
+	public static double epsilonStartValue = 0.3;
 	
 	
 	//===========================
