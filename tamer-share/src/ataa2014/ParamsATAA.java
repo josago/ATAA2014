@@ -12,7 +12,8 @@ public class ParamsATAA {
 	// Run the class ExperimentsATAA after setting all parameters
 	
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
-	public static String personName = "sunda2";
+
+	public static String personName = "josago2";
 	
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
 	//to generate the levels

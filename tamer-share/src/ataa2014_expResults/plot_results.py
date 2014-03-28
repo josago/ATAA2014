@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os, re
 
-NUM_STEPS_PER_SAMPLE   = 400
+NUM_STEPS_PER_SAMPLE   = 50
 
 NUM_LEVELS_FINISHED    = 0
 NUM_TIMES_DIED         = 1
@@ -16,9 +16,9 @@ LABELS = ["Levels finished", "Times died", "Coins earned (x5)", "Enemies killed"
 def plot_all(user = None):
     i = 1
     
-    for type_model in ("WekaModelPerActionModel", "NeuralNet"):
+    for type_model in ("WekaModelPerActionModel", "NeuralNet", "NeuralNetWorldModel"):
         for type_features in ("FeatGen_Mario", "StateRepresentation"):
-            plt.subplot(2, 2, i)
+            plt.subplot(3, 2, i)
             
             i += 1
             
@@ -35,13 +35,14 @@ def plot_results(type_model, type_features, user = None, show = True):
     plt.ylabel("Performance measures")
 
     plt.xticks(np.arange(0, 1 + (len(results[0]) - 1) * NUM_STEPS_PER_SAMPLE, NUM_STEPS_PER_SAMPLE))    
-    plt.ylim(0, 7)
+    plt.ylim(0, 5)
     
     for var in range(len(results)):
         xdata = np.arange(len(results[var])) * NUM_STEPS_PER_SAMPLE
         
         if var is NUM_COINS_EARNED:
-            plt.plot(xdata, results[var] / 5, '-o', label = LABELS[var])
+	    pass
+            #plt.plot(xdata, results[var] / 5, '-o', label = LABELS[var])
         elif var is NUM_BLOCKS_TRAVELLED:
             plt.plot(xdata, results[var] / (16 * 100), '-o', label = LABELS[var])
         else:
@@ -115,5 +116,5 @@ def load_file(filename):
 # Code to be exectued:
 
 #plot_results("NeuralNet", "StateRepresentation", "day20")
-#plot_all()
-results_model_param('LYDIA')
+plot_all("lvl_0")
+#results_model_param('LYDIA')
