@@ -14,7 +14,7 @@ public class ParamsATAA {
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
 
 
-	public static String personNameA = "josago_";
+	public static String personNameA = "Nicolo";
 	public static String personName  = ParamsATAA.personNameA + "FINAL2_" + System.nanoTime();
 	
 	public static int[] seeds = {7137, 6866, 3300, 8489, 5551};
@@ -22,7 +22,7 @@ public class ParamsATAA {
 	//If the ATAA_Exp boolean is set to true the level difficulty below is used
 	//to generate the levels
 	//For the experiment set the level difficulty to 0 or 2
-	public static int level_difficulty = 1;
+	public static int level_difficulty = 2;
 	
 	//Set to true when running an experiment
 	public static boolean ATAA_Exp = true;
@@ -60,10 +60,10 @@ public class ParamsATAA {
 	//For the experiment the lower Options versions should be used
 //	public static String[] modelOptions = {"NeuralNet", "WekaModelPerActionModel", "NeuralNetWorldModel"};
 //	public static String[] featureGeneratorOptions = {"FeatGen_Mario", "StateRepresentation"};
-//	public static String[] modelOptions = {"NeuralNet", "NeuralNetWorldModel"};
+	public static String[] modelOptions = {"NeuralNet", "NeuralNetWorldModel", "WekaModelPerActionModel"};
 	
 //	public static String[] modelOptions = {"NeuralNetWorldModel"};
-	public static String[] modelOptions = {"NeuralNet"};	
+//	public static String[] modelOptions = {"NeuralNet"};	
 	public static String[] featureGeneratorOptions = {"StateRepresentation"};
 			
 	//If this is set to false the levels never contain pits with stairs
