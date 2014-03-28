@@ -526,7 +526,7 @@ public class ExperimentsATAA {
 		ExperimentsATAA exp = new ExperimentsATAA();
 		exp.run_experiment();
 //		exp.run_experiment_with_humans();
-		exp.demo();
+//		exp.demo();
 //		exp.run_experiments_modelParams();
 		System.exit(0);	
 		
