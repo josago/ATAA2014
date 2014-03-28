@@ -12,7 +12,7 @@ public class ParamsATAA {
 	// Run the class ExperimentsATAA after setting all parameters
 	
 	//CHANGE THIS PARAMETER TO YOUR OWN NAME
-	public static String personNameA = "lydia";
+	public static String personNameA = "josago";
 	public static String personName = ParamsATAA.personNameA + System.nanoTime();
 	
 	
