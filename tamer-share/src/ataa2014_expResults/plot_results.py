@@ -4,6 +4,9 @@ import os, re
 
 NUM_STEPS_PER_SAMPLE   = 100
 
+MAX_Y      = 8
+SPEED_MULT = 50
+
 NUM_LEVELS_FINISHED    = 0
 NUM_TIMES_DIED         = 1
 NUM_COINS_EARNED       = 2
@@ -11,7 +14,7 @@ NUM_ENEMIES_KILLED     = 3
 NUM_POWER_UPS_RECEIVED = 4
 NUM_BLOCKS_TRAVELLED   = 5
 
-LABELS = ["Levels finished", "Times died", "Coins earned (x5)", "Enemies killed", "Power-ups received", "Blocks travelled (x50)"]
+LABELS = ["Levels finished", "Times died", "Coins earned (x5)", "Enemies killed", "Power-ups received", "Blocks travelled (x" + str(SPEED_MULT) + ")"]
 
 def plot_all(user = None):
     i = 1
@@ -35,7 +38,7 @@ def plot_results(type_model, type_features, user = None, show = True):
     plt.ylabel("Performance measures")
 
     plt.xticks(np.arange(0, 1 + (len(results[0]) - 1) * NUM_STEPS_PER_SAMPLE, NUM_STEPS_PER_SAMPLE))    
-    plt.ylim(0, 8)
+    plt.ylim(0, MAX_Y)
     
     for var in range(len(results)):
         xdata = np.arange(len(results[var])) * NUM_STEPS_PER_SAMPLE
@@ -44,7 +47,7 @@ def plot_results(type_model, type_features, user = None, show = True):
 	    pass
             #plt.plot(xdata, results[var] / 5, '-o', label = LABELS[var])
         elif var is NUM_BLOCKS_TRAVELLED:
-            plt.plot(xdata, results[var] / (16 * 50), '-o', label = LABELS[var])
+            plt.plot(xdata, results[var] / (16 * SPEED_MULT), '-o', label = LABELS[var])
         else:
             plt.plot(xdata, results[var], '-o', label = LABELS[var])
     
