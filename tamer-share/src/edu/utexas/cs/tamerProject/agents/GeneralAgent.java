@@ -593,7 +593,7 @@ public abstract class GeneralAgent implements AgentInterface{
     	{
     		System.out.println("Neural net with world model used as model");
     		
-    		this.model = new NeuralNetWorldModel(this.featGen.getNumFeatures(), this.featGen.getActionFeatIndices().length, this.featGen.getNumFeatures() / 5);
+    		this.model = new NeuralNetWorldModel(this.featGen.getNumFeatures(), this.featGen.getActionFeatIndices().length, this.featGen.getNumFeatures() / ParamsATAA.hiddenNodesNeuralNet);
     		this.model.setFeatGen(this.featGen);
     	}
     	else {

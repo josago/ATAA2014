@@ -492,7 +492,7 @@ public class ExperimentsATAA {
 	{
 		ParamsATAA.useSimulatedHuman = true;
 		init();
-		seed = 428;
+		seed = 486;
 		for(int step = 1; step < ParamsATAA.nr_steps_per_evaluation; step++)
 		{		
 			if(step%10 == 0)
@@ -523,6 +523,7 @@ public class ExperimentsATAA {
 		
 	
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {		
+		
 		ExperimentsATAA exp = new ExperimentsATAA();
 		exp.run_experiment();
 //		exp.run_experiment_with_humans();
