@@ -53,7 +53,7 @@ public class ExperimentsATAA {
 
 	
 	private void modelParamsToFile(ArrayList<ArrayList<double[]>> param_results, String fileName) {
-		File f = new File("src/ataa2014_expResults/" + fileName + ".txt");
+		File f = new File("src/ataa2014_expResults/modelParams/" + fileName + ".txt");
 		PrintWriter printer = null;
 		try {
 			printer = new PrintWriter(f, "UTF-8");
@@ -268,7 +268,7 @@ public class ExperimentsATAA {
 	public void run_experiments_modelParams()
 	{
 		ParamsATAA.level_difficulty = 0;
-		seedsFromFile();
+		initSeeds();
 		ResultContainer results = new ResultContainer();
 		int settingNr = 0;
 		
@@ -276,8 +276,8 @@ public class ExperimentsATAA {
 		
 		ArrayList<ArrayList<double[]>> param_results = new ArrayList<ArrayList<double[]>>();
 		
-		int[] hiddenNodesArray = {1, 4, 8};
-		int[] nrStepsLookaheadArray = {1,3};
+		int[] hiddenNodesArray = {1, 2, 4};
+		int[] nrStepsLookaheadArray = {1,2,3};
 		
 		//Different numbers of hidden nodes
 		String modelParamsFilename = "Hidden_Nodes_" + ParamsATAA.personName;
@@ -308,8 +308,6 @@ public class ExperimentsATAA {
 		
 		//Action selection method
 		modelParamsFilename = "actionSelection_" + ParamsATAA.personName;
-		ParamsATAA.nr_steps_per_evaluation = 250;
-		ParamsATAA.nr_steps_for_episode = 50;
 		params_run(param_results, settingNr, results,  "e_greedy_" +  modelParamsFilename);	
 		ParamsATAA.selectionMethod = "greedy";
 		settingNr ++;
@@ -359,7 +357,7 @@ public class ExperimentsATAA {
 		//Adding param results
 		param_results.get(settingNr).add(agent.model.getStats());
 		//Write results to file
-		ParamsATAA.fileNameResults = "resultsMarioParams_" + settingDefinition + ".txt";
+		ParamsATAA.fileNameResults = "modelParams/resultsMario_" + settingDefinition + ".txt";
 		results.openFile();
 		results.writeToFile();		
 	}
@@ -525,10 +523,10 @@ public class ExperimentsATAA {
 	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {		
 		
 		ExperimentsATAA exp = new ExperimentsATAA();
-		exp.run_experiment();
+//		exp.run_experiment();
 //		exp.run_experiment_with_humans();
 //		exp.demo();
-//		exp.run_experiments_modelParams();
+		exp.run_experiments_modelParams();
 		System.exit(0);	
 		
 	}
