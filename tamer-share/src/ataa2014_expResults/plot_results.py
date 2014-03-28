@@ -2,9 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os, re
 
-PLOT_REL_SPEED        = False
-NUM_STEPS_PER_SAMPLE  = 50
-MAX_Y                 = 4
+PLOT_REL_SPEED        = True
+NUM_STEPS_PER_SAMPLE  = 100
+MAX_Y                 = 5.5
 SPEED_MULT            = 50
 
 NUM_LEVELS_FINISHED    = 0
@@ -52,8 +52,10 @@ def plot_results(type_model, type_features, user = None, show = True):
             elif var is not NUM_COINS_EARNED:
                 plt.plot(xdata, results[var], '-o', label = LABELS[var])
         else:
-            if var not in (NUM_COINS_EARNED, NUM_BLOCKS_TRAVELLED):
-                plt.plot(xdata, (results[var] * 16 * SPEED_MULT) / results[NUM_BLOCKS_TRAVELLED], '-o', label = LABELS[var])
+            if var is NUM_BLOCKS_TRAVELLED:
+                plt.plot(xdata, results[var] / (16 * SPEED_MULT), '-o', label = LABELS[var])
+            elif var is not NUM_COINS_EARNED:
+                plt.plot(xdata, (results[var] * 16 * SPEED_MULT) / results[NUM_BLOCKS_TRAVELLED], '-o', label = LABELS[var] + " / Blocks travelled")
     
     plt.legend(loc = 'upper center', bbox_to_anchor = (0.5, 1.00), ncol = 3, fancybox = True, shadow = True)
     
@@ -122,5 +124,5 @@ def load_file(filename):
 # Code to be exectued:
 
 #plot_results("NeuralNet", "StateRepresentation", "day20")
-plot_all("FINAL")
+plot_all("lvl_1")
 #results_model_param('LYDIA')
