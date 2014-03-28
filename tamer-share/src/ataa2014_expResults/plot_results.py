@@ -2,9 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os, re
 
-PLOT_REL_SPEED        = True
+PLOT_REL_SPEED        = False
 NUM_STEPS_PER_SAMPLE  = 50
-MAX_Y                 = 3.0
+MAX_Y                 = 4
 SPEED_MULT            = 50
 
 NUM_LEVELS_FINISHED    = 0
