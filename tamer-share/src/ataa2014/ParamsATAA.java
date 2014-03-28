@@ -83,7 +83,7 @@ public class ParamsATAA {
 	//Params only used when using a human trainer
 	//===========================
 	
-	public static int nr_steps_per_comparison = 10;
+	public static int nr_steps_per_comparison = 600;
 	public static int nr_steps_stats = 5;
 	public static String fileNameResultsHuman = "Provided models combinations.txt";
 }
