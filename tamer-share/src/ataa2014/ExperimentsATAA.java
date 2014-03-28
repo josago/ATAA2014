@@ -265,11 +265,59 @@ public class ExperimentsATAA {
 		String modelParamsFilename = "ModelParamsResults_models_lvl_" + ParamsATAA.level_difficulty + "_"+ ParamsATAA.personName;
 		modelParamsToFile(param_results, modelParamsFilename);
 	}	
-
-	public void run_experiments_modelParams()
+	
+	public void run_experiments_modelParams_ActionSelection()
 	{
-		ParamsATAA.level_difficulty = 0;
-		initSeeds();
+		ParamsATAA.level_difficulty = 1;
+		seeds = ParamsATAA.seeds;
+		ResultContainer results = new ResultContainer();
+		int settingNr = 0;
+		
+		ParamsATAA.model = "NeuralNetWorldModel";
+		
+		ArrayList<ArrayList<double[]>> param_results = new ArrayList<ArrayList<double[]>>();
+		settingNr = 0;
+		
+		//Action selection method
+		String modelParamsFilename = "actionSelection_" + ParamsATAA.personName;
+		params_run(param_results, settingNr, results,  "e_greedy_" +  modelParamsFilename);	
+		ParamsATAA.selectionMethod = "greedy";
+		settingNr ++;
+		params_run(param_results, settingNr, results, "greedy" + modelParamsFilename);
+		modelParamsToFile(param_results, modelParamsFilename);
+		
+	}
+	
+	public void run_experiments_modelParams_nrStepsLookAhead()
+	{
+		ParamsATAA.level_difficulty = 1;
+		seeds = ParamsATAA.seeds;
+		ResultContainer results = new ResultContainer();
+		int settingNr = 0;
+		
+		ParamsATAA.model = "NeuralNetWorldModel";
+		
+		ArrayList<ArrayList<double[]>> param_results = new ArrayList<ArrayList<double[]>>();
+		
+		int[] nrStepsLookaheadArray = {1,2,3};
+		
+		param_results = new ArrayList<ArrayList<double[]>>();
+		
+		//Different nr of lookahead steps
+		String modelParamsFilename = "Nr_Steps_Lookahead_" + ParamsATAA.personName;
+		for(int sl: nrStepsLookaheadArray)
+		{
+			NeuralNetWorldModel.LOOKAHEAD_MAX_LEVELS = sl;
+			params_run(param_results, settingNr, results, sl  + "_" +  modelParamsFilename);			
+			settingNr++;
+		}
+		modelParamsToFile(param_results, modelParamsFilename);
+	}
+
+	public void run_experiments_modelParams_hiddenNodes()
+	{
+		ParamsATAA.level_difficulty = 1;
+		seeds = ParamsATAA.seeds;
 		ResultContainer results = new ResultContainer();
 		int settingNr = 0;
 		
@@ -290,30 +338,6 @@ public class ExperimentsATAA {
 			
 		}		
 		modelParamsToFile(param_results, modelParamsFilename);
-		ParamsATAA.hiddenNodesNeuralNet = 2;
-		param_results = new ArrayList<ArrayList<double[]>>();
-		settingNr = 0;
-		
-		//Different nr of lookahead steps
-		modelParamsFilename = "Nr_Steps_Lookahead_" + ParamsATAA.personName;
-		for(int sl: nrStepsLookaheadArray)
-		{
-			NeuralNetWorldModel.LOOKAHEAD_MAX_LEVELS = sl;
-			params_run(param_results, settingNr, results, sl  + "_" +  modelParamsFilename);			
-			settingNr++;
-		}
-		modelParamsToFile(param_results, modelParamsFilename);
-		NeuralNetWorldModel.LOOKAHEAD_MAX_LEVELS = 2;
-		param_results = new ArrayList<ArrayList<double[]>>();
-		settingNr = 0;
-		
-		//Action selection method
-		modelParamsFilename = "actionSelection_" + ParamsATAA.personName;
-		params_run(param_results, settingNr, results,  "e_greedy_" +  modelParamsFilename);	
-		ParamsATAA.selectionMethod = "greedy";
-		settingNr ++;
-		params_run(param_results, settingNr, results, "greedy" + modelParamsFilename);
-		modelParamsToFile(param_results, modelParamsFilename);		
 	}
 	
 	private void params_run(ArrayList<ArrayList<double[]>> param_results, int settingNr, ResultContainer results, String settingDefinition)
@@ -412,8 +436,8 @@ public class ExperimentsATAA {
 					ParamsATAA.fileNameResults = ParamsATAA.personName + "_" + ParamsATAA.model + "_" + ParamsATAA.features + ParamsATAA.fileNameResultsHuman + "_" +comparisonNr;
 					comparisonNr++;
 					stats.run_finished();
-					stats.openFile();
-					stats.writeToFile();
+//					stats.openFile();
+//					stats.writeToFile();
 				}
 				
 				System.out.println("\n\n\n\n\n\n\n\n\nIn which setting did Mario perform better? Press 1 or 2\n");

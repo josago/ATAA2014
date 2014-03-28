@@ -4,7 +4,7 @@ import os, re
 
 PLOT_REL_SPEED        = True
 NUM_STEPS_PER_SAMPLE  = 100
-MAX_Y                 = 5.5
+MAX_Y                 = 4.5
 SPEED_MULT            = 50
 
 NUM_LEVELS_FINISHED    = 0
